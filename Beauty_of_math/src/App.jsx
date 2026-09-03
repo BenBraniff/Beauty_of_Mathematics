@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import heroImg from "./assets/hero.png";
+import mandelbrotImg from "./assets/mandelbrot_high_resolution.png";
 import "boxicons/css/boxicons.min.css";
 import "./App.css";
 
 const pages = [
-  { slug: "", label: "Homepage", shortLabel: "Home", number: "00" },
+  { slug: "", label: "Top 10^2", shortLabel: "Top 10^2", number: "00" },
   {
     slug: "concepts",
     label: "Top 10 Math Concepts",
@@ -73,16 +73,66 @@ const collections = {
     intro:
       "The ideas that changed how we describe patterns, space, chance, and change.",
     items: [
-      "Mandelbrot set",
-      "Golden Ratio (Fibonacci sequence)",
-      "Pascal's Triangle",
-      "Platonic Solids (plus Archimedean solids)",
-      "Fractals (Dragon curve)",
-      "Curves(Cycloid and Catenary)",
-      "Conic Sections",
-      "Euler's Number e",
-      "Bell curve",
-      "Pi",
+      {
+        name: "Mandelbrot set",
+        slug: "mandelbrot-set",
+        description:
+          "A simple repeating rule creates an infinitely intricate boundary. The Mandelbrot set is a map of which complex numbers remain bounded when the rule is iterated.",
+      },
+      {
+        name: "Golden Ratio (Fibonacci sequence)",
+        slug: "golden-ratio",
+        description:
+          "The golden ratio appears when a line is divided so the whole relates to the larger part as the larger part relates to the smaller. Fibonacci numbers approach this ratio as they grow.",
+      },
+      {
+        name: "Pascal's Triangle",
+        slug: "pascals-triangle",
+        description:
+          "Each number is the sum of the two above it. The triangle quietly contains binomial coefficients, powers of two, and patterns of symmetry.",
+      },
+      {
+        name: "Platonic Solids (plus Archimedean solids)",
+        slug: "platonic-solids",
+        description:
+          "Platonic solids are perfectly regular three-dimensional shapes. Their faces, edges, and vertices fit together with a rare and satisfying kind of symmetry.",
+      },
+      {
+        name: "Fractals (Dragon curve)",
+        slug: "fractals",
+        description:
+          "Fractals repeat a pattern across scales, producing detail that echoes the whole. The Dragon curve is a striking example built from a simple folding process.",
+      },
+      {
+        name: "Curves (Cycloid and Catenary)",
+        slug: "curves",
+        description:
+          "Different physical questions create different remarkable curves. A hanging chain forms a catenary, while a rolling circle traces a cycloid.",
+      },
+      {
+        name: "Conic Sections",
+        slug: "conic-sections",
+        description:
+          "Cut a cone at different angles and you get circles, ellipses, parabolas, or hyperbolas. One geometric family explains many paths in nature and engineering.",
+      },
+      {
+        name: "Euler's Number e",
+        slug: "eulers-number",
+        description:
+          "The number e is the natural language of continuous growth and change. It appears in compound interest, decay, probability, and differential equations.",
+      },
+      {
+        name: "Bell curve",
+        slug: "bell-curve",
+        description:
+          "The bell curve models how values cluster around an average. It is the familiar shape of the normal distribution, one of statistics' central ideas.",
+      },
+      {
+        name: "Pi",
+        slug: "pi",
+        description:
+          "Pi is the constant ratio between a circle's circumference and its diameter. Its digits never end, yet it connects geometry, waves, probability, and physics.",
+      },
     ],
   },
   mathematicians: {
@@ -302,7 +352,7 @@ function App() {
         )}
       </header>
       {collections[currentPage] ? (
-        <RankingPage collection={collections[currentPage]} />
+        <RankingPage key={currentPage} collection={collections[currentPage]} />
       ) : (
         <HomePage />
       )}
@@ -319,7 +369,10 @@ function HomePage() {
   return (
     <main className="home-page">
       <section className="home-image">
-        <img src={heroImg} alt="Abstract mathematical artwork" />
+        <img src={mandelbrotImg} alt="Mandelbrot set" />
+      </section>
+      <section className="home-heading">
+        <h1>Top 10^2</h1>
       </section>
       <section className="home-index">
         <div className="index-grid">
@@ -336,6 +389,8 @@ function HomePage() {
 }
 
 function RankingPage({ collection }) {
+  const [openItem, setOpenItem] = useState(null);
+
   return (
     <main className="ranking-page">
       <nav className="breadcrumb" aria-label="Breadcrumb">
@@ -349,12 +404,43 @@ function RankingPage({ collection }) {
       </section>
       <ol className="ranking-list">
         {collection.items.map((item, index) => (
-          <li key={item}>
-            <span className="rank">{String(index + 1).padStart(2, "0")}</span>
-            <span className="item-name">{item}</span>
-            <span className="item-arrow" aria-hidden="true">
-              <i className="bx bx-caret-right"></i>
-            </span>
+          <li
+            className={item.description ? "has-details" : ""}
+            key={item.name ?? item}
+          >
+            {item.description ? (
+              <button
+                className="item-trigger"
+                type="button"
+                aria-expanded={openItem === index}
+                aria-controls={`concept-detail-${index}`}
+                onClick={() => setOpenItem(openItem === index ? null : index)}
+              >
+                <span className="rank">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className="item-name">{item.name}</span>
+                <span className="item-arrow" aria-hidden="true">
+                  <i className="bx bx-caret-right"></i>
+                </span>
+              </button>
+            ) : (
+              <>
+                <span className="rank">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className="item-name">{item}</span>
+                <span className="item-arrow" aria-hidden="true">
+                  <i className="bx bx-caret-right"></i>
+                </span>
+              </>
+            )}
+            {item.description && openItem === index && (
+              <div className="item-details" id={`concept-detail-${index}`}>
+                <img src={mandelbrotImg} alt={`${item.name} visual`} />
+                <p>{item.description}</p>
+              </div>
+            )}
           </li>
         ))}
       </ol>
