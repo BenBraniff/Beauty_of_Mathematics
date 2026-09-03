@@ -86,8 +86,7 @@ body {
   width: min(370px, calc(100vw - 40px));
   padding: 25px 30px 30px;
 }
-.menu-kicker,
-.eyebrow {
+.menu-kicker {
   color: var(--gray);
   font:
     11px "Roboto Mono",
@@ -179,15 +178,28 @@ main {
     600 16px/1.25 "Roboto Mono",
     monospace;
 }
-.index-grid b {
-  align-self: flex-end;
-  font-size: 20px;
-  font-weight: 400;
-}
 .ranking-page {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 105px 0 90px;
+}
+.breadcrumb {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 42px;
+  color: var(--gray);
+  font:
+    11px "Roboto Mono",
+    monospace;
+  text-transform: uppercase;
+}
+.breadcrumb a {
+  color: var(--black);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.breadcrumb a:hover {
+  color: var(--gray);
 }
 .page-heading {
   display: grid;
@@ -195,9 +207,6 @@ main {
   column-gap: 60px;
   align-items: end;
   margin-bottom: 75px;
-}
-.page-heading .eyebrow {
-  grid-column: 1 / -1;
 }
 .page-heading h1 {
   font:
@@ -291,7 +300,12 @@ footer {
     border-left: 1px solid var(--line);
   }
   .ranking-page {
-    padding: 70px 0;
+    padding: 30px 0;
+  }
+  .breadcrumb {
+    margin-bottom: 32px;
+    line-height: 1.5;
+    flex-wrap: wrap;
   }
   .page-heading {
     display: block;
