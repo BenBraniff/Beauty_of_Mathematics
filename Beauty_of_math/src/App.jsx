@@ -1,122 +1,225 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import heroImg from "./assets/hero.png";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+const pages = [
+  { slug: "", label: "Homepage", shortLabel: "Home" },
+  { slug: "concepts", label: "Math concepts", shortLabel: "Concepts" },
+  { slug: "mathematicians", label: "Mathematicians", shortLabel: "People" },
+  { slug: "youtubers", label: "Math YouTubers", shortLabel: "Video" },
+  { slug: "movies", label: "Math movies", shortLabel: "Movies" },
+  { slug: "resources", label: "Math resources", shortLabel: "Resources" },
+];
 
-  return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+const collections = {
+  concepts: {
+    eyebrow: "The big ideas",
+    title: "Top 10 math concepts",
+    intro:
+      "The ideas that changed how we describe patterns, space, chance, and change.",
+    items: [
+      "Mandelbrot set",
+      "Golden Ratio (Fibonacci sequence)",
+      "Pascal's Triangle",
+      "Platonic Solids (plus Archimedean solids)",
+      "Fractals (Dragon curve)",
+      "Curves(Cycloid and Catenary)",
+      "Conic Sections",
+      "Euler's Number e",
+      "Bell curve",
+      "Pi",
+    ],
+  },
+  mathematicians: {
+    eyebrow: "The brilliant minds",
+    title: "Top 10 mathematicians",
+    intro:
+      "Ten thinkers whose questions still shape the language of mathematics today.",
+    items: [
+      "Leonhard Euler",
+      "Carl Friedrich Gauss",
+      "Isaac Newton",
+      "Archimedes",
+      "Euclid",
+      "Gottfried Wilhelm Leibniz",
+      "Pierre de Fermat",
+      "René Descartes",
+      "Blaise Pascal",
+      "Srinivasa Ramanujan",
+    ],
+  },
+  youtubers: {
+    eyebrow: "The curious creators",
+    title: "Top 10 math YouTubers",
+    intro:
+      "Channels that make difficult ideas feel visual, surprising, and worth chasing.",
+    items: [
+      "Numberphile",
+      "3Blue1Brown",
+      "Mathologer",
+      "Veritasium",
+      "Vsauce",
+      "Stand-up Math",
+      "The Organic Chemistry Tutor",
+      "blackpenredpen",
+      "Kuvina Saydaki",
+      "Terence Tao",
+    ],
+  },
+  movies: {
+    eyebrow: "Math on screen",
+    title: "Top 10 math movies",
+    intro:
+      "Stories about genius, obsession, discovery, and the beautiful mess of being human.",
+    items: [
+      "Good will Hunting",
+      "Hidden Figures",
+      "Stand and deliver",
+      "October Sky",
+      "The Martian",
+      "A beautiful mind",
+      "The imitation game",
+      "The man who knew infinity",
+      "X+Y (movie)",
+      "The theory of everything",
+    ],
+  },
+  resources: {
+    eyebrow: "Keep exploring",
+    title: "Top 10 math resources",
+    intro:
+      "A hand-picked shelf of places to learn, practice, visualize, and go further.",
+    items: [
+      "Khan Academy",
+      "MIT OpenCourseWare",
+      "Wolfram MathWorld",
+      "Brilliant",
+      "Desmos",
+      "GeoGebra",
+      "Project Euler",
+      "Art of Problem Solving",
+      "NRICH",
+      "Numberphile",
+    ],
+  },
+};
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+function getPage() {
+  return window.location.hash.replace(/^#\/?/, "");
 }
 
-export default App
+function App() {
+  const [currentPage, setCurrentPage] = useState(getPage());
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const onHashChange = () => {
+      setCurrentPage(getPage());
+      setMenuOpen(false);
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
+
+  const selectedPage =
+    pages.find((page) => page.slug === currentPage) ?? pages[0];
+
+  return (
+    <div className="site-shell">
+      <header className="site-header">
+        <a className="brand" href="#" aria-label="Beauty of Mathematics home">
+          <span className="brand-mark">∑</span>
+          <span>
+            Beauty of
+            <br />
+            <strong>Mathematics</strong>
+          </span>
+        </a>
+        <div className="header-tools">
+          <span className="current-section">{selectedPage.shortLabel}</span>
+          <button
+            className="menu-button"
+            type="button"
+            aria-label="Open navigation menu"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+        {menuOpen && (
+          <nav className="menu" aria-label="Main navigation">
+            <p className="menu-kicker">Explore the collection</p>
+            {pages.map((page, index) => (
+              <a
+                className={selectedPage.slug === page.slug ? "active" : ""}
+                href={`#${page.slug}`}
+                key={page.slug || "home"}
+              >
+                <span>0{index + 1}</span>
+                {page.label}
+              </a>
+            ))}
+          </nav>
+        )}
+      </header>
+      {collections[currentPage] ? (
+        <RankingPage collection={collections[currentPage]} />
+      ) : (
+        <HomePage />
+      )}
+      <footer>
+        <span>Beauty of Mathematics</span>
+        <span>Curiosity is a form of intelligence.</span>
+        <span>© 2026</span>
+      </footer>
+    </div>
+  );
+}
+
+function HomePage() {
+  return (
+    <main className="home-page">
+      <section className="home-image">
+        <img src={heroImg} alt="Abstract mathematical artwork" />
+      </section>
+      <section className="home-index">
+        <div className="index-grid">
+          {pages.map((page, index) => (
+            <a href={`#${page.slug}`} key={page.slug}>
+              <span>0{index + 1}</span>
+              <strong>{page.label}</strong>
+              <b>↗</b>
+            </a>
+          ))}
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function RankingPage({ collection }) {
+  return (
+    <main className="ranking-page">
+      <section className="page-heading">
+        <p className="eyebrow">{collection.eyebrow}</p>
+        <h1>{collection.title}</h1>
+        <p className="page-intro">{collection.intro}</p>
+      </section>
+      <ol className="ranking-list">
+        {collection.items.map((item, index) => (
+          <li key={item}>
+            <span className="rank">{String(index + 1).padStart(2, "0")}</span>
+            <span className="item-name">{item}</span>
+            <span className="item-arrow">↗</span>
+          </li>
+        ))}
+      </ol>
+    </main>
+  );
+}
+
+export default App;

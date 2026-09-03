@@ -1,184 +1,320 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600;700&display=swap");
 
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
+:root {
+  --black: #000;
+  --white: #fff;
+  --gray: #777;
+  --line: #cfcfcf;
 }
 
-.hero {
+* {
+  box-sizing: border-box;
+}
+body {
+  background: var(--white);
+  color: var(--black);
+}
+.site-shell {
+  max-width: 1280px;
+  min-height: 100svh;
+  margin: 0 auto;
+  padding: 0 58px;
+  overflow: hidden;
+}
+.site-header {
+  min-height: 92px;
+  border-bottom: 1px solid var(--black);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
+  z-index: 5;
 }
-
-#center {
+.brand {
+  color: var(--black);
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  font:
+    600 12px/1.1 "Roboto Mono",
+    monospace;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.brand strong {
+  font-weight: 700;
+}
+.brand-mark {
+  font:
+    400 42px/1 "Roboto Mono",
+    monospace;
+}
+.header-tools {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.current-section {
+  font:
+    12px "Roboto Mono",
+    monospace;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+.menu-button {
+  background: var(--black);
+  border: 0;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-content: center;
+  gap: 4px;
+  cursor: pointer;
+}
+.menu-button span {
+  width: 20px;
+  height: 2px;
+  background: var(--white);
+  display: block;
+}
+.menu {
+  background: var(--black);
+  color: var(--white);
+  position: absolute;
+  right: 0;
+  top: 76px;
+  width: min(370px, calc(100vw - 40px));
+  padding: 25px 30px 30px;
+}
+.menu-kicker,
+.eyebrow {
+  color: var(--gray);
+  font:
+    11px "Roboto Mono",
+    monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.menu-kicker {
+  margin: 0 0 15px;
+}
+.menu a {
+  color: var(--white);
+  display: flex;
+  gap: 18px;
+  padding: 11px 0;
+  font:
+    500 16px "Roboto Mono",
+    monospace;
+  text-decoration: none;
+  border-bottom: 1px solid #444;
+}
+.menu a span {
+  color: var(--gray);
+  font:
+    11px "Roboto Mono",
+    monospace;
+  padding-top: 4px;
+}
+.menu a.active,
+.menu a:hover {
+  color: var(--gray);
+}
+main {
+  min-height: calc(100svh - 165px);
+}
+.home-page {
+  display: grid;
+  grid-template-rows: minmax(430px, 65vh) auto;
+}
+.home-image {
+  background: #eee;
+  min-height: 430px;
+  overflow: hidden;
+}
+.home-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 430px;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.08);
+}
+.home-index {
+  padding: 60px 0 75px;
+  border-top: 1px solid var(--black);
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--black);
+}
+.index-grid a {
+  color: var(--black);
+  min-height: 105px;
+  padding: 22px 20px 18px 0;
+  border-bottom: 1px solid var(--line);
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
+  justify-content: space-between;
+  text-decoration: none;
 }
-
-#next-steps {
-  display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
+.index-grid a:nth-child(3n + 2),
+.index-grid a:nth-child(3n + 3) {
+  padding-left: 20px;
+  border-left: 1px solid var(--line);
 }
-
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
+.index-grid a:hover strong {
+  text-decoration: underline;
 }
-
-#next-steps ul {
+.index-grid span,
+.rank {
+  font:
+    11px "Roboto Mono",
+    monospace;
+  color: var(--gray);
+}
+.index-grid strong {
+  font:
+    600 16px/1.25 "Roboto Mono",
+    monospace;
+}
+.index-grid b {
+  align-self: flex-end;
+  font-size: 20px;
+  font-weight: 400;
+}
+.ranking-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 105px 0 90px;
+}
+.page-heading {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 60px;
+  align-items: end;
+  margin-bottom: 75px;
+}
+.page-heading .eyebrow {
+  grid-column: 1 / -1;
+}
+.page-heading h1 {
+  font:
+    600 clamp(34px, 5vw, 64px)/1.05 "Roboto Mono",
+    monospace;
+  margin: 0;
+}
+.page-intro {
+  color: var(--gray);
+  max-width: 285px;
+  line-height: 1.5;
+  margin: 0 0 8px;
+  font:
+    14px/1.5 "Roboto Mono",
+    monospace;
+}
+.ranking-list {
   list-style: none;
   padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--black);
+}
+.ranking-list li {
+  display: grid;
+  grid-template-columns: 72px 1fr 30px;
+  align-items: center;
+  min-height: 77px;
+  border-bottom: 1px solid var(--line);
+  transition:
+    padding 0.2s,
+    background 0.2s;
+}
+.ranking-list li:hover {
+  background: #eee;
+  padding-left: 15px;
+}
+.item-name {
+  font:
+    500 clamp(16px, 2.5vw, 23px) "Roboto Mono",
+    monospace;
+}
+.item-arrow {
+  font-size: 21px;
+  text-align: right;
+}
+footer {
+  min-height: 73px;
+  border-top: 1px solid var(--black);
   display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--gray);
+  font:
+    10px "Roboto Mono",
+    monospace;
+  text-transform: uppercase;
+}
+@media (max-width: 700px) {
+  .site-shell {
+    padding: 0 20px;
   }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
+  .site-header {
+    min-height: 76px;
   }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
+  .current-section {
+    display: none;
+  }
+  .menu {
+    top: 65px;
+  }
+  .home-page {
+    display: block;
+  }
+  .home-image,
+  .home-image img {
+    min-height: 330px;
+  }
+  .home-index {
+    padding: 50px 0;
+  }
+  .index-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .index-grid a:nth-child(3n + 2),
+  .index-grid a:nth-child(3n + 3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .index-grid a:nth-child(even) {
+    padding-left: 15px;
+    border-left: 1px solid var(--line);
+  }
+  .ranking-page {
+    padding: 70px 0;
+  }
+  .page-heading {
+    display: block;
+    margin-bottom: 55px;
+  }
+  .page-heading h1 {
+    margin-bottom: 28px;
+  }
+  .ranking-list li {
+    grid-template-columns: 45px 1fr 25px;
+    min-height: 68px;
+  }
+  .ranking-list li:hover {
+    padding-left: 8px;
+  }
+  footer {
+    gap: 15px;
+    align-items: flex-start;
+    flex-direction: column;
     justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
+    padding: 15px 0;
   }
-}
-
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
-}
-
-.ticks {
-  position: relative;
-  width: 100%;
-
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
-  }
-
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
-  }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
+  footer span:nth-child(2) {
+    display: none;
   }
 }
