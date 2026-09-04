@@ -161,7 +161,7 @@ main {
   height: 100%;
   object-fit: cover;
   border: 1px solid var(--black);
-  filter: grayscale(1) contrast(1.08);
+  filter: grayscale(1);
 }
 .home-index {
   /* padding: 60px 0 75px; */
@@ -306,10 +306,12 @@ main {
 .item-details img {
   border: 1px solid var(--black);
   display: block;
-  filter: grayscale(1) contrast(1.08);
   height: 76px;
   object-fit: cover;
   width: 112px;
+}
+.item-details img.mandelbrot-image {
+  filter: grayscale(1);
 }
 .item-details p {
   color: var(--gray);
@@ -336,6 +338,14 @@ main {
 .person-details img {
   height: 150px;
   width: 150px;
+}
+.movie-details {
+  grid-template-columns: 120px minmax(0, 1fr);
+  align-items: start;
+}
+.movie-details img {
+  height: 175px;
+  width: 120px;
 }
 .item-copy {
   display: grid;
@@ -482,6 +492,13 @@ footer {
   .person-details img {
     height: 112px;
     width: 88px;
+  }
+  .movie-details {
+    grid-template-columns: 96px minmax(0, 1fr);
+  }
+  .movie-details img {
+    height: 140px;
+    width: 96px;
   }
   .person-details .item-copy {
     gap: 11px;

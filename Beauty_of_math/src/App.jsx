@@ -9,7 +9,7 @@ import eulerImg from "./assets/Leonhard_Euler.jpg";
 import descartesImg from "./assets/René_Descartes.jpg";
 import newtonImg from "./assets/Sir_Isaac_Newton.jpg";
 import ramanujanImg from "./assets/Srinivasa_Ramanujan.jpg";
-import euclidImg from "./assets/euclid.jpg";
+import euclidImg from "./assets/euclid_2.webp";
 import numberphileImg from "./assets/numberphile.jpg";
 import threeBlueOneBrownImg from "./assets/3blue1brown.jpg";
 import mathologerImg from "./assets/mathologer.jpg";
@@ -20,6 +20,16 @@ import organicChemistryTutorImg from "./assets/organic_chemist.jpg";
 import blackpenredpenImg from "./assets/blackpenredpen.jpg";
 import kuvinaImg from "./assets/ Kuvina Saydaki.jpg";
 import terenceTaoImg from "./assets/Terence Tao.jpg";
+import goodWillHuntingImg from "./assets/Good_Will_Hunting.webp";
+import hiddenFiguresImg from "./assets/Hidden Figures.webp";
+import standAndDeliverImg from "./assets/stand_and_deliver.webp";
+import octoberSkyImg from "./assets/october_sky.webp";
+import theMartianImg from "./assets/the_martian.webp";
+import aBeautifulMindImg from "./assets/a_beautiful_mind.webp";
+import theImitationGameImg from "./assets/the_imitation_game.webp";
+import manWhoKnewInfinityImg from "./assets/The_man_who_knew_infinity.webp";
+import xPlusYImg from "./assets/x_plus_y.webp";
+import theoryOfEverythingImg from "./assets/the_theory_of_everything.webp";
 import "boxicons/css/boxicons.min.css";
 import "./App.css";
 
@@ -342,16 +352,100 @@ const collections = {
     intro:
       "Stories about genius, obsession, discovery, and the beautiful mess of being human.",
     items: [
-      "Good will Hunting",
-      "Hidden Figures",
-      "Stand and deliver",
-      "October Sky",
-      "The Martian",
-      "A beautiful mind",
-      "The imitation game",
-      "The man who knew infinity",
-      "X+Y (movie)",
-      "The theory of everything",
+      {
+        name: "Good Will Hunting",
+        image: goodWillHuntingImg,
+        releaseDate: "1997",
+        duration: "2h 6m",
+        keyActors: ["Matt Damon", "Robin Williams", "Ben Affleck"],
+        description:
+          "A troubled young janitor with an extraordinary gift for mathematics finds an unlikely mentor who helps him face the fear and possibility behind his talent.",
+      },
+      {
+        name: "Hidden Figures",
+        image: hiddenFiguresImg,
+        releaseDate: "2016",
+        duration: "2h 7m",
+        keyActors: ["Taraji P. Henson", "Octavia Spencer", "Janelle Monáe"],
+        description:
+          "Three brilliant Black women at NASA become essential to the space race, using mathematics, engineering, and persistence to break through institutional barriers.",
+      },
+      {
+        name: "Stand and Deliver",
+        image: standAndDeliverImg,
+        releaseDate: "1988",
+        duration: "1h 43m",
+        keyActors: [
+          "Edward James Olmos",
+          "Lou Diamond Phillips",
+          "Rosana DeSoto",
+        ],
+        description:
+          "Inspired by a true story, a determined teacher pushes his East Los Angeles students toward advanced calculus and a new belief in what they can achieve.",
+      },
+      {
+        name: "October Sky",
+        image: octoberSkyImg,
+        releaseDate: "1999",
+        duration: "1h 48m",
+        keyActors: ["Jake Gyllenhaal", "Chris Cooper", "Laura Dern"],
+        description:
+          "After watching Sputnik cross the sky, a coal miner's son turns to science, mathematics, and rocketry to build a different future for himself and his friends.",
+      },
+      {
+        name: "The Martian",
+        image: theMartianImg,
+        releaseDate: "2015",
+        duration: "2h 24m",
+        keyActors: ["Matt Damon", "Jessica Chastain", "Chiwetel Ejiofor"],
+        description:
+          "Stranded alone on Mars, an astronaut uses botany, engineering, and relentless mathematical problem-solving to survive long enough for NASA to bring him home.",
+      },
+      {
+        name: "A Beautiful Mind",
+        image: aBeautifulMindImg,
+        releaseDate: "2001",
+        duration: "2h 15m",
+        keyActors: ["Russell Crowe", "Jennifer Connelly", "Ed Harris"],
+        description:
+          "A gifted mathematician pursues an original idea in game theory while navigating the devastating effects of schizophrenia and the steady support of the people around him.",
+      },
+      {
+        name: "The Imitation Game",
+        image: theImitationGameImg,
+        releaseDate: "2014",
+        duration: "1h 54m",
+        keyActors: ["Benedict Cumberbatch", "Keira Knightley", "Matthew Goode"],
+        description:
+          "Alan Turing and his team race to crack the German Enigma code, transforming abstract logic and early computing into a weapon that could change the course of war.",
+      },
+      {
+        name: "The Man Who Knew Infinity",
+        image: manWhoKnewInfinityImg,
+        releaseDate: "2015",
+        duration: "1h 48m",
+        keyActors: ["Dev Patel", "Jeremy Irons", "Devika Bhise"],
+        description:
+          "Srinivasa Ramanujan travels from India to Cambridge, where his extraordinary mathematical intuition finds both a champion and a formidable academic world to challenge.",
+      },
+      {
+        name: "X+Y",
+        image: xPlusYImg,
+        releaseDate: "2014",
+        duration: "1h 51m",
+        keyActors: ["Asa Butterfield", "Rafe Spall", "Sally Hawkins"],
+        description:
+          "A gifted teenager finds friendship, confidence, and a wider world through the international mathematics olympiad, even as competition tests his carefully ordered life.",
+      },
+      {
+        name: "The Theory of Everything",
+        image: theoryOfEverythingImg,
+        releaseDate: "2014",
+        duration: "2h 3m",
+        keyActors: ["Eddie Redmayne", "Felicity Jones", "Charlie Cox"],
+        description:
+          "Stephen Hawking's early career, groundbreaking cosmological work, and relationship with Jane Wilde are portrayed against the progression of motor neurone disease.",
+      },
     ],
   },
   resources: {
@@ -648,14 +742,31 @@ function RankingPage({ collection }) {
             )}
             {item.description && openItem === index && (
               <div
-                className={`item-details ${item.image ? "person-details" : ""}`}
+                className={`item-details ${item.releaseDate ? "movie-details" : item.image ? "person-details" : ""}`}
                 id={`item-detail-${index}`}
               >
                 <img
+                  className={item.image ? "" : "mandelbrot-image"}
                   src={item.image ?? mandelbrotImg}
-                  alt={`${item.name} portrait`}
+                  alt={`${item.name} poster`}
                 />
                 <div className="item-copy">
+                  {item.releaseDate && (
+                    <div className="person-meta movie-meta">
+                      <span>{item.releaseDate}</span>
+                      <span>{item.duration}</span>
+                    </div>
+                  )}
+                  {item.keyActors && (
+                    <div className="known-for">
+                      <span className="known-for-label">Key actors</span>
+                      <div className="known-for-list">
+                        {item.keyActors.map((actor) => (
+                          <span key={actor}>{actor}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                   {item.dates && (
                     <div className="person-meta">
                       <span>{item.dates}</span>
