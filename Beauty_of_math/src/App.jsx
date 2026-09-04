@@ -1,5 +1,25 @@
 import { useEffect, useState } from "react";
 import mandelbrotImg from "./assets/mandelbrot_high_resolution.png";
+import archimedesImg from "./assets/Archimedes.jpg";
+import pascalImg from "./assets/Blaise_Pascal_Versailles.jpeg";
+import gaussImg from "./assets/Carl_Friedrich_Gauss.jpg";
+import fermatImg from "./assets/Fermat.jpeg";
+import leibnizImg from "./assets/Leibniz.jpg";
+import eulerImg from "./assets/Leonhard_Euler.jpg";
+import descartesImg from "./assets/René_Descartes.jpg";
+import newtonImg from "./assets/Sir_Isaac_Newton.jpg";
+import ramanujanImg from "./assets/Srinivasa_Ramanujan.jpg";
+import euclidImg from "./assets/euclid.jpg";
+import numberphileImg from "./assets/numberphile.jpg";
+import threeBlueOneBrownImg from "./assets/3blue1brown.jpg";
+import mathologerImg from "./assets/mathologer.jpg";
+import veritasiumImg from "./assets/veritasium.jpg";
+import vsauceImg from "./assets/vsauce.jpg";
+import standUpMathsImg from "./assets/stand_up_maths.jpg";
+import organicChemistryTutorImg from "./assets/organic_chemist.jpg";
+import blackpenredpenImg from "./assets/blackpenredpen.jpg";
+import kuvinaImg from "./assets/ Kuvina Saydaki.jpg";
+import terenceTaoImg from "./assets/Terence Tao.jpg";
 import "boxicons/css/boxicons.min.css";
 import "./App.css";
 
@@ -140,16 +160,104 @@ const collections = {
     intro:
       "Ten thinkers whose questions still shape the language of mathematics today.",
     items: [
-      "Leonhard Euler",
-      "Carl Friedrich Gauss",
-      "Isaac Newton",
-      "Archimedes",
-      "Euclid",
-      "Gottfried Wilhelm Leibniz",
-      "Pierre de Fermat",
-      "René Descartes",
-      "Blaise Pascal",
-      "Srinivasa Ramanujan",
+      {
+        name: "Leonhard Euler",
+        image: eulerImg,
+        dates: "1707–1783",
+        origin: "Basel, Switzerland",
+        knownFor: ["Euler's number", "Euler's identity", "Graph theory"],
+        description:
+          "A prolific Swiss mathematician whose work connected analysis, number theory, geometry, and mechanics. Euler introduced much of the notation still used in mathematics today.",
+      },
+      {
+        name: "Carl Friedrich Gauss",
+        image: gaussImg,
+        dates: "1777–1855",
+        origin: "Brunswick, Germany",
+        knownFor: ["Number theory", "Gaussian distribution", "Least squares"],
+        description:
+          "A German mathematician often called the Prince of Mathematicians. His discoveries ranged from modular arithmetic and geometry to astronomy, statistics, and physics.",
+      },
+      {
+        name: "Isaac Newton",
+        image: newtonImg,
+        dates: "1643–1727",
+        origin: "Woolsthorpe, England",
+        knownFor: ["Calculus", "Laws of motion", "Universal gravitation"],
+        description:
+          "An English mathematician and physicist who transformed the study of motion and the heavens. He developed calculus independently while building the foundations of classical mechanics.",
+      },
+      {
+        name: "Archimedes",
+        image: archimedesImg,
+        dates: "c. 287–c. 212 BCE",
+        origin: "Syracuse, Sicily",
+        knownFor: ["Archimedes' principle", "Method of exhaustion", "Buoyancy"],
+        description:
+          "An ancient Greek mathematician, engineer, and inventor whose geometric methods anticipated ideas from calculus. He is remembered for solving practical problems with extraordinary mathematical precision.",
+      },
+      {
+        name: "Euclid",
+        image: euclidImg,
+        dates: "c. 300 BCE",
+        origin: "Alexandria, Egypt",
+        knownFor: ["The Elements", "Euclidean geometry", "Prime numbers"],
+        description:
+          "A Greek mathematician whose Elements organized geometry and number theory into a system of definitions, axioms, and proofs. His approach shaped mathematical education for more than two millennia.",
+      },
+      {
+        name: "Gottfried Wilhelm Leibniz",
+        image: leibnizImg,
+        dates: "1646–1716",
+        origin: "Leipzig, Germany",
+        knownFor: ["Calculus", "Integral notation", "Binary numbers"],
+        description:
+          "A German polymath who developed calculus independently of Newton and gave it much of its modern notation. He also made foundational contributions to logic, computation, and philosophy.",
+      },
+      {
+        name: "Pierre de Fermat",
+        image: fermatImg,
+        dates: "1607–1665",
+        origin: "Beaumont-de-Lomagne, France",
+        knownFor: [
+          "Fermat's Last Theorem",
+          "Fermat's principle",
+          "Probability",
+        ],
+        description:
+          "A French mathematician and lawyer whose playful marginal notes led to deep advances in number theory. His correspondence with Pascal also helped establish the mathematics of probability.",
+      },
+      {
+        name: "René Descartes",
+        image: descartesImg,
+        dates: "1596–1650",
+        origin: "La Haye en Touraine, France",
+        knownFor: [
+          "Cartesian coordinates",
+          "Analytic geometry",
+          "Descartes' rule",
+        ],
+        description:
+          "A French philosopher and mathematician who joined algebra to geometry through the coordinate plane. This partnership created analytic geometry and changed how shapes could be studied.",
+      },
+      {
+        name: "Blaise Pascal",
+        image: pascalImg,
+        dates: "1623–1662",
+        origin: "Clermont-Ferrand, France",
+        knownFor: ["Pascal's triangle", "Probability theory", "Pascal's law"],
+        description:
+          "A French mathematician, physicist, and inventor who made influential contributions while still young. His work linked combinatorics and chance, and his studies of pressure shaped fluid mechanics.",
+      },
+      {
+        name: "Srinivasa Ramanujan",
+        image: ramanujanImg,
+        dates: "1887–1920",
+        origin: "Erode, India",
+        knownFor: ["Number theory", "Infinite series", "Partition function"],
+        description:
+          "An Indian mathematician whose extraordinary intuition revealed surprising identities in number theory. Working with G. H. Hardy, he produced results that continue to inspire modern mathematics.",
+      },
     ],
   },
   youtubers: {
@@ -157,16 +265,76 @@ const collections = {
     intro:
       "Channels that make difficult ideas feel visual, surprising, and worth chasing.",
     items: [
-      "Numberphile",
-      "3Blue1Brown",
-      "Mathologer",
-      "Veritasium",
-      "Vsauce",
-      "Stand-up Math",
-      "The Organic Chemistry Tutor",
-      "blackpenredpen",
-      "Kuvina Saydaki",
-      "Terence Tao",
+      {
+        name: "Numberphile",
+        image: numberphileImg,
+        link: "https://www.youtube.com/@numberphile",
+        description:
+          "A playful, interview-driven channel exploring curious numbers, puzzles, proofs, and the people who love them.",
+      },
+      {
+        name: "3Blue1Brown",
+        image: threeBlueOneBrownImg,
+        link: "https://www.youtube.com/@3blue1brown",
+        description:
+          "Animated visual explanations that build intuition for linear algebra, calculus, probability, and other deep ideas.",
+      },
+      {
+        name: "Mathologer",
+        image: mathologerImg,
+        link: "https://www.youtube.com/@Mathologer",
+        description:
+          "Long-form mathematical explorations that uncover surprising patterns, elegant proofs, and beautiful connections.",
+      },
+      {
+        name: "Veritasium",
+        image: veritasiumImg,
+        link: "https://www.youtube.com/@veritasium",
+        description:
+          "Science and mathematics stories that challenge intuition through experiments, explanations, and unexpected questions.",
+      },
+      {
+        name: "Vsauce",
+        image: vsauceImg,
+        link: "https://www.youtube.com/@Vsauce",
+        description:
+          "Thought-provoking investigations into mathematics, science, philosophy, perception, and the strange edges of everyday life.",
+      },
+      {
+        name: "Stand-up Maths",
+        image: standUpMathsImg,
+        link: "https://www.youtube.com/@standupmaths",
+        description:
+          "Matt Parker turns recreational mathematics, puzzles, errors, and real-world patterns into sharp, funny lessons.",
+      },
+      {
+        name: "The Organic Chemistry Tutor",
+        image: organicChemistryTutorImg,
+        link: "https://www.youtube.com/@TheOrganicChemistryTutor",
+        description:
+          "Clear, step-by-step tutorials covering algebra, geometry, trigonometry, calculus, statistics, and chemistry.",
+      },
+      {
+        name: "blackpenredpen",
+        image: blackpenredpenImg,
+        link: "https://www.youtube.com/@blackpenredpen",
+        description:
+          "Detailed problem-solving sessions focused on calculus, algebra, equations, and the craft of working through a solution.",
+      },
+      {
+        name: "Kuvina Saydaki",
+        image: kuvinaImg,
+        link: "https://www.youtube.com/@Kuvina",
+        description:
+          "A channel sharing accessible mathematical ideas, visual explanations, and thoughtful explorations of problem solving.",
+      },
+      {
+        name: "Terence Tao",
+        image: terenceTaoImg,
+        link: "https://www.youtube.com/@TerenceTao27",
+        description:
+          "Lectures and mathematical perspectives from Terence Tao, spanning research ideas, problem solving, and mathematical practice.",
+      },
     ],
   },
   movies: {
@@ -315,10 +483,13 @@ function App() {
     <div className="site-shell">
       <header className="site-header">
         <a className="brand" href="#" aria-label="Beauty of Mathematics home">
-          <span>
-            Beauty of
-            <br />
-            <strong>Mathematics</strong>
+          <span className="brand-name">
+            <span>
+              Beauty of
+              <br />
+              <strong>Mathematics</strong>
+            </span>
+            <small>By: Benjamin Braniff</small>
           </span>
         </a>
         <div className="header-tools">
@@ -359,6 +530,46 @@ function App() {
       <footer>
         <span>Beauty of Mathematics</span>
         <span>Curiosity is a form of intelligence.</span>
+        <nav className="social-links" aria-label="Social media links">
+          <a
+            href="https://www.linkedin.com/in/ben-braniff-74965a299/"
+            aria-label="LinkedIn"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <i className="bx bxl-linkedin" aria-hidden="true"></i>
+          </a>
+          <a
+            href="https://github.com/benbraniff"
+            aria-label="GitHub"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <i className="bx bxl-github" aria-hidden="true"></i>
+          </a>
+          <a
+            href="https://x.com/BenjaminBraniff"
+            aria-label="X"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <i className="bx bxl-twitter" aria-hidden="true"></i>
+          </a>
+          <a
+            href="https://www.youtube.com/@Cowbob1"
+            aria-label="YouTube"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <i className="bx bxl-youtube" aria-hidden="true"></i>
+          </a>
+          <a
+            href="mailto:Ben.Braniff37@gmail.com"
+            aria-label="Email Benjamin Braniff"
+          >
+            <i className="bx bx-envelope" aria-hidden="true"></i>
+          </a>
+        </nav>
         <span>© 2026</span>
       </footer>
     </div>
@@ -413,7 +624,7 @@ function RankingPage({ collection }) {
                 className="item-trigger"
                 type="button"
                 aria-expanded={openItem === index}
-                aria-controls={`concept-detail-${index}`}
+                aria-controls={`item-detail-${index}`}
                 onClick={() => setOpenItem(openItem === index ? null : index)}
               >
                 <span className="rank">
@@ -436,9 +647,43 @@ function RankingPage({ collection }) {
               </>
             )}
             {item.description && openItem === index && (
-              <div className="item-details" id={`concept-detail-${index}`}>
-                <img src={mandelbrotImg} alt={`${item.name} visual`} />
-                <p>{item.description}</p>
+              <div
+                className={`item-details ${item.image ? "person-details" : ""}`}
+                id={`item-detail-${index}`}
+              >
+                <img
+                  src={item.image ?? mandelbrotImg}
+                  alt={`${item.name} portrait`}
+                />
+                <div className="item-copy">
+                  {item.dates && (
+                    <div className="person-meta">
+                      <span>{item.dates}</span>
+                      <span>{item.origin}</span>
+                    </div>
+                  )}
+                  {item.knownFor && (
+                    <div className="known-for">
+                      <span className="known-for-label">Known for</span>
+                      <div className="known-for-list">
+                        {item.knownFor.map((fact) => (
+                          <span key={fact}>{fact}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  <p>{item.description}</p>
+                  {item.link && (
+                    <a
+                      className="channel-link"
+                      href={item.link}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Visit channel <span aria-hidden="true">↗</span>
+                    </a>
+                  )}
+                </div>
               </div>
             )}
           </li>

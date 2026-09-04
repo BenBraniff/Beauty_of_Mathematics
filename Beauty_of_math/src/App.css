@@ -41,6 +41,18 @@ body {
   text-decoration: none;
   text-transform: uppercase;
 }
+.brand-name {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.brand-name small {
+  color: var(--gray);
+  font:
+    10px "Roboto Mono",
+    monospace;
+  text-transform: none;
+}
 .brand strong {
   font-weight: 700;
 }
@@ -124,7 +136,11 @@ main {
 }
 .home-page {
   display: grid;
-  grid-template-rows: auto minmax(430px, 65vh) auto;
+  grid-template-rows: auto auto auto;
+}
+.home-heading {
+  padding: 35px 0 22px;
+  max-height: 150px;
 }
 .home-heading h1 {
   font:
@@ -134,14 +150,15 @@ main {
 }
 .home-image {
   background: #eee;
-  min-height: 430px;
+  width: min(100%, 900px);
+  aspect-ratio: 16 / 9;
+  margin: 0 auto;
   overflow: hidden;
 }
 .home-image img {
   display: block;
   width: 100%;
   height: 100%;
-  min-height: 430px;
   object-fit: cover;
   border: 1px solid var(--black);
   filter: grayscale(1) contrast(1.08);
@@ -301,6 +318,60 @@ main {
     monospace;
   margin: 0;
 }
+.channel-link {
+  color: var(--black);
+  font:
+    11px/1.4 "Roboto Mono",
+    monospace;
+  text-underline-offset: 4px;
+  width: fit-content;
+}
+.channel-link:hover {
+  color: var(--gray);
+}
+.person-details {
+  grid-template-columns: 150px minmax(0, 1fr);
+  align-items: start;
+}
+.person-details img {
+  height: 150px;
+  width: 150px;
+}
+.item-copy {
+  display: grid;
+  gap: 13px;
+}
+.person-meta,
+.known-for {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  font:
+    11px/1.4 "Roboto Mono",
+    monospace;
+}
+.person-meta {
+  color: var(--black);
+}
+.person-meta span + span {
+  color: var(--gray);
+}
+.known-for {
+  align-items: baseline;
+}
+.known-for-label {
+  color: var(--gray);
+  text-transform: uppercase;
+}
+.known-for-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 15px;
+}
+.known-for-list span {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 3px;
+}
 .item-name {
   font:
     500 clamp(16px, 2.5vw, 23px) "Roboto Mono",
@@ -314,6 +385,7 @@ footer {
   min-height: 73px;
   border-top: 1px solid var(--black);
   display: flex;
+  gap: 20px;
   justify-content: space-between;
   align-items: center;
   color: var(--gray);
@@ -321,6 +393,21 @@ footer {
     10px "Roboto Mono",
     monospace;
   text-transform: uppercase;
+}
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.social-links a {
+  color: var(--black);
+  display: inline-flex;
+  font-size: 20px;
+  line-height: 1;
+  text-decoration: none;
+}
+.social-links a:hover {
+  color: var(--gray);
 }
 @media (max-width: 700px) {
   .site-shell {
@@ -337,9 +424,6 @@ footer {
   }
   .home-page {
     display: block;
-  }
-  .home-heading {
-    padding: 35px 0 22px;
   }
   .home-image,
   .home-image img {
@@ -392,12 +476,32 @@ footer {
     height: 64px;
     width: 88px;
   }
+  .person-details {
+    grid-template-columns: 88px minmax(0, 1fr);
+  }
+  .person-details img {
+    height: 112px;
+    width: 88px;
+  }
+  .person-details .item-copy {
+    gap: 11px;
+  }
+  .known-for {
+    display: block;
+  }
+  .known-for-label {
+    display: block;
+    margin-bottom: 6px;
+  }
   footer {
     gap: 15px;
     align-items: flex-start;
     flex-direction: column;
     justify-content: center;
     padding: 15px 0;
+  }
+  .social-links {
+    order: 3;
   }
   footer span:nth-child(2) {
     display: none;
