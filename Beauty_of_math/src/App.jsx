@@ -1,5 +1,14 @@
 import { useEffect, useState } from "react";
 import mandelbrotImg from "./assets/mandelbrot_high_resolution.png";
+import eulersIdentityImg from "./assets/eulers_Identity.png";
+import pythagoreanImg from "./assets/a_square_b_square_c_square.webp";
+import areaUnderCurveImg from "./assets/area_under_curve.webp";
+import bellCurveImg from "./assets/bell_curve.webp";
+import fourierTransformImg from "./assets/Fourier_Transform.webp";
+import eulersFormulaImg from "./assets/eulers_formula.png";
+import bayesTheoremImg from "./assets/bayes_theorem.webp";
+import quadraticFormulaImg from "./assets/quadratic_formula.png";
+import turbulentFlowImg from "./assets/turbulent_flow.webp";
 import archimedesImg from "./assets/Archimedes.jpg";
 import pascalImg from "./assets/Blaise_Pascal_Versailles.jpeg";
 import gaussImg from "./assets/Carl_Friedrich_Gauss.jpg";
@@ -31,6 +40,8 @@ import manWhoKnewInfinityImg from "./assets/The_man_who_knew_infinity.webp";
 import xPlusYImg from "./assets/x_plus_y.webp";
 import theoryOfEverythingImg from "./assets/the_theory_of_everything.webp";
 import "boxicons/css/boxicons.min.css";
+import katex from "katex";
+import "katex/dist/katex.min.css";
 import "./App.css";
 
 const pages = [
@@ -466,20 +477,80 @@ const collections = {
     ],
   },
   equations: {
-    title: "Top 10 equations",
+    title: "Top 10 Equations",
     intro:
       "Equations that reveal surprising connections between the abstract and the real.",
     items: [
-      "Pythagorean theorem",
-      "Euler's identity",
-      "Newton's second law",
-      "Mass-energy equivalence",
-      "The quadratic formula",
-      "The wave equation",
-      "The heat equation",
-      "Maxwell's equations",
-      "The ideal gas law",
-      "The logistic map",
+      {
+        name: "Euler's Identity",
+        image: eulersIdentityImg,
+        equation: String.raw`e^{i\pi} + 1 = 0`,
+        description:
+          "Often described as the most beautiful formula in mathematics, it links five fundamental constants (π, e, i, 1, and 0) using addition, multiplication, and exponentiation in a single equation.",
+      },
+      {
+        name: "Pythagorean Theorem",
+        image: pythagoreanImg,
+        equation: String.raw`a^2 + b^2 = c^2`,
+        description:
+          "The fundamental geometric relation connecting the side lengths of a right triangle. It forms the foundation of Euclidean geometry, trigonometry, and distance calculations in coordinate space.",
+      },
+      {
+        name: "Fundamental Theorem of Calculus",
+        image: areaUnderCurveImg,
+        equation: String.raw`\int_a^b f(x)\,dx = F(b) - F(a)`,
+        description:
+          "Bridges the two major branches of calculus by establishing that differentiation and integration are inverse operations, providing a method to calculate precise areas under continuous curves.",
+      },
+      {
+        name: "Normal Distribution Formula (Bell Curve)",
+        image: bellCurveImg,
+        equation: String.raw`f(x) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{1}{2}\left(\frac{x - \mu}{\sigma}\right)^2}`,
+        description:
+          "The mathematical expression behind the Gaussian distribution. It models how continuous random variables cluster around a mean (μ) in fields ranging from quantum mechanics to sociology.",
+      },
+      {
+        name: "Fourier Transform",
+        image: fourierTransformImg,
+        equation: String.raw`\hat{f}(\xi) = \int_{-\infty}^{\infty} f(x)\,e^{-2\pi i x \xi}\,dx`,
+        description:
+          "Decomposes functions or time-dependent signals into their individual constituent frequencies. It serves as a cornerstone of modern digital communication, signal processing, and image compression.",
+      },
+      {
+        name: "Euler's Formula for Planar Graphs",
+        image: eulersFormulaImg,
+        equation: String.raw`V - E + F = 2`,
+        description:
+          "Relates the number of vertices (V), edges (E), and faces (F) of any convex polyhedron or planar graph. It established the foundation of modern topology.",
+      },
+      {
+        name: "Mandelbrot Set Iteration",
+        image: mandelbrotImg,
+        equation: String.raw`z_{n+1} = z_n^2 + c`,
+        description:
+          "A simple recursive equation using complex numbers that generates an infinitely detailed, self-similar fractal pattern containing infinite visual complexity.",
+      },
+      {
+        name: "Bayes' Theorem",
+        image: bayesTheoremImg,
+        equation: String.raw`P(A \mid B) = \frac{P(B \mid A)P(A)}{P(B)}`,
+        description:
+          "Formulates how to update the probability of a hypothesis (A) as new evidence (B) becomes available. It forms the foundation of modern statistical inference, machine learning, and decision theories.",
+      },
+      {
+        name: "The Quadratic Formula",
+        image: quadraticFormulaImg,
+        equation: String.raw`x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}`,
+        description:
+          "Provides the exact solutions to any quadratic equation ax² + bx + c = 0. It is a core algebraic tool taught worldwide for finding roots of polynomial functions.",
+      },
+      {
+        name: "Navier-Stokes Equations",
+        image: turbulentFlowImg,
+        equation: String.raw`\rho\left(\frac{\partial \mathbf{u}}{\partial t} + \mathbf{u} \cdot \nabla \mathbf{u}\right) = -\nabla p + \mu\nabla^2\mathbf{u} + \mathbf{f}`,
+        description:
+          "Describes the motion of viscous fluid substances, such as air and water. It forms the basis of weather prediction, ocean current modeling, and aerospace engineering.",
+      },
     ],
   },
   books: {
@@ -552,6 +623,16 @@ const collections = {
   },
 };
 
+const imageSources = [
+  ...new Set([
+    mandelbrotImg,
+    ...Object.values(collections)
+      .flatMap(({ items }) => items)
+      .filter((item) => typeof item === "object" && item.image)
+      .map((item) => item.image),
+  ]),
+];
+
 function getPage() {
   return window.location.hash.replace(/^#\/?/, "");
 }
@@ -559,6 +640,13 @@ function getPage() {
 function App() {
   const [currentPage, setCurrentPage] = useState(getPage());
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    imageSources.forEach((source) => {
+      const image = new Image();
+      image.src = source;
+    });
+  }, []);
 
   useEffect(() => {
     const onHashChange = () => {
@@ -742,15 +830,31 @@ function RankingPage({ collection }) {
             )}
             {item.description && openItem === index && (
               <div
-                className={`item-details ${item.releaseDate ? "movie-details" : item.image ? "person-details" : ""}`}
+                className={`item-details ${item.equation ? "equation-details" : item.releaseDate ? "movie-details" : item.image ? "person-details" : ""} ${item.equation?.length > 100 ? "long-equation" : ""}`}
                 id={`item-detail-${index}`}
               >
                 <img
-                  className={item.image ? "" : "mandelbrot-image"}
+                  className={
+                    item.image === mandelbrotImg || !item.image
+                      ? "mandelbrot-image"
+                      : ""
+                  }
                   src={item.image ?? mandelbrotImg}
                   alt={`${item.name} poster`}
                 />
                 <div className="item-copy">
+                  {item.equation && (
+                    <div
+                      className="equation-display"
+                      aria-label={`${item.name}: ${item.equation}`}
+                      dangerouslySetInnerHTML={{
+                        __html: katex.renderToString(item.equation, {
+                          displayMode: true,
+                          throwOnError: false,
+                        }),
+                      }}
+                    />
+                  )}
                   {item.releaseDate && (
                     <div className="person-meta movie-meta">
                       <span>{item.releaseDate}</span>

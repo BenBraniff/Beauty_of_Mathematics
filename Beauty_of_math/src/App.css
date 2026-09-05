@@ -313,6 +313,22 @@ main {
 .item-details img.mandelbrot-image {
   filter: grayscale(1);
 }
+.equation-details {
+  grid-template-columns: 280px minmax(0, 1fr);
+  align-items: start;
+}
+.equation-details img {
+  background: var(--white);
+  height: 180px;
+  object-fit: contain;
+  width: 280px;
+}
+.equation-details .item-copy {
+  min-width: 0;
+}
+.long-equation .equation-display {
+  font-size: 0.95rem;
+}
 .item-details p {
   color: var(--gray);
   font:
@@ -386,6 +402,16 @@ main {
   font:
     500 clamp(16px, 2.5vw, 23px) "Roboto Mono",
     monospace;
+}
+.equation-display {
+  color: var(--black);
+  font-size: 1.35rem;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 4px 0;
+}
+.equation-display .katex-display {
+  margin: 0;
 }
 .item-arrow {
   font-size: 21px;
@@ -499,6 +525,22 @@ footer {
   .movie-details img {
     height: 140px;
     width: 96px;
+  }
+  .equation-details {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  .equation-details img {
+    height: 125px;
+    max-width: 100%;
+    order: 2;
+    width: 280px;
+  }
+  .equation-details .item-copy {
+    order: 1;
+  }
+  .long-equation .equation-display {
+    font-size: 0.8rem;
   }
   .person-details .item-copy {
     gap: 11px;
