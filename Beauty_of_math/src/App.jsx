@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import mandelbrotImg from "./assets/mandelbrot_high_resolution.png";
+import dragonCurveImg from "./assets/dragon_curve_12.png";
+import einsteinTilesImg from "./assets/einstein_tiles_3.png";
 import eulersIdentityImg from "./assets/eulers_Identity.png";
 import pythagoreanImg from "./assets/a_square_b_square_c_square.webp";
 import areaUnderCurveImg from "./assets/area_under_curve.webp";
@@ -872,7 +874,9 @@ function HomePage() {
   return (
     <main className="home-page">
       <section className="home-image">
+        <img src={dragonCurveImg} alt="Dragon curve" />
         <img src={mandelbrotImg} alt="Mandelbrot set" />
+        <img src={einsteinTilesImg} alt="Einstein tiles" />
       </section>
       <section className="home-heading">
         <h1>Top 10^2</h1>
