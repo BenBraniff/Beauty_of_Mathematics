@@ -39,6 +39,16 @@ import theImitationGameImg from "./assets/the_imitation_game.webp";
 import manWhoKnewInfinityImg from "./assets/The_man_who_knew_infinity.webp";
 import xPlusYImg from "./assets/x_plus_y.webp";
 import theoryOfEverythingImg from "./assets/the_theory_of_everything.webp";
+import numberDevilImg from "./assets/the_number_devil.avif";
+import infinitePowersImg from "./assets/infinite_powers.avif";
+import joyOfXImg from "./assets/the_joy_of_x.avif";
+import thinkLikeMathGeniusImg from "./assets/Think_like_a_math_genius.avif";
+import preAlgebraNotebookImg from "./assets/pre_algebra_albegra_everything_notebook.avif";
+import algebraWorkbookImg from "./assets/Big_fat_algebra_workbook.avif";
+import mindForNumbersImg from "./assets/a_mind_for_numbers.avif";
+import manLovedNumbersImg from "./assets/The_Man_Who_Loved_Only_Numbers.avif";
+import fermatEnigmaImg from "./assets/Fermats_Enigma.avif";
+import codeBookImg from "./assets/the_code_book.avif";
 import "boxicons/css/boxicons.min.css";
 import katex from "katex";
 import "katex/dist/katex.min.css";
@@ -558,16 +568,116 @@ const collections = {
     intro:
       "Books that invite us to understand mathematics, its history, and its strange beauty.",
     items: [
-      "The Joy of x",
-      "A Mathematician's Apology",
-      "Gödel, Escher, Bach",
-      "The Man Who Knew Infinity",
-      "Flatland",
-      "Chaos",
-      "The Princeton Companion to Mathematics",
-      "How Not to Be Wrong",
-      "Love and Math",
-      "The Elements",
+      {
+        book: true,
+        name: "The Number Devil",
+        image: numberDevilImg,
+        author: "Hans Magnus Enzensberger",
+        releaseDate: "May 1, 2000",
+        pages: "264 pages",
+        link: "https://www.amazon.com/dp/0805062998/",
+        description:
+          "In twelve dreamlike encounters, a boy who dislikes math meets a Number Devil and discovers the playful power of primes, infinity, Fibonacci numbers, and patterns.",
+      },
+      {
+        book: true,
+        name: "Infinite Powers",
+        image: infinitePowersImg,
+        author: "Steven Strogatz",
+        releaseDate: "April 14, 2020",
+        pages: "400 pages",
+        link: "https://www.amazon.com/dp/0358299284/",
+        description:
+          "A lively history of calculus that connects infinity and change to the practical tools behind GPS, phones, medicine, physics, and our understanding of the universe.",
+      },
+      {
+        book: true,
+        name: "The Joy of X",
+        image: joyOfXImg,
+        author: "Steven H. Strogatz",
+        releaseDate: "October 1, 2013",
+        pages: "336 pages",
+        link: "https://www.amazon.com/dp/0544105850/",
+        description:
+          "An inviting tour through numbers, algebra, geometry, calculus, probability, and infinity, showing how mathematical ideas illuminate ordinary life.",
+      },
+      {
+        book: true,
+        name: "Think Like a Maths Genius",
+        image: thinkLikeMathGeniusImg,
+        author: "Arthur Benjamin and Michael Shermer",
+        releaseDate: "October 19, 2006",
+        pages: "304 pages",
+        link: "https://www.amazon.com/dp/0285637762/",
+        description:
+          "A practical collection of mental calculation methods, memory techniques, and everyday number tricks designed to make arithmetic faster and more intuitive.",
+      },
+      {
+        book: true,
+        name: "Big Fat Pre-Algebra & Algebra 1",
+        image: preAlgebraNotebookImg,
+        author: "Workman Publishing and Jason Wang",
+        releaseDate: "October 5, 2021",
+        pages: "640 pages",
+        link: "https://www.amazon.com/dp/1523504382/",
+        description:
+          "A visual, approachable study guide covering number systems, equations, functions, graphing, roots, polynomials, quadratics, and more with examples and memory aids.",
+      },
+      {
+        book: true,
+        name: "Big Fat Algebra 1 Workbook",
+        image: algebraWorkbookImg,
+        author: "Workman Publishing",
+        releaseDate: "June 20, 2023",
+        pages: "488 pages",
+        link: "https://www.amazon.com/dp/1523518391/",
+        description:
+          "A practice-focused companion to Algebra 1 study, with hundreds of exercises, varied question types, worked solutions, and clear step-by-step explanations.",
+      },
+      {
+        book: true,
+        name: "A Mind for Numbers: How to Excel at Math and Science",
+        image: mindForNumbersImg,
+        author: "Barbara Oakley",
+        releaseDate: "July 31, 2014",
+        pages: "336 pages",
+        link: "https://www.amazon.com/dp/039916524X/",
+        description:
+          "A science-backed guide to learning difficult subjects, using focused and diffuse thinking, recall, chunking, and practical study habits to build confidence.",
+      },
+      {
+        book: true,
+        name: "The Man Who Loved Only Numbers",
+        image: manLovedNumbersImg,
+        author: "Paul Hoffman",
+        releaseDate: "January 1, 1998",
+        pages: "352 pages",
+        link: "https://www.amazon.com/dp/0786884061/",
+        description:
+          "A vivid biography of the eccentric, prolific mathematician Paul Erdos and the collaborative, wandering life he devoted to discovering mathematical truth.",
+      },
+      {
+        book: true,
+        name: "Fermat's Enigma",
+        image: fermatEnigmaImg,
+        author: "Simon Singh",
+        releaseDate: "September 8, 1998",
+        pages: "315 pages",
+        link: "https://www.amazon.com/dp/0385493622/",
+        description:
+          "The centuries-long pursuit of Fermat's Last Theorem, told as a human drama of ideas, setbacks, obsession, and Andrew Wiles's eventual proof.",
+      },
+      {
+        book: true,
+        name: "The Code Book",
+        image: codeBookImg,
+        author: "Simon Singh",
+        releaseDate: "August 29, 2000",
+        pages: "432 pages",
+        link: "https://www.amazon.com/dp/0385495323/",
+        description:
+          "A compelling history of cryptography, from ancient ciphers and wartime codebreaking to public-key encryption and the future of secure communication.",
+      },
     ],
   },
   problems: {
@@ -830,7 +940,7 @@ function RankingPage({ collection }) {
             )}
             {item.description && openItem === index && (
               <div
-                className={`item-details ${item.equation ? "equation-details" : item.releaseDate ? "movie-details" : item.image ? "person-details" : ""} ${item.equation?.length > 100 ? "long-equation" : ""}`}
+                className={`item-details ${item.equation ? "equation-details" : item.book ? "book-details" : item.releaseDate ? "movie-details" : item.image ? "person-details" : ""} ${item.equation?.length > 100 ? "long-equation" : ""}`}
                 id={`item-detail-${index}`}
               >
                 <img
@@ -855,10 +965,17 @@ function RankingPage({ collection }) {
                       }}
                     />
                   )}
-                  {item.releaseDate && (
+                  {item.releaseDate && !item.book && (
                     <div className="person-meta movie-meta">
                       <span>{item.releaseDate}</span>
                       <span>{item.duration}</span>
+                    </div>
+                  )}
+                  {item.book && (
+                    <div className="book-meta">
+                      <span>{item.author}</span>
+                      <span>{item.releaseDate}</span>
+                      <span>{item.pages}</span>
                     </div>
                   )}
                   {item.keyActors && (
@@ -895,7 +1012,8 @@ function RankingPage({ collection }) {
                       target="_blank"
                       rel="noreferrer"
                     >
-                      Visit channel <span aria-hidden="true">↗</span>
+                      {item.book ? "View on Amazon" : "Visit channel"}{" "}
+                      <span aria-hidden="true">↗</span>
                     </a>
                   )}
                 </div>

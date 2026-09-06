@@ -363,6 +363,15 @@ main {
   height: 175px;
   width: 120px;
 }
+.book-details {
+  grid-template-columns: 150px minmax(0, 1fr);
+  align-items: start;
+}
+.book-details img {
+  height: 210px;
+  object-fit: contain;
+  width: 150px;
+}
 .item-copy {
   display: grid;
   gap: 13px;
@@ -378,6 +387,18 @@ main {
 }
 .person-meta {
   color: var(--black);
+}
+.book-meta {
+  color: var(--black);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  font:
+    11px/1.4 "Roboto Mono",
+    monospace;
+}
+.book-meta span + span {
+  color: var(--gray);
 }
 .person-meta span + span {
   color: var(--gray);
@@ -525,6 +546,13 @@ footer {
   .movie-details img {
     height: 140px;
     width: 96px;
+  }
+  .book-details {
+    grid-template-columns: 88px minmax(0, 1fr);
+  }
+  .book-details img {
+    height: 145px;
+    width: 88px;
   }
   .equation-details {
     grid-template-columns: 1fr;
