@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
 import mandelbrotImg from "./assets/mandelbrot_high_resolution.png";
+import piConstantImg from "./assets/pi_constant_2.png";
+import eConstantImg from "./assets/e_constant.png";
+import goldenRatioConstantImg from "./assets/golden_ratio_constant.png";
+import imaginaryUnitConstantImg from "./assets/i_constant.png";
+import squareRootTwoConstantImg from "./assets/square_root_2_constant.png";
 import dragonCurveImg from "./assets/dragon_curve_12.png";
 import einsteinTilesImg from "./assets/einstein_tiles_3.png";
 import eulersIdentityImg from "./assets/eulers_Identity.png";
@@ -704,16 +709,84 @@ const collections = {
     intro:
       "Special numbers that appear again and again across mathematics and the sciences.",
     items: [
-      "Pi (π)",
-      "Euler's number (e)",
-      "The golden ratio (φ)",
-      "The imaginary unit (i)",
-      "The square root of 2",
-      "Apéry's constant (ζ(3))",
-      "The Euler-Mascheroni constant (γ)",
-      "The Feigenbaum constant (δ)",
-      "The plastic number (ρ)",
-      "The universal parabolic constant (P)",
+      {
+        name: "Pi (π)",
+        image: piConstantImg,
+        approximation: String.raw`\pi \approx 3.14159265`,
+        equation: String.raw`\pi = 4\sum_{n=0}^{\infty} \frac{(-1)^n}{2n+1}`,
+        description:
+          "The ratio of a circle's circumference to its diameter. Pi appears throughout geometry, trigonometry, probability, and physics.",
+      },
+      {
+        name: "Euler's number (e)",
+        image: eConstantImg,
+        approximation: String.raw`e \approx 2.71828182`,
+        equation: String.raw`e = \sum_{n=0}^{\infty} \frac{1}{n!}`,
+        description:
+          "The natural base for continuous growth and change, e connects compound interest, calculus, probability, and differential equations.",
+      },
+      {
+        name: "The golden ratio (φ)",
+        image: goldenRatioConstantImg,
+        approximation: String.raw`\varphi \approx 1.61803399`,
+        equation: String.raw`\boldsymbol{\varphi = 1 + \cfrac{1}{1 + \cfrac{1}{1 + \cfrac{1}{\ddots}}} = \frac{1 + \sqrt{5}}{2}}`,
+        description:
+          "A proportion in which the whole relates to the larger part as the larger part relates to the smaller. It links geometry, Fibonacci numbers, and continued fractions.",
+      },
+      {
+        name: "The imaginary unit (i)",
+        image: imaginaryUnitConstantImg,
+        approximation: String.raw`i = \sqrt{-1}`,
+        description:
+          "The imaginary unit extends the real numbers so equations such as x² + 1 = 0 have solutions. It is the foundation of complex numbers and much of modern signal analysis.",
+      },
+      {
+        name: "The square root of 2",
+        image: squareRootTwoConstantImg,
+        approximation: String.raw`\sqrt{2} \approx 1.41421356`,
+        equation: String.raw`\boldsymbol{\sqrt{2} = 1 + \cfrac{1}{2 + \cfrac{1}{2 + \cfrac{1}{\ddots}}}}`,
+        description:
+          "The diagonal of a unit square has length √2. Its irrationality was an early sign that the number line is richer than the rational numbers.",
+      },
+      {
+        name: "Apéry's constant (ζ(3))",
+        image: einsteinTilesImg,
+        approximation: String.raw`\zeta(3) \approx 1.20205690`,
+        equation: String.raw`\boldsymbol{\zeta(3) = \sum_{n=1}^{\infty} \frac{1}{n^3}}`,
+        description:
+          "A special value of the Riemann zeta function. Apéry's constant appears in number theory and in calculations involving three-dimensional lattices.",
+      },
+      {
+        name: "The Euler-Mascheroni constant (γ)",
+        image: einsteinTilesImg,
+        approximation: String.raw`\gamma \approx 0.57721566`,
+        equation: String.raw`\boldsymbol{\gamma = \lim_{n \to \infty} \left(\sum_{k=1}^{n} \frac{1}{k} - \ln n\right)}`,
+        description:
+          "The limiting difference between the harmonic series and the natural logarithm. It connects elementary sums with asymptotic analysis.",
+      },
+      {
+        name: "The Feigenbaum constant (δ)",
+        image: einsteinTilesImg,
+        approximation: String.raw`\delta \approx 4.66920160`,
+        equation: String.raw`\boldsymbol{\delta = \lim_{n \to \infty} \frac{r_{n-1} - r_{n-2}}{r_n - r_{n-1}}}`,
+        description:
+          "A universal number that describes how period-doubling cascades approach chaos in many different dynamical systems.",
+      },
+      {
+        name: "The plastic number (ρ)",
+        image: einsteinTilesImg,
+        approximation: String.raw`\rho \approx 1.32471795`,
+        equation: String.raw`\boldsymbol{\rho^3 = \rho + 1}`,
+        description:
+          "The unique real solution of x³ = x + 1. The plastic number appears in recurrence sequences, architecture, and some self-similar designs.",
+      },
+      {
+        name: "The universal parabolic constant (P)",
+        image: einsteinTilesImg,
+        approximation: String.raw`P \approx 2.29558714`,
+        description:
+          "A constant defined by the arc length of a particular parabola. It provides a bridge between the geometry of curves and the constants of classical analysis.",
+      },
     ],
   },
   honorary: {
@@ -944,7 +1017,7 @@ function RankingPage({ collection }) {
             )}
             {item.description && openItem === index && (
               <div
-                className={`item-details ${item.equation ? "equation-details" : item.book ? "book-details" : item.releaseDate ? "movie-details" : item.image ? "person-details" : ""} ${item.equation?.length > 100 ? "long-equation" : ""}`}
+                className={`item-details ${item.approximation ? "constant-details" : item.equation ? "equation-details" : item.book ? "book-details" : item.releaseDate ? "movie-details" : item.image ? "person-details" : ""} ${item.equation?.length > 100 ? "long-equation" : ""}`}
                 id={`item-detail-${index}`}
               >
                 <img
@@ -957,9 +1030,25 @@ function RankingPage({ collection }) {
                   alt={`${item.name} poster`}
                 />
                 <div className="item-copy">
+                  {item.approximation && (
+                    <div
+                      className="equation-display constant-approximation"
+                      aria-label={`${item.name}: ${item.approximation}`}
+                      dangerouslySetInnerHTML={{
+                        __html: katex.renderToString(item.approximation, {
+                          displayMode: true,
+                          throwOnError: false,
+                        }),
+                      }}
+                    />
+                  )}
                   {item.equation && (
                     <div
-                      className="equation-display"
+                      className={
+                        item.approximation
+                          ? "constant-formula"
+                          : "equation-display"
+                      }
                       aria-label={`${item.name}: ${item.equation}`}
                       dangerouslySetInnerHTML={{
                         __html: katex.renderToString(item.equation, {
