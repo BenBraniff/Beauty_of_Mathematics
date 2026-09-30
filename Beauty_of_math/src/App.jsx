@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import mandelbrotImg from "./assets/mandelbrot_high_resolution.png";
 import piConstantImg from "./assets/pi_constant_2.png";
+import platonicSolidsImg from "./assets/Platonic_Solids.png";
+import archimedeanSolidsImg from "./assets/ARCHIMEDEAN_SOLIDS.jpg";
 import eConstantImg from "./assets/e_constant.png";
 import goldenRatioConstantImg from "./assets/golden_ratio_constant.png";
 import imaginaryUnitConstantImg from "./assets/i_constant.png";
@@ -59,6 +61,7 @@ import codeBookImg from "./assets/the_code_book.avif";
 import "boxicons/css/boxicons.min.css";
 import katex from "katex";
 import "katex/dist/katex.min.css";
+import ConceptPage from "./pages/concepts/ConceptPage";
 import "./App.css";
 
 const pages = [
@@ -134,60 +137,71 @@ const collections = {
       {
         name: "Mandelbrot set",
         slug: "mandelbrot-set",
+        image: mandelbrotImg,
         description:
           "A simple repeating rule creates an infinitely intricate boundary. The Mandelbrot set is a map of which complex numbers remain bounded when the rule is iterated.",
       },
       {
         name: "Golden Ratio (Fibonacci sequence)",
         slug: "golden-ratio",
+        image: goldenRatioConstantImg,
         description:
           "The golden ratio appears when a line is divided so the whole relates to the larger part as the larger part relates to the smaller. Fibonacci numbers approach this ratio as they grow.",
       },
       {
         name: "Pascal's Triangle",
         slug: "pascals-triangle",
+        image: pascalImg,
         description:
           "Each number is the sum of the two above it. The triangle quietly contains binomial coefficients, powers of two, and patterns of symmetry.",
       },
       {
         name: "Platonic Solids (plus Archimedean solids)",
         slug: "platonic-solids",
+        image: platonicSolidsImg,
+        images: [platonicSolidsImg, archimedeanSolidsImg],
         description:
           "Platonic solids are perfectly regular three-dimensional shapes. Their faces, edges, and vertices fit together with a rare and satisfying kind of symmetry.",
       },
       {
         name: "Fractals (Dragon curve)",
         slug: "fractals",
+        image: dragonCurveImg,
         description:
           "Fractals repeat a pattern across scales, producing detail that echoes the whole. The Dragon curve is a striking example built from a simple folding process.",
       },
       {
         name: "Curves (Cycloid and Catenary)",
         slug: "curves",
+        image: areaUnderCurveImg,
         description:
           "Different physical questions create different remarkable curves. A hanging chain forms a catenary, while a rolling circle traces a cycloid.",
       },
       {
         name: "Conic Sections",
         slug: "conic-sections",
+        image: quadraticFormulaImg,
         description:
           "Cut a cone at different angles and you get circles, ellipses, parabolas, or hyperbolas. One geometric family explains many paths in nature and engineering.",
       },
       {
         name: "Euler's Number e",
         slug: "eulers-number",
+        image: eConstantImg,
         description:
           "The number e is the natural language of continuous growth and change. It appears in compound interest, decay, probability, and differential equations.",
       },
       {
         name: "Bell curve",
         slug: "bell-curve",
+        image: bellCurveImg,
         description:
           "The bell curve models how values cluster around an average. It is the familiar shape of the normal distribution, one of statistics' central ideas.",
       },
       {
         name: "Pi",
         slug: "pi",
+        image: piConstantImg,
         description:
           "Pi is the constant ratio between a circle's circumference and its diameter. Its digits never end, yet it connects geometry, waves, probability, and physics.",
       },
@@ -844,7 +858,13 @@ function App() {
   }, []);
 
   const selectedPage =
-    pages.find((page) => page.slug === currentPage) ?? pages[0];
+    pages.find((page) => page.slug === currentPage.split("/")[0]) ?? pages[0];
+  const conceptSlug = currentPage.startsWith("concepts/")
+    ? currentPage.slice("concepts/".length)
+    : null;
+  const conceptItem = collections.concepts.items.find(
+    (item) => item.slug === conceptSlug,
+  );
 
   return (
     <div className="site-shell">
@@ -889,7 +909,16 @@ function App() {
           </nav>
         )}
       </header>
-      {collections[currentPage] ? (
+      {conceptItem ? (
+        <ConceptPage
+          item={conceptItem}
+          onClose={() => {
+            window.location.hash = "concepts";
+          }}
+        />
+      ) : currentPage === "concepts" ? (
+        <ConceptsPage collection={collections.concepts} />
+      ) : collections[currentPage] ? (
         <RankingPage key={currentPage} collection={collections[currentPage]} />
       ) : (
         <HomePage />
@@ -1112,6 +1141,35 @@ function RankingPage({ collection }) {
                 </div>
               </div>
             )}
+          </li>
+        ))}
+      </ol>
+    </main>
+  );
+}
+
+function ConceptsPage({ collection }) {
+  return (
+    <main className="ranking-page concepts-page">
+      <nav className="breadcrumb" aria-label="Breadcrumb">
+        <a href="#">Homepage</a>
+        <span aria-hidden="true">&gt;</span>
+        <span aria-current="page">{collection.title}</span>
+      </nav>
+      <section className="page-heading">
+        <h1>{collection.title}</h1>
+        <p className="page-intro">{collection.intro}</p>
+      </section>
+      <ol className="ranking-list">
+        {collection.items.map((item, index) => (
+          <li className="concept-list-item" key={item.slug}>
+            <a className="item-trigger" href={`#concepts/${item.slug}`}>
+              <span className="rank">{String(index + 1).padStart(2, "0")}</span>
+              <span className="item-name">{item.name}</span>
+              <span className="item-arrow" aria-hidden="true">
+                <i className="bx bx-right-arrow-alt"></i>
+              </span>
+            </a>
           </li>
         ))}
       </ol>
