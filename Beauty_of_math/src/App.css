@@ -551,15 +551,141 @@ main {
 .concept-sections {
   border-top: 1px solid var(--black);
   display: grid;
-  gap: 55px;
-  grid-template-columns: 1fr 1fr;
+  gap: 38px;
+  grid-template-columns: minmax(0, 1fr);
+  padding-top: 28px;
+}
+.concept-sections section {
+  display: grid;
+  gap: 16px;
+}
+.concept-sections section + section {
+  border-top: 1px solid var(--black);
   padding-top: 28px;
 }
 .concept-sections h2 {
   font:
     500 20px/1.25 "Roboto Mono",
     monospace;
-  margin: 0 0 16px;
+  margin: 0;
+}
+.mandelbrot-explorer {
+  display: grid;
+  gap: 24px;
+  grid-column: 1 / -1;
+  padding-top: 28px;
+}
+.mandelbrot-heading {
+  align-items: end;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.mandelbrot-heading h2 {
+  margin-top: 8px;
+}
+.mandelbrot-kicker,
+.mandelbrot-status,
+.mandelbrot-readout span,
+.mandelbrot-controls label,
+.mandelbrot-canvas-note {
+  color: var(--gray);
+  font:
+    10px "Roboto Mono",
+    monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.mandelbrot-workspace {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) 210px;
+}
+.mandelbrot-canvas-wrap {
+  background: #000;
+  min-width: 0;
+  position: relative;
+}
+.mandelbrot-canvas {
+  cursor: zoom-in;
+  display: block;
+  height: auto;
+  image-rendering: auto;
+  touch-action: none;
+  width: 100%;
+}
+.mandelbrot-canvas-note {
+  background: rgba(0, 0, 0, 0.72);
+  bottom: 12px;
+  color: var(--white);
+  left: 12px;
+  padding: 7px 9px;
+  position: absolute;
+}
+.mandelbrot-controls {
+  align-content: start;
+  background: #f5fbfe;
+  border: 1px solid #8bb8ca;
+  display: grid;
+  gap: 10px;
+  padding: 18px;
+}
+.mandelbrot-readout {
+  border-bottom: 1px solid #8bb8ca;
+  display: grid;
+  gap: 6px;
+  padding-bottom: 14px;
+}
+.mandelbrot-readout strong {
+  color: #16344a;
+  font:
+    11px "Roboto Mono",
+    monospace;
+  margin-bottom: 7px;
+  overflow-wrap: anywhere;
+}
+.mandelbrot-controls label {
+  align-items: baseline;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+.mandelbrot-controls output {
+  color: #16344a;
+  font:
+    11px "Roboto Mono",
+    monospace;
+}
+.mandelbrot-controls input {
+  accent-color: #16344a;
+  margin: 0 0 6px;
+  width: 100%;
+}
+.mandelbrot-actions {
+  display: grid;
+  gap: 7px;
+  margin-top: 8px;
+}
+.mandelbrot-actions button {
+  background: var(--black);
+  border: 0;
+  color: var(--white);
+  cursor: pointer;
+  font:
+    10px "Roboto Mono",
+    monospace;
+  padding: 11px 8px;
+  text-transform: uppercase;
+}
+.mandelbrot-actions button:hover {
+  background: var(--gray);
+}
+.mandelbrot-controls p {
+  color: #47758b;
+  font:
+    11px/1.5 "Roboto Mono",
+    monospace;
+  margin: 4px 0 0;
 }
 .concept-video-section {
   grid-column: 1 / -1;
@@ -761,6 +887,17 @@ footer {
   }
   .concept-sections {
     display: block;
+  }
+  .mandelbrot-workspace {
+    display: block;
+  }
+  .mandelbrot-controls {
+    margin-top: 16px;
+  }
+  .mandelbrot-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 10px;
   }
   .concept-sections section + section {
     border-top: 1px solid var(--line);
