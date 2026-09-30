@@ -280,7 +280,11 @@ export default function ConceptPage({ item, onClose }) {
           </button>
         </div>
         <div className="concept-modal-content">
-          <div className="concept-hero">
+          <div
+            className={`concept-hero ${
+              item.slug === "mandelbrot-set" ? "concept-hero-mandelbrot" : ""
+            }`}
+          >
             <div>
               <h1 id="concept-title">{item.name}</h1>
               <p>{item.description}</p>

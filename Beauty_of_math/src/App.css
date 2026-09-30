@@ -517,6 +517,9 @@ main {
   grid-template-columns: minmax(0, 1fr) 280px;
   margin-bottom: 72px;
 }
+.concept-hero-mandelbrot {
+  grid-template-columns: minmax(0, 1fr);
+}
 .concept-visuals {
   display: grid;
   gap: 12px;
