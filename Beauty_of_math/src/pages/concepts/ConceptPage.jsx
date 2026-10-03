@@ -1,6 +1,7 @@
 import MandelbrotExplorer from "./MandelbrotExplorer";
 import PascalsTriangle from "./PascalsTriangle";
 import PlatonicSolids from "./PlatonicSolids";
+import SunflowerSpiral from "./SunflowerSpiral";
 
 const conceptArticles = {
   "mandelbrot-set": [
@@ -308,6 +309,7 @@ export default function ConceptPage({ item, onClose }) {
             {item.slug === "mandelbrot-set" && <MandelbrotExplorer />}
             {item.slug === "pascals-triangle" && <PascalsTriangle />}
             {item.slug === "platonic-solids" && <PlatonicSolids />}
+            {item.slug === "golden-ratio" && <SunflowerSpiral />}
             {articleSections.map((section) => (
               <section key={section.title}>
                 <h2>{section.title}</h2>

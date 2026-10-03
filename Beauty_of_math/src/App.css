@@ -1020,6 +1020,230 @@ main {
     monospace;
   margin: 4px 0 0;
 }
+.sunflower-explorer {
+  display: grid;
+  gap: 24px;
+  grid-column: 1 / -1;
+  padding-top: 28px;
+  position: relative;
+}
+.sunflower-heading {
+  align-items: end;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.sunflower-heading h2 {
+  margin-top: 8px;
+}
+.sunflower-kicker,
+.sunflower-status,
+.sunflower-readout span,
+.sunflower-controls label,
+.sunflower-stage-note {
+  color: var(--gray);
+  font:
+    10px "Roboto Mono",
+    monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.sunflower-workspace {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) 210px;
+}
+.sunflower-stage {
+  background: #f7e7a8;
+  border: 1px solid #d5b85e;
+  min-width: 0;
+  overflow: hidden;
+  padding: 18px 18px 42px;
+  position: relative;
+}
+.sunflower-canvas {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+.sunflower-center {
+  fill: #5c3d26;
+  opacity: 0.18;
+}
+.sunflower-seed {
+  fill: #493020;
+}
+.sunflower-stage-note {
+  bottom: 12px;
+  left: 18px;
+  position: absolute;
+}
+.sunflower-controls {
+  align-content: start;
+  background: #fff9ed;
+  border: 1px solid #d5b85e;
+  display: grid;
+  gap: 10px;
+  padding: 18px;
+}
+.sunflower-readout {
+  border-bottom: 1px solid #d5b85e;
+  display: grid;
+  gap: 6px;
+  padding-bottom: 14px;
+}
+.sunflower-readout strong {
+  color: #5c3d26;
+  font:
+    11px "Roboto Mono",
+    monospace;
+}
+.sunflower-controls label {
+  align-items: baseline;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+.sunflower-controls output {
+  color: #5c3d26;
+  font:
+    11px "Roboto Mono",
+    monospace;
+}
+.sunflower-controls input[type="range"] {
+  accent-color: #8c602d;
+  margin: 0 0 6px;
+  width: 100%;
+}
+.sunflower-presets {
+  border: 0;
+  margin: 4px 0 0;
+  padding: 0;
+}
+.sunflower-presets legend {
+  color: var(--gray);
+  font:
+    10px "Roboto Mono",
+    monospace;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+  padding: 0;
+  text-transform: uppercase;
+}
+.sunflower-preset-grid {
+  display: grid;
+  gap: 5px;
+  grid-template-columns: repeat(2, 1fr);
+}
+.sunflower-preset-grid button {
+  background: transparent;
+  border: 1px solid #d5b85e;
+  color: #5c3d26;
+  cursor: pointer;
+  font:
+    10px "Roboto Mono",
+    monospace;
+  min-height: 30px;
+  padding: 5px 3px;
+}
+.sunflower-preset-grid button.active,
+.sunflower-preset-grid button:hover {
+  background: #8c602d;
+  color: var(--white);
+}
+.sunflower-download,
+.sunflower-play,
+.sunflower-reset {
+  background: var(--black);
+  border: 0;
+  color: var(--white);
+  cursor: pointer;
+  font:
+    10px "Roboto Mono",
+    monospace;
+  margin-top: 4px;
+  padding: 11px 8px;
+  text-transform: uppercase;
+}
+.sunflower-download {
+  margin-top: 4px;
+}
+.sunflower-play {
+  background: #8c602d;
+}
+.sunflower-download:hover,
+.sunflower-play:hover,
+.sunflower-reset:hover {
+  background: var(--gray);
+}
+.sunflower-controls p {
+  color: #8a674d;
+  font:
+    11px/1.5 "Roboto Mono",
+    monospace;
+  margin: 4px 0 0;
+}
+.sunflower-warning-backdrop {
+  align-items: center;
+  background: rgba(0, 0, 0, 0.58);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: 20px;
+  position: absolute;
+  z-index: 2;
+}
+.sunflower-warning {
+  background: #fff9ed;
+  border: 1px solid #8c602d;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  max-width: 420px;
+  padding: 24px;
+  width: 100%;
+}
+.sunflower-warning h3 {
+  color: #5c3d26;
+  font:
+    500 18px/1.25 "Roboto Mono",
+    monospace;
+  margin: 0 0 14px;
+}
+.sunflower-warning p {
+  color: #6c4028;
+  font:
+    12px/1.6 "Roboto Mono",
+    monospace;
+  margin: 0;
+}
+.sunflower-warning-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: end;
+  margin-top: 22px;
+}
+.sunflower-warning-actions button {
+  border: 0;
+  cursor: pointer;
+  font:
+    10px "Roboto Mono",
+    monospace;
+  padding: 11px 14px;
+  text-transform: uppercase;
+}
+.sunflower-warning-cancel {
+  background: transparent;
+  border: 1px solid #d5b85e !important;
+  color: #5c3d26;
+}
+.sunflower-warning-continue {
+  background: #8c602d;
+  color: var(--white);
+}
+.sunflower-warning-cancel:hover,
+.sunflower-warning-continue:hover {
+  background: var(--gray);
+  color: var(--white);
+}
 .concept-video-section {
   grid-column: 1 / -1;
   padding-top: 28px;
@@ -1234,6 +1458,17 @@ footer {
   }
   .pascal-workspace {
     display: block;
+  }
+  .sunflower-workspace {
+    display: block;
+  }
+  .sunflower-controls {
+    margin-top: 16px;
+  }
+  .sunflower-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 10px;
   }
   .pascal-controls {
     margin-top: 16px;
