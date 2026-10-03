@@ -1,9 +1,0 @@
-[submodule "beautiful_python/Dragon-curve-generator"]
-	path = beautiful_python/Dragon-curve-generator
-	url = https://github.com/DAguirreAg/Dragon-curve-generator
-	ignore = all
-
-[submodule "beautiful_python/Einstein_Tile_Generator"]
-	path = beautiful_python/Einstein_Tile_Generator
-	url = https://github.com/asmoly/Einstein_Tile_Generator
-	ignore = all
