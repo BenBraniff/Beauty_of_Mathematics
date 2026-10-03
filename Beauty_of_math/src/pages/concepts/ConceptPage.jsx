@@ -1,4 +1,6 @@
 import MandelbrotExplorer from "./MandelbrotExplorer";
+import PascalsTriangle from "./PascalsTriangle";
+import PlatonicSolids from "./PlatonicSolids";
 
 const conceptArticles = {
   "mandelbrot-set": [
@@ -289,7 +291,8 @@ export default function ConceptPage({ item, onClose }) {
               <h1 id="concept-title">{item.name}</h1>
               <p>{item.description}</p>
             </div>
-            {item.slug !== "mandelbrot-set" && (
+            {item.slug !== "mandelbrot-set" &&
+              item.slug !== "pascals-triangle" && (
               <div className="concept-visuals">
                 {(item.images ?? [item.image]).map((image, index) => (
                   <img
@@ -303,6 +306,8 @@ export default function ConceptPage({ item, onClose }) {
           </div>
           <div className="concept-sections">
             {item.slug === "mandelbrot-set" && <MandelbrotExplorer />}
+            {item.slug === "pascals-triangle" && <PascalsTriangle />}
+            {item.slug === "platonic-solids" && <PlatonicSolids />}
             {articleSections.map((section) => (
               <section key={section.title}>
                 <h2>{section.title}</h2>

@@ -19,7 +19,8 @@
     "boxicons": "^2.1.4",
     "katex": "^0.18.5",
     "react": "^19.2.8",
-    "react-dom": "^19.2.8"
+    "react-dom": "^19.2.8",
+    "three": "^0.180.0"
   },
   "devDependencies": {
     "@types/react": "^19.2.18",

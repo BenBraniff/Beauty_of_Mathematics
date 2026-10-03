@@ -148,6 +148,138 @@ main {
     monospace;
   margin: 0;
 }
+
+.platonic-explorer {
+  container-type: inline-size;
+  margin: 0 0 3rem;
+  padding: clamp(1.2rem, 3vw, 2rem);
+  border: 1px solid #d8c6a5;
+  border-radius: 1.25rem;
+  background: #fff9ed;
+  color: #322716;
+}
+
+.platonic-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.platonic-heading h2 {
+  margin: 0.3rem 0 0;
+}
+
+.platonic-kicker,
+.platonic-status,
+.platonic-stage-note,
+.platonic-controls label {
+  color: var(--gray);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.platonic-status {
+  text-align: right;
+}
+
+.platonic-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(220px, 0.75fr);
+  gap: 1rem;
+}
+
+.platonic-stage {
+  position: relative;
+  min-height: 410px;
+  overflow: hidden;
+  border: 1px solid #8bb8ca;
+  border-radius: 0.9rem;
+  background: radial-gradient(circle at 50% 38%, rgba(139, 184, 202, 0.3), transparent 58%), #f5fbfe;
+}
+
+.platonic-canvas {
+  height: 410px;
+  cursor: grab;
+  touch-action: none;
+}
+
+.platonic-canvas:active {
+  cursor: grabbing;
+}
+
+.platonic-canvas canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.platonic-stage-note {
+  position: absolute;
+  right: 1rem;
+  bottom: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+.platonic-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 0.9rem;
+  background: #f5fbfe;
+  border: 1px solid #8bb8ca;
+}
+
+.platonic-controls select,
+.platonic-spin-toggle {
+  width: 100%;
+  border: 1px solid #8bb8ca;
+  border-radius: 0.55rem;
+  padding: 0.75rem 0.85rem;
+  color: #16344a;
+  background: var(--white);
+  font: inherit;
+}
+
+.platonic-spin-toggle {
+  cursor: pointer;
+  background: var(--black);
+  color: var(--white);
+}
+
+.platonic-spin-toggle:hover {
+  background: var(--gray);
+}
+
+.platonic-controls p {
+  margin: 0;
+  color: #47758b;
+  line-height: 1.6;
+}
+
+.platonic-facts {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid #8bb8ca;
+}
+
+.platonic-facts span,
+.platonic-facts small {
+  display: block;
+}
+
+.platonic-facts span {
+  font-weight: 700;
+}
+
+.platonic-facts small {
+  margin-top: 0.35rem;
+  color: #47758b;
+}
 .home-image {
   background: #eee;
   display: grid;
@@ -690,6 +822,204 @@ main {
     monospace;
   margin: 4px 0 0;
 }
+.pascal-explorer {
+  display: grid;
+  gap: 24px;
+  grid-column: 1 / -1;
+  padding-top: 28px;
+}
+.pascal-heading {
+  align-items: end;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.pascal-heading h2 {
+  margin-top: 8px;
+}
+.pascal-kicker,
+.pascal-status,
+.pascal-readout span,
+.pascal-controls label,
+.pascal-fieldset legend,
+.pascal-stage-note {
+  color: var(--gray);
+  font:
+    10px "Roboto Mono",
+    monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.pascal-workspace {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) 210px;
+}
+.pascal-stage {
+  background: #fff9ed;
+  border: 1px solid #d8c6a5;
+  container-type: inline-size;
+  min-width: 0;
+  overflow: hidden;
+  padding: 30px 24px 42px;
+  position: relative;
+}
+.pascal-tree {
+  display: grid;
+  gap: 0;
+  width: 100%;
+}
+.pascal-row {
+  display: flex;
+  gap: 0;
+  min-height: var(--pascal-cell-size);
+}
+.pascal-align-left .pascal-row {
+  justify-content: flex-start;
+}
+.pascal-align-center .pascal-row {
+  justify-content: center;
+}
+.pascal-align-right .pascal-row {
+  justify-content: flex-end;
+}
+.pascal-value {
+  align-items: center;
+  background: #f2dfb8;
+  color: #322716;
+  display: inline-flex;
+  font:
+    600 clamp(5px, calc(var(--pascal-cell-size) * 0.38), 14px) / 1
+      "Roboto Mono",
+    monospace;
+  height: var(--pascal-cell-size);
+  justify-content: center;
+  min-width: var(--pascal-cell-size);
+  overflow: hidden;
+  padding: 0 4px;
+  width: var(--pascal-cell-size);
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.pascal-stage {
+  --pascal-cell-size: clamp(
+    10px,
+    calc((100cqw - 85px) / var(--pascal-row-count)),
+    46px
+  );
+}
+.pascal-parity .pascal-value[data-parity="even"] {
+  background: #273f42;
+  color: #e8f2ec;
+}
+.pascal-parity .pascal-value[data-parity="odd"] {
+  background: #d88955;
+  color: #fffaf3;
+}
+.pascal-stage-note {
+  bottom: 12px;
+  left: 24px;
+  position: absolute;
+}
+.pascal-controls {
+  align-content: start;
+  background: #fff8ed;
+  border: 1px solid #d8c6a5;
+  display: grid;
+  gap: 10px;
+  padding: 18px;
+}
+.pascal-controls label {
+  align-items: baseline;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+.pascal-controls output {
+  color: #6c4028;
+  font:
+    11px "Roboto Mono",
+    monospace;
+}
+.pascal-controls input[type="range"] {
+  accent-color: #6c4028;
+  margin: 0 0 6px;
+  width: 100%;
+}
+.pascal-fieldset {
+  border: 0;
+  margin: 4px 0 0;
+  padding: 0;
+}
+.pascal-fieldset legend {
+  margin-bottom: 8px;
+  padding: 0;
+}
+.pascal-segmented {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.pascal-segmented button {
+  background: transparent;
+  border: 1px solid #d8c6a5;
+  color: #6c4028;
+  cursor: pointer;
+  font:
+    10px "Roboto Mono",
+    monospace;
+  padding: 9px 3px;
+}
+.pascal-segmented button + button {
+  border-left: 0;
+}
+.pascal-segmented button.active,
+.pascal-segmented button:hover {
+  background: #6c4028;
+  color: var(--white);
+}
+.pascal-toggle {
+  align-items: start !important;
+  color: #6c4028 !important;
+  cursor: pointer;
+  gap: 8px;
+  justify-content: start !important;
+  line-height: 1.35;
+  text-transform: none !important;
+}
+.pascal-toggle input {
+  accent-color: #6c4028;
+  flex: 0 0 auto;
+  margin: 2px 0 0;
+}
+.pascal-toggle small {
+  color: var(--gray);
+  display: block;
+  font-size: 9px;
+  margin-top: 2px;
+}
+.pascal-reset {
+  background: var(--black);
+  border: 0;
+  color: var(--white);
+  cursor: pointer;
+  font:
+    10px "Roboto Mono",
+    monospace;
+  margin-top: 4px;
+  padding: 11px 8px;
+  text-transform: uppercase;
+}
+.pascal-reset:hover {
+  background: var(--gray);
+}
+.pascal-controls p {
+  color: #8a674d;
+  font:
+    11px/1.5 "Roboto Mono",
+    monospace;
+  margin: 4px 0 0;
+}
 .concept-video-section {
   grid-column: 1 / -1;
   padding-top: 28px;
@@ -902,6 +1232,17 @@ footer {
     flex-direction: column;
     gap: 10px;
   }
+  .pascal-workspace {
+    display: block;
+  }
+  .pascal-controls {
+    margin-top: 16px;
+  }
+  .pascal-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 10px;
+  }
   .concept-sections section + section {
     border-top: 1px solid var(--line);
     margin-top: 30px;
@@ -960,6 +1301,21 @@ footer {
   footer {
     gap: 15px;
     align-items: flex-start;
+  }
+
+  .platonic-heading,
+  .platonic-workspace {
+    display: block;
+  }
+
+  .platonic-status {
+    display: block;
+    margin-top: 0.5rem;
+    text-align: left;
+  }
+
+  .platonic-controls {
+    margin-top: 1rem;
     flex-direction: column;
     justify-content: center;
     padding: 15px 0;
