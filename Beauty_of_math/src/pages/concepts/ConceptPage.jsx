@@ -1,4 +1,6 @@
 import MandelbrotExplorer from "./MandelbrotExplorer";
+import DragonCurve from "./DragonCurve";
+import CycloidExplorer from "./CycloidExplorer";
 import PascalsTriangle from "./PascalsTriangle";
 import PlatonicSolids from "./PlatonicSolids";
 import SunflowerSpiral from "./SunflowerSpiral";
@@ -307,6 +309,8 @@ export default function ConceptPage({ item, onClose }) {
           </div>
           <div className="concept-sections">
             {item.slug === "mandelbrot-set" && <MandelbrotExplorer />}
+            {item.slug === "fractals" && <DragonCurve />}
+            {item.slug === "curves" && <CycloidExplorer />}
             {item.slug === "pascals-triangle" && <PascalsTriangle />}
             {item.slug === "platonic-solids" && <PlatonicSolids />}
             {item.slug === "golden-ratio" && <SunflowerSpiral />}

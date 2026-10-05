@@ -822,6 +822,244 @@ main {
     monospace;
   margin: 4px 0 0;
 }
+.dragon-curve-explorer {
+  display: grid;
+  gap: 24px;
+  grid-column: 1 / -1;
+  padding-top: 28px;
+}
+.dragon-curve-heading {
+  align-items: end;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.dragon-curve-heading h2 {
+  margin-top: 8px;
+}
+.dragon-curve-kicker,
+.dragon-curve-status,
+.dragon-curve-readout span,
+.dragon-curve-controls label {
+  color: var(--gray);
+  font:
+    10px "Roboto Mono",
+    monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.dragon-curve-workspace {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) 210px;
+}
+.dragon-curve-canvas-wrap {
+  background: #f4f1e8;
+  min-width: 0;
+  position: relative;
+}
+.dragon-curve-canvas {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+.dragon-curve-controls {
+  align-content: start;
+  background: #fff9ed;
+  border: 1px solid #d8c6a5;
+  display: grid;
+  gap: 10px;
+  padding: 18px;
+}
+.dragon-curve-readout {
+  border-bottom: 1px solid #d8c6a5;
+  display: grid;
+  gap: 6px;
+  padding-bottom: 14px;
+}
+.dragon-curve-readout strong {
+  color: #6b3e26;
+  font:
+    11px "Roboto Mono",
+    monospace;
+  margin-bottom: 7px;
+}
+.dragon-curve-controls label {
+  align-items: baseline;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+.dragon-curve-controls output {
+  color: #6b3e26;
+  font:
+    11px "Roboto Mono",
+    monospace;
+}
+.dragon-curve-controls input {
+  accent-color: #6b3e26;
+  margin: 0 0 6px;
+  width: 100%;
+}
+.dragon-curve-controls .dragon-curve-color-input {
+  accent-color: auto;
+  background: var(--white);
+  border: 1px solid #d8c6a5;
+  cursor: pointer;
+  height: 38px;
+  margin: 0 0 6px;
+  padding: 4px;
+  width: 100%;
+}
+.dragon-curve-actions {
+  display: grid;
+  gap: 7px;
+  margin-top: 8px;
+}
+.dragon-curve-actions button {
+  background: var(--black);
+  border: 0;
+  color: var(--white);
+  cursor: pointer;
+  font:
+    10px "Roboto Mono",
+    monospace;
+  padding: 11px 8px;
+  text-transform: uppercase;
+}
+.dragon-curve-actions button:hover:not(:disabled) {
+  background: var(--gray);
+}
+.dragon-curve-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+.dragon-curve-controls p {
+  color: #76583e;
+  font:
+    11px/1.5 "Roboto Mono",
+    monospace;
+  margin: 4px 0 0;
+}
+.cycloid-explorer {
+  display: grid;
+  gap: 24px;
+  grid-column: 1 / -1;
+  padding-top: 28px;
+}
+.cycloid-heading {
+  align-items: end;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.cycloid-heading h2 {
+  margin-top: 8px;
+}
+.cycloid-kicker,
+.cycloid-status,
+.cycloid-readout span,
+.cycloid-controls label {
+  color: var(--gray);
+  font:
+    10px "Roboto Mono",
+    monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.cycloid-workspace {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) 210px;
+}
+.cycloid-canvas-wrap {
+  align-items: center;
+  background: #f4f1e8;
+  display: flex;
+  min-width: 0;
+  position: relative;
+}
+.cycloid-canvas {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+.cycloid-controls {
+  align-content: start;
+  background: #fff9ed;
+  border: 1px solid #d8c6a5;
+  display: grid;
+  gap: 10px;
+  padding: 18px;
+}
+.cycloid-readout {
+  border-bottom: 1px solid #d8c6a5;
+  display: grid;
+  gap: 6px;
+  padding-bottom: 14px;
+}
+.cycloid-readout strong {
+  color: #6b3e26;
+  font:
+    11px "Roboto Mono",
+    monospace;
+  margin-bottom: 7px;
+}
+.cycloid-controls label {
+  align-items: baseline;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+.cycloid-controls output {
+  color: #6b3e26;
+  font:
+    11px "Roboto Mono",
+    monospace;
+}
+.cycloid-controls input {
+  accent-color: #6b3e26;
+  margin: 0 0 0;
+  width: 100%;
+}
+.cycloid-scale-labels {
+  color: #76583e;
+  display: flex;
+  font:
+    9px "Roboto Mono",
+    monospace;
+  justify-content: space-between;
+  margin-top: -5px;
+}
+.cycloid-actions {
+  display: grid;
+  gap: 7px;
+  margin-top: 8px;
+}
+.cycloid-actions button {
+  background: var(--black);
+  border: 0;
+  color: var(--white);
+  cursor: pointer;
+  font:
+    10px "Roboto Mono",
+    monospace;
+  padding: 11px 8px;
+  text-transform: uppercase;
+}
+.cycloid-actions button:first-child {
+  background: #6b3e26;
+}
+.cycloid-actions button:hover {
+  background: var(--gray);
+}
+.cycloid-controls p {
+  color: #76583e;
+  font:
+    11px/1.5 "Roboto Mono",
+    monospace;
+  margin: 4px 0 0;
+}
 .pascal-explorer {
   display: grid;
   gap: 24px;
@@ -1455,6 +1693,31 @@ footer {
     align-items: start;
     flex-direction: column;
     gap: 10px;
+  }
+  .dragon-curve-workspace {
+    display: block;
+  }
+  .dragon-curve-controls {
+    margin-top: 16px;
+  }
+  .dragon-curve-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .cycloid-workspace {
+    display: block;
+  }
+  .cycloid-controls {
+    margin-top: 16px;
+  }
+  .cycloid-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .cycloid-canvas {
+    height: auto;
   }
   .pascal-workspace {
     display: block;
