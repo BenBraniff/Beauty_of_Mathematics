@@ -280,6 +280,220 @@ main {
   margin-top: 0.35rem;
   color: #47758b;
 }
+
+.conic-explorer {
+  container-type: inline-size;
+  margin: 0 0 3rem;
+  padding: clamp(1.2rem, 3vw, 2rem);
+  border: 1px solid #b9c8e5;
+  border-radius: 1.25rem;
+  background: #f5f7ff;
+  color: #202844;
+}
+
+.conic-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.conic-heading h2 {
+  margin: 0.3rem 0 0;
+}
+
+.conic-kicker,
+.conic-status,
+.conic-stage-note,
+.conic-controls label {
+  color: var(--gray);
+  font:
+    10px "Roboto Mono",
+    monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.conic-status {
+  text-align: right;
+}
+
+.conic-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(220px, 0.75fr);
+  gap: 1rem;
+  min-width: 0;
+  align-items: stretch;
+}
+
+.conic-stage {
+  position: relative;
+  min-width: 0;
+  min-height: 410px;
+  height: auto;
+  overflow: hidden;
+  border: 1px solid #9baee0;
+  border-radius: 0.9rem;
+  background: radial-gradient(circle at 50% 38%, rgba(155, 174, 224, 0.3), transparent 58%), #f5fbfe;
+}
+
+.conic-canvas {
+  height: 100%;
+  width: 100%;
+  max-width: 1100px;
+  margin-inline: auto;
+  cursor: grab;
+  touch-action: none;
+}
+
+.conic-canvas:active {
+  cursor: grabbing;
+}
+
+.conic-canvas canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.conic-canvas-hidden {
+  display: none;
+}
+
+.conic-flat-view {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 3rem;
+  box-sizing: border-box;
+}
+
+.conic-flat-view path {
+  fill: none;
+  stroke: #f08a45;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 4px;
+  vector-effect: non-scaling-stroke;
+}
+
+.conic-flat-view circle {
+  fill: #f08a45;
+}
+
+.conic-stage-note {
+  position: absolute;
+  right: 1rem;
+  bottom: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+.conic-camera-readout {
+  position: absolute;
+  left: 1rem;
+  bottom: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  color: #47758b;
+  font: 0.68rem/1.4 "Roboto Mono", monospace;
+  letter-spacing: 0.02em;
+}
+
+.conic-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--black);
+  background: var(--white);
+}
+
+.conic-controls select,
+.conic-spin-toggle {
+  width: 100%;
+  border: 1px solid var(--black);
+  border-radius: 0;
+  padding: 0.7rem 0.75rem;
+  color: var(--black);
+  background: var(--white);
+  font:
+    10px "Roboto Mono",
+    monospace;
+  text-transform: uppercase;
+}
+
+.conic-mobile-selector,
+.conic-mobile-selector-label {
+  display: none;
+}
+
+.conic-spin-toggle {
+  cursor: pointer;
+  background: var(--black);
+  color: var(--white);
+}
+
+.conic-spin-toggle:hover {
+  background: var(--gray);
+}
+
+.conic-view-toggle {
+  width: 100%;
+  border: 1px solid var(--black);
+  border-radius: 0;
+  padding: 0.7rem 0.75rem;
+  color: var(--black);
+  background: var(--white);
+  font:
+    10px "Roboto Mono",
+    monospace;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.conic-view-toggle:hover,
+.conic-view-toggle[aria-pressed="true"] {
+  border-color: var(--black);
+  background: var(--black);
+  color: var(--white);
+}
+
+.conic-controls input[type="range"] {
+  accent-color: var(--black);
+  margin: 0 0 0.4rem;
+  width: 100%;
+}
+
+.conic-presets {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.conic-presets button {
+  border: 1px solid var(--black);
+  border-radius: 0;
+  padding: 0.55rem 0.35rem;
+  color: var(--black);
+  background: transparent;
+  font:
+    10px "Roboto Mono",
+    monospace;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.conic-presets button.active,
+.conic-presets button:hover {
+  border-color: var(--black);
+  background: var(--black);
+  color: var(--white);
+}
+
 .home-image {
   background: #eee;
   display: grid;
@@ -646,16 +860,11 @@ main {
   align-items: center;
   display: grid;
   gap: 55px;
-  grid-template-columns: minmax(0, 1fr) 280px;
+  grid-template-columns: minmax(0, 1fr);
   margin-bottom: 72px;
 }
 .concept-hero-mandelbrot {
   grid-template-columns: minmax(0, 1fr);
-}
-.concept-visuals {
-  display: grid;
-  gap: 12px;
-  grid-template-columns: 1fr;
 }
 .concept-hero h1 {
   font:
@@ -671,17 +880,6 @@ main {
     monospace;
   margin: 0;
   max-width: 550px;
-}
-.concept-hero img {
-  border: 1px solid var(--black);
-  display: block;
-  filter: grayscale(1);
-  height: 130px;
-  object-fit: contain;
-  width: 280px;
-}
-.concept-visuals img:only-child {
-  height: 280px;
 }
 .concept-sections {
   border-top: 1px solid var(--black);
@@ -1668,18 +1866,6 @@ footer {
     gap: 28px;
     margin-bottom: 48px;
   }
-  .concept-hero img {
-    height: 210px;
-    width: 210px;
-  }
-  .concept-visuals {
-    width: 100%;
-  }
-  .concept-visuals img,
-  .concept-visuals img:only-child {
-    height: 180px;
-    width: 100%;
-  }
   .concept-sections {
     display: block;
   }
@@ -1806,7 +1992,18 @@ footer {
     display: block;
   }
 
+  .conic-heading,
+  .conic-workspace {
+    display: block;
+  }
+
   .platonic-status {
+    display: block;
+    margin-top: 0.5rem;
+    text-align: left;
+  }
+
+  .conic-status {
     display: block;
     margin-top: 0.5rem;
     text-align: left;
@@ -1818,6 +2015,35 @@ footer {
     justify-content: center;
     padding: 15px 0;
   }
+
+  .conic-controls {
+    margin-top: 1rem;
+    flex-direction: column;
+    justify-content: center;
+    padding: 15px;
+  }
+
+  .conic-stage {
+    height: 410px;
+  }
+
+  .conic-canvas {
+    height: 410px;
+  }
+
+  .conic-mobile-selector,
+  .conic-mobile-selector-label {
+    display: block;
+  }
+
+  .conic-stage-note {
+    display: none;
+  }
+
+  .conic-presets {
+    display: none;
+  }
+
   .social-links {
     order: 3;
   }

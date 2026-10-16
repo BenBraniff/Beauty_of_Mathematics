@@ -3,6 +3,7 @@ import DragonCurve from "./DragonCurve";
 import CycloidExplorer from "./CycloidExplorer";
 import PascalsTriangle from "./PascalsTriangle";
 import PlatonicSolids from "./PlatonicSolids";
+import ConicSections from "./ConicSections";
 import SunflowerSpiral from "./SunflowerSpiral";
 
 const conceptArticles = {
@@ -294,18 +295,6 @@ export default function ConceptPage({ item, onClose }) {
               <h1 id="concept-title">{item.name}</h1>
               <p>{item.description}</p>
             </div>
-            {item.slug !== "mandelbrot-set" &&
-              item.slug !== "pascals-triangle" && (
-              <div className="concept-visuals">
-                {(item.images ?? [item.image]).map((image, index) => (
-                  <img
-                    key={image}
-                    src={image}
-                    alt={`${item.name} illustration ${index + 1}`}
-                  />
-                ))}
-              </div>
-            )}
           </div>
           <div className="concept-sections">
             {item.slug === "mandelbrot-set" && <MandelbrotExplorer />}
@@ -313,6 +302,7 @@ export default function ConceptPage({ item, onClose }) {
             {item.slug === "curves" && <CycloidExplorer />}
             {item.slug === "pascals-triangle" && <PascalsTriangle />}
             {item.slug === "platonic-solids" && <PlatonicSolids />}
+            {item.slug === "conic-sections" && <ConicSections />}
             {item.slug === "golden-ratio" && <SunflowerSpiral />}
             {articleSections.map((section) => (
               <section key={section.title}>
