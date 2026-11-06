@@ -36,9 +36,6 @@ export default function PascalsTriangle() {
           <span className="pascal-kicker">Interactive field</span>
           <h2>Build the triangle</h2>
         </div>
-        <span className="pascal-status" aria-live="polite">
-          {rowCount} rows / {(rowCount * (rowCount + 1)) / 2} values
-        </span>
       </div>
       <div className="pascal-workspace">
         <div
@@ -70,6 +67,11 @@ export default function PascalsTriangle() {
           </span>
         </div>
         <aside className="pascal-controls">
+          <div className="pascal-readout" aria-live="polite">
+            <span>Current values</span>
+            <strong>{rowCount} rows</strong>
+            <strong>{(rowCount * (rowCount + 1)) / 2} values</strong>
+          </div>
           <label htmlFor="pascal-rows">
             Triangle size <output>{rowCount} rows</output>
           </label>

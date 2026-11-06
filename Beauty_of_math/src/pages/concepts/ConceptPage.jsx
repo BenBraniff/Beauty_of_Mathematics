@@ -5,6 +5,7 @@ import PascalsTriangle from "./PascalsTriangle";
 import PlatonicSolids from "./PlatonicSolids";
 import ConicSections from "./ConicSections";
 import SunflowerSpiral from "./SunflowerSpiral";
+import SpirographExplorer from "./SpirographExplorer";
 
 const conceptArticles = {
   "mandelbrot-set": [
@@ -168,72 +169,72 @@ const conceptArticles = {
       ],
     },
   ],
-  "eulers-number": [
+  spirograph: [
     {
-      title: "The number that grows naturally",
+      title: "Circles create intricate curves",
       paragraphs: [
-        "Euler's number, written as e, is the base of natural logarithms and one of the most important constants in mathematics. It appears in the study of continuous growth because it describes the limit of repeated compounding.",
-        "Its value is about 2.71828..., and it emerges when a quantity grows in proportion to itself. That relationship shows up in population models, bank interest, radioactive decay, and many physical processes.",
+        "A spirograph is made by tracing a point attached to a circle as it rolls around another circle. The motion is simple, but the path can produce loops, rosettes, and delicate symmetries.",
+        "The exact shape depends on the radii of the circles and the location of the tracing point. Small changes in those measurements can transform the entire pattern.",
       ],
     },
     {
-      title: "Why it is the language of change",
+      title: "Geometry in motion",
       paragraphs: [
-        "The exponential function e to the x has the remarkable property that its rate of change equals itself. This makes it the natural description of smooth, self-sustaining growth and decay.",
-        "This idea is at the heart of differential equations and modeling. When systems change in proportion to their current state, the mathematics almost always leads back to e.",
+        "Spirograph curves are examples of hypotrochoids and epitrochoids, families of curves defined by rolling motion. Their equations translate rotation and distance directly into a visible path.",
+        "Because the movement repeats, the curves also offer an intuitive introduction to periodicity, ratios, and the relationship between local motion and global form.",
       ],
     },
     {
-      title: "A constant with universal reach",
+      title: "Why the patterns feel endless",
       paragraphs: [
-        "The number e is not confined to finance or growth models. It also appears in probability, complex analysis, and the geometry of waves. It links exponential behavior with the idea of continuity in a way that is both elegant and powerful.",
-        "That universality is why e feels less like a special number and more like a governing law of change. It is a central piece of the mathematical architecture behind the modern world.",
-      ],
-    },
-  ],
-  "bell-curve": [
-    {
-      title: "Around the average, the world clusters",
-      paragraphs: [
-        "The bell curve, or normal distribution, describes a pattern in which values cluster around an average and become less common as they move away from it. It is the familiar symmetric shape that appears when many small independent influences combine.",
-        "This does not mean every dataset looks like a bell, but the distribution shows up often enough that it becomes one of the most important ideas in statistics and the sciences.",
-      ],
-    },
-    {
-      title: "The central limit theorem explains the shape",
-      paragraphs: [
-        "The reason the bell curve is so common is that sums of many small random effects tend to settle into a predictable shape, even if the individual pieces are noisy. This is the central limit theorem in action.",
-        "It means that fluctuations can still produce a remarkably stable pattern when viewed in aggregate. The average remains informative, and the spread around it becomes measurable.",
-      ],
-    },
-    {
-      title: "Where it matters",
-      paragraphs: [
-        "The bell curve is used in psychology, economics, measurement, quality control, and natural science. It helps us understand variation, compare scores, estimate uncertainty, and decide whether an outcome is unusual or expected.",
-        "Its power is partly conceptual: it turns a messy world into a manageable distribution. That is why the bell curve remains one of the key windows into how randomness and structure interact.",
+        "A spirograph makes mathematical structure visible without hiding it behind abstraction. Repeated rotations become loops, symmetry, and sometimes near-misses that slowly fill the page.",
+        "That combination of rule and surprise is what makes these curves memorable: a constrained motion can still create an almost limitless variety of designs.",
       ],
     },
   ],
-  pi: [
+  sandpiles: [
     {
-      title: "The ratio that defines circles",
+      title: "A pile built one grain at a time",
       paragraphs: [
-        "Pi, written as pi, is the ratio of a circle's circumference to its diameter. No matter how large or small the circle is, that ratio stays the same. It is one of the oldest and most famous constants in mathematics.",
-        "The decimal expansion of pi never ends and never repeats, which gives it a kind of infinite character. Yet its practical meaning is simple: it is the bridge between roundness and measurement.",
+        "In a sandpile model, grains are added one at a time to a grid. When too many collect in one cell, that cell topples and sends grains to its neighbors.",
+        "A tiny local change can trigger a chain reaction across the grid. The rules are simple, but the resulting behavior can range from quiet stability to sudden avalanches.",
       ],
     },
     {
-      title: "From geometry to waves",
+      title: "Order from repeated toppling",
       paragraphs: [
-        "Pi does more than describe circles. It appears in trigonometry, Fourier analysis, probability, and physics because periodic motion and waves are built from circles and sine functions. In these contexts, pi is not just a geometric constant but a structural one.",
-        "That is why it shows up in questions about sound, light, electrical systems, and even quantum mechanics. The same number keeps reappearing because the mathematics of repetition is built on cycles.",
+        "After many additions and topplings, sandpiles develop recognizable patterns. The final arrangement depends on the rules and boundaries, yet it can show a remarkable balance between stability and change.",
+        "This is an example of emergence: large-scale structure appears even though each individual move only follows a local instruction.",
       ],
     },
     {
-      title: "A symbol of mathematical infinity",
+      title: "A model of critical systems",
       paragraphs: [
-        "Pi is an excellent example of how a simple definition can lead to deep and surprising complexity. It connects familiar geometry to infinite series, approximations, and patterns that escape finite description.",
-        "Its enduring role in mathematics comes from this dual nature: it is both concrete and mysterious. It is a constant you can measure with a ruler, but it also invites us into the infinite.",
+        "Sandpiles help mathematicians think about self-organized criticality, where a system naturally moves toward a state in which events of many different sizes can occur.",
+        "The model connects discrete mathematics, probability, and physics. It shows how a short list of local rules can describe behavior that is difficult to predict in detail.",
+      ],
+    },
+  ],
+  tiling: [
+    {
+      title: "Covering a plane with shapes",
+      paragraphs: [
+        "A tiling covers a surface with copies of one or more shapes, leaving no gaps and no overlaps. The square grid is familiar, but triangles, hexagons, and many combinations can tile a plane as well.",
+        "The central question is geometric: how can local edges fit together so that the pattern continues consistently across the whole surface?",
+      ],
+    },
+    {
+      title: "Repeating and non-repeating designs",
+      paragraphs: [
+        "Some tilings repeat in a regular pattern, while others are aperiodic: they continue forever without repeating exactly. Aperiodic tilings can still use a small collection of tiles and follow strict matching rules.",
+        "This contrast makes tiling a rich meeting point for symmetry, combinatorics, and geometry. Regularity and variation can coexist in the same design.",
+      ],
+    },
+    {
+      title: "Why tilings matter",
+      paragraphs: [
+        "Tiling problems appear in architecture, materials science, crystallography, and computer graphics. They ask us to understand how simple pieces can organize an unlimited space.",
+        "They also offer a visual way to explore mathematical proof: once the matching rules are understood, the entire infinite pattern follows from a finite set of constraints.",
       ],
     },
   ],
@@ -304,6 +305,7 @@ export default function ConceptPage({ item, onClose }) {
             {item.slug === "platonic-solids" && <PlatonicSolids />}
             {item.slug === "conic-sections" && <ConicSections />}
             {item.slug === "golden-ratio" && <SunflowerSpiral />}
+            {item.slug === "spirograph" && <SpirographExplorer />}
             {articleSections.map((section) => (
               <section key={section.title}>
                 <h2>{section.title}</h2>
@@ -313,12 +315,38 @@ export default function ConceptPage({ item, onClose }) {
               </section>
             ))}
             {item.slug === "platonic-solids" && (
+              <>
+                <section className="concept-video-section">
+                  <h2>The ALMOST Platonic Solids</h2>
+                  <div className="concept-video">
+                    <iframe
+                      src="https://www.youtube-nocookie.com/embed/_QxrkEqOrWM"
+                      title="The ALMOST Platonic Solids"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                </section>
+                <section className="concept-video-section">
+                  <h2>More about Platonic solids</h2>
+                  <div className="concept-video">
+                    <iframe
+                      src="https://www.youtube-nocookie.com/embed/_hjRvZYkAgA"
+                      title="More about Platonic solids"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                </section>
+              </>
+            )}
+            {item.slug === "spirograph" && (
               <section className="concept-video-section">
-                <h2>The ALMOST Platonic Solids</h2>
+                <h2>Understanding spirograph curves</h2>
                 <div className="concept-video">
                   <iframe
-                    src="https://www.youtube-nocookie.com/embed/_QxrkEqOrWM"
-                    title="The ALMOST Platonic Solids"
+                    src="https://www.youtube-nocookie.com/embed/r6sGWTCMz2k"
+                    title="Understanding spirograph curves"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
                   ></iframe>

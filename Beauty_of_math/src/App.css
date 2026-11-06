@@ -120,6 +120,17 @@ body {
   text-decoration: none;
   border-bottom: 1px solid #444;
 }
+.menu a.menu-parent {
+  font-size: 18px;
+  padding-bottom: 15px;
+}
+.menu a.menu-parent span {
+  font-size: 12px;
+}
+.menu a.menu-child {
+  padding-left: 20px;
+  font-size: 14px;
+}
 .menu a span {
   color: var(--gray);
   font:
@@ -138,9 +149,15 @@ main {
   display: grid;
   grid-template-rows: auto auto auto;
 }
+.page-heading,
+.home-heading {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 60px;
+  align-items: center;
+}
 .home-heading {
   padding: 35px 0 22px;
-  max-height: 150px;
 }
 .home-heading h1 {
   font:
@@ -148,27 +165,27 @@ main {
     monospace;
   margin: 0;
 }
+.home-heading .page-intro {
+  margin-bottom: 8px;
+}
 
 .platonic-explorer {
   container-type: inline-size;
-  margin: 0 0 3rem;
-  padding: clamp(1.2rem, 3vw, 2rem);
-  border: 1px solid #d8c6a5;
-  border-radius: 1.25rem;
-  background: #fff9ed;
-  color: #322716;
+  display: grid;
+  gap: 24px;
+  grid-column: 1 / -1;
+  padding-top: 28px;
 }
 
 .platonic-heading {
-  display: flex;
   align-items: end;
+  display: flex;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 1.2rem;
 }
 
 .platonic-heading h2 {
-  margin: 0.3rem 0 0;
+  margin-top: 8px;
 }
 
 .platonic-kicker,
@@ -176,8 +193,10 @@ main {
 .platonic-stage-note,
 .platonic-controls label {
   color: var(--gray);
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
+  font:
+    10px "Roboto Mono",
+    monospace;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
@@ -187,21 +206,22 @@ main {
 
 .platonic-workspace {
   display: grid;
-  grid-template-columns: minmax(0, 1.55fr) minmax(220px, 0.75fr);
-  gap: 1rem;
+  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) 210px;
 }
 
 .platonic-stage {
-  position: relative;
-  min-height: 410px;
+  background: #f4f1e8;
+  border: 1px solid #d8c6a5;
+  min-width: 0;
   overflow: hidden;
-  border: 1px solid #8bb8ca;
-  border-radius: 0.9rem;
-  background: radial-gradient(circle at 50% 38%, rgba(139, 184, 202, 0.3), transparent 58%), #f5fbfe;
+  position: relative;
 }
 
 .platonic-canvas {
+  display: block;
   height: 410px;
+  width: 100%;
   cursor: grab;
   touch-action: none;
 }
@@ -217,32 +237,34 @@ main {
 }
 
 .platonic-stage-note {
+  bottom: 12px;
+  left: 18px;
   position: absolute;
-  right: 1rem;
-  bottom: 0.8rem;
   letter-spacing: 0.04em;
   text-transform: none;
 }
 
 .platonic-controls {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
-  border-radius: 0.9rem;
-  background: #f5fbfe;
-  border: 1px solid #8bb8ca;
+  align-content: start;
+  background: #fff9ed;
+  border: 1px solid #d8c6a5;
+  display: grid;
+  gap: 10px;
+  padding: 18px;
 }
 
 .platonic-controls select,
 .platonic-spin-toggle {
   width: 100%;
-  border: 1px solid #8bb8ca;
-  border-radius: 0.55rem;
-  padding: 0.75rem 0.85rem;
-  color: #16344a;
+  border: 1px solid var(--black);
+  border-radius: 0;
+  padding: 0.7rem 0.75rem;
+  color: var(--black);
   background: var(--white);
-  font: inherit;
+  font:
+    10px "Roboto Mono",
+    monospace;
+  text-transform: uppercase;
 }
 
 .platonic-spin-toggle {
@@ -256,15 +278,17 @@ main {
 }
 
 .platonic-controls p {
-  margin: 0;
-  color: #47758b;
-  line-height: 1.6;
+  color: #76583e;
+  font:
+    11px/1.5 "Roboto Mono",
+    monospace;
+  margin: 4px 0 0;
 }
 
 .platonic-facts {
+  border-top: 1px solid #d8c6a5;
   margin-top: auto;
-  padding-top: 1rem;
-  border-top: 1px solid #8bb8ca;
+  padding-top: 14px;
 }
 
 .platonic-facts span,
@@ -273,12 +297,18 @@ main {
 }
 
 .platonic-facts span {
-  font-weight: 700;
+  color: #6b3e26;
+  font:
+    11px "Roboto Mono",
+    monospace;
 }
 
 .platonic-facts small {
-  margin-top: 0.35rem;
-  color: #47758b;
+  color: #76583e;
+  font:
+    11px/1.5 "Roboto Mono",
+    monospace;
+  margin-top: 4px;
 }
 
 .conic-explorer {
@@ -296,7 +326,7 @@ main {
   align-items: end;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.35rem;
 }
 
 .conic-heading h2 {
@@ -494,23 +524,6 @@ main {
   color: var(--white);
 }
 
-.home-image {
-  background: #eee;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  width: min(100%, 900px);
-  margin: 10px auto;
-  overflow: hidden;
-}
-.home-image img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  aspect-ratio: 1;
-  object-fit: contain;
-  border: 1px solid var(--black);
-  filter: grayscale(1);
-}
 .home-index {
   /* padding: 60px 0 75px; */
   border-top: 1px solid var(--black);
@@ -1274,7 +1287,6 @@ main {
   margin-top: 8px;
 }
 .pascal-kicker,
-.pascal-status,
 .pascal-readout span,
 .pascal-controls label,
 .pascal-fieldset legend,
@@ -1365,6 +1377,22 @@ main {
   display: grid;
   gap: 10px;
   padding: 18px;
+}
+.pascal-readout {
+  border-bottom: 1px solid #d8c6a5;
+  display: grid;
+  gap: 6px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding-bottom: 14px;
+}
+.pascal-readout span {
+  grid-column: 1 / -1;
+}
+.pascal-readout strong {
+  color: #6c4028;
+  font:
+    11px "Roboto Mono",
+    monospace;
 }
 .pascal-controls label {
   align-items: baseline;
@@ -1463,6 +1491,247 @@ main {
   padding-top: 28px;
   position: relative;
 }
+.spirograph-explorer {
+  display: grid;
+  gap: 24px;
+  grid-column: 1 / -1;
+  padding-top: 28px;
+}
+.spirograph-heading {
+  align-items: end;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.spirograph-heading h2 {
+  margin-top: 8px;
+}
+.spirograph-kicker,
+.spirograph-readout span,
+.spirograph-controls label {
+  color: var(--gray);
+  font:
+    10px "Roboto Mono",
+    monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.spirograph-workspace {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) 280px;
+}
+.spirograph-canvas-wrap {
+  align-items: center;
+  background: #f4eee4;
+  display: flex;
+  min-width: 0;
+  position: relative;
+}
+.spirograph-canvas {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+.spirograph-controls {
+  align-content: start;
+  background: #fff9ed;
+  border: 1px solid #d8c6a5;
+  display: grid;
+  gap: 10px;
+  padding: 18px;
+}
+.spirograph-arms {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.spirograph-arm {
+  border-bottom: 1px solid #d8c6a5;
+  display: grid;
+  gap: 8px;
+  padding-bottom: 16px;
+}
+.spirograph-arm h3 {
+  color: #6b3e26;
+  font:
+    14px "Roboto Mono",
+    monospace;
+  margin: 0 0 4px;
+}
+.spirograph-arm input {
+  background: #fffdf8;
+  border: 1px solid #d8c6a5;
+  box-sizing: border-box;
+  color: #6b3e26;
+  font:
+    14px "Roboto Mono",
+    monospace;
+  font-size: 12px;
+  padding: 7px;
+}
+.spirograph-add {
+  border: 0;
+  color: var(--black);
+  cursor: pointer;
+  font:
+    11px "Roboto Mono",
+    monospace;
+  padding: 10px;
+  text-transform: uppercase;
+}
+.spirograph-add {
+  background: #5aa8ff;
+  justify-self: start;
+}
+.spirograph-arm-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.spirograph-delete-latest {
+  background: #ff6268;
+  border: 0;
+  color: var(--black);
+  cursor: pointer;
+  font:
+    11px "Roboto Mono",
+    monospace;
+  padding: 10px;
+  text-transform: uppercase;
+}
+.spirograph-readout {
+  border-bottom: 1px solid #d8c6a5;
+  display: grid;
+  gap: 6px;
+  padding-bottom: 14px;
+}
+.spirograph-readout strong {
+  color: #6b3e26;
+  font:
+    11px "Roboto Mono",
+    monospace;
+  margin-bottom: 7px;
+}
+.spirograph-harmonograph-toggle {
+  background: #147d92;
+  border: 0;
+  color: var(--white);
+  cursor: pointer;
+  font:
+    11px "Roboto Mono",
+    monospace;
+  padding: 11px 8px;
+  text-transform: uppercase;
+}
+.spirograph-harmonograph-arms {
+  color: #76583e;
+  display: grid;
+  font:
+    9px/1.35 "Roboto Mono",
+    monospace;
+  gap: 2px 10px;
+  grid-template-columns: 1fr;
+  max-height: 340px;
+  overflow-y: auto;
+  padding-right: 3px;
+}
+.spirograph-harmonograph-header,
+.spirograph-harmonograph-arm {
+  display: grid;
+  grid-template-columns: 28px 68px 42px 1fr;
+  gap: 0 4px;
+  white-space: nowrap;
+}
+.spirograph-harmonograph-header {
+  color: #6b3e26;
+  font-size: 8px;
+  text-transform: uppercase;
+}
+.spirograph-harmonograph-arm strong {
+  color: #6b3e26;
+  font-size: 10px;
+}
+.spirograph-animate-toggle {
+  background: #6b3e26;
+  border: 0;
+  color: var(--white);
+  cursor: pointer;
+  font:
+    11px "Roboto Mono",
+    monospace;
+  padding: 11px 8px;
+  text-transform: uppercase;
+}
+.spirograph-controls label {
+  align-items: baseline;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+.spirograph-controls output {
+  color: #6b3e26;
+  font:
+    11px "Roboto Mono",
+    monospace;
+}
+.spirograph-controls input {
+  accent-color: #6b3e26;
+  margin: 0;
+  width: 100%;
+}
+.spirograph-presets {
+  display: grid;
+  gap: 7px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 2px;
+}
+.spirograph-presets button {
+  background: transparent;
+  border: 1px solid #d8c6a5;
+  color: #6b3e26;
+  cursor: pointer;
+  font:
+    10px "Roboto Mono",
+    monospace;
+  padding: 9px 6px;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+.spirograph-presets button:hover,
+.spirograph-presets button.active {
+  background: #6b3e26;
+  color: var(--white);
+}
+.spirograph-actions {
+  display: grid;
+  gap: 7px;
+  margin-top: 8px;
+}
+.spirograph-actions button {
+  background: var(--black);
+  border: 0;
+  color: var(--white);
+  cursor: pointer;
+  font:
+    10px "Roboto Mono",
+    monospace;
+  padding: 11px 8px;
+  text-transform: uppercase;
+}
+.spirograph-actions button:first-child {
+  background: #6b3e26;
+}
+.spirograph-actions button:hover {
+  background: var(--gray);
+}
+.spirograph-controls p {
+  color: #76583e;
+  font:
+    11px/1.5 "Roboto Mono",
+    monospace;
+  margin: 4px 0 0;
+}
 .sunflower-heading {
   align-items: end;
   display: flex;
@@ -1473,10 +1742,7 @@ main {
   margin-top: 8px;
 }
 .sunflower-kicker,
-.sunflower-status,
-.sunflower-readout span,
-.sunflower-controls label,
-.sunflower-stage-note {
+.sunflower-controls label {
   color: var(--gray);
   font:
     10px "Roboto Mono",
@@ -1494,7 +1760,7 @@ main {
   border: 1px solid #d5b85e;
   min-width: 0;
   overflow: hidden;
-  padding: 18px 18px 42px;
+  padding: 18px;
   position: relative;
 }
 .sunflower-canvas {
@@ -1509,11 +1775,6 @@ main {
 .sunflower-seed {
   fill: #493020;
 }
-.sunflower-stage-note {
-  bottom: 12px;
-  left: 18px;
-  position: absolute;
-}
 .sunflower-controls {
   align-content: start;
   background: #fff9ed;
@@ -1521,18 +1782,6 @@ main {
   display: grid;
   gap: 10px;
   padding: 18px;
-}
-.sunflower-readout {
-  border-bottom: 1px solid #d5b85e;
-  display: grid;
-  gap: 6px;
-  padding-bottom: 14px;
-}
-.sunflower-readout strong {
-  color: #5c3d26;
-  font:
-    11px "Roboto Mono",
-    monospace;
 }
 .sunflower-controls label {
   align-items: baseline;
@@ -1588,8 +1837,7 @@ main {
   color: var(--white);
 }
 .sunflower-download,
-.sunflower-play,
-.sunflower-reset {
+.sunflower-play {
   background: var(--black);
   border: 0;
   color: var(--white);
@@ -1608,8 +1856,7 @@ main {
   background: #8c602d;
 }
 .sunflower-download:hover,
-.sunflower-play:hover,
-.sunflower-reset:hover {
+.sunflower-play:hover {
   background: var(--gray);
 }
 .sunflower-controls p {
@@ -1782,15 +2029,12 @@ footer {
   .home-page {
     display: block;
   }
-  .home-image {
+  .page-heading,
+  .home-heading {
     display: block;
   }
-  .home-image img:first-child,
-  .home-image img:last-child {
-    display: none;
-  }
-  .home-image img {
-    min-height: 0;
+  .home-heading h1 {
+    margin-bottom: 28px;
   }
   .index-grid {
     grid-template-columns: 1fr 1fr;
@@ -1919,6 +2163,17 @@ footer {
     flex-direction: column;
     gap: 10px;
   }
+  .spirograph-workspace {
+    display: block;
+  }
+  .spirograph-controls {
+    margin-top: 16px;
+  }
+  .spirograph-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 10px;
+  }
   .pascal-controls {
     margin-top: 16px;
   }
@@ -1983,8 +2238,11 @@ footer {
     margin-bottom: 6px;
   }
   footer {
-    gap: 15px;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 18px 15px;
+    min-height: 0;
+    padding: 22px 0;
   }
 
   .platonic-heading,
@@ -2011,9 +2269,7 @@ footer {
 
   .platonic-controls {
     margin-top: 1rem;
-    flex-direction: column;
-    justify-content: center;
-    padding: 15px 0;
+    padding: 18px;
   }
 
   .conic-controls {
@@ -2045,9 +2301,15 @@ footer {
   }
 
   .social-links {
-    order: 3;
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
   }
   footer span:nth-child(2) {
     display: none;
+  }
+  footer span:last-child {
+    grid-column: 1 / -1;
+    grid-row: 2;
   }
 }

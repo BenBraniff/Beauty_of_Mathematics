@@ -118,9 +118,6 @@ export default function SunflowerSpiral() {
           <span className="sunflower-kicker">Interactive field</span>
           <h2>Grow a sunflower</h2>
         </div>
-        <span className="sunflower-status" aria-live="polite">
-          {isPlaying ? "Playing r values" : `${seedCount} seeds`}
-        </span>
       </div>
       <div className="sunflower-workspace">
         <div className="sunflower-stage">
@@ -149,16 +146,8 @@ export default function SunflowerSpiral() {
               />
             ))}
           </svg>
-          <span className="sunflower-stage-note">
-            Each seed turns by 2πr around the center
-          </span>
         </div>
         <aside className="sunflower-controls">
-          <div className="sunflower-readout">
-            <span>Current values</span>
-            <strong>r = {ratio.toFixed(6)}</strong>
-            <strong>{seedCount} seeds</strong>
-          </div>
           <label htmlFor="sunflower-seeds">
             Number of seeds <output>{seedCount}</output>
           </label>
@@ -226,21 +215,6 @@ export default function SunflowerSpiral() {
           >
             {isPlaying ? "Pause r animation" : "Play r animation"}
           </button>
-          <button
-            className="sunflower-reset"
-            type="button"
-            onClick={() => {
-              stopAnimation();
-              setSeedCount(DEFAULT_SEEDS);
-              setRatio(GOLDEN_RATIO);
-            }}
-          >
-            Reset spiral
-          </button>
-          <p>
-            At the golden ratio, neighboring seeds avoid lining up in the same
-            radial paths, creating the characteristic sunflower pattern.
-          </p>
         </aside>
       </div>
       {showMotionWarning && (

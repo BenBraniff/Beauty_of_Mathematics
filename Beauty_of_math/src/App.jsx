@@ -48,12 +48,12 @@ import theImitationGameImg from "./assets/the_imitation_game.webp";
 import manWhoKnewInfinityImg from "./assets/The_man_who_knew_infinity.webp";
 import xPlusYImg from "./assets/x_plus_y.webp";
 import theoryOfEverythingImg from "./assets/the_theory_of_everything.webp";
+import surrealNumbersImg from "./assets/surreal_numbers.jpg";
 import numberDevilImg from "./assets/the_number_devil.avif";
 import infinitePowersImg from "./assets/infinite_powers.avif";
 import joyOfXImg from "./assets/the_joy_of_x.avif";
 import thinkLikeMathGeniusImg from "./assets/Think_like_a_math_genius.avif";
 import preAlgebraNotebookImg from "./assets/pre_algebra_albegra_everything_notebook.avif";
-import algebraWorkbookImg from "./assets/Big_fat_algebra_workbook.avif";
 import mindForNumbersImg from "./assets/a_mind_for_numbers.avif";
 import manLovedNumbersImg from "./assets/The_Man_Who_Loved_Only_Numbers.avif";
 import fermatEnigmaImg from "./assets/Fermats_Enigma.avif";
@@ -185,25 +185,25 @@ const collections = {
           "Cut a cone at different angles and you get circles, ellipses, parabolas, or hyperbolas. One geometric family explains many paths in nature and engineering.",
       },
       {
-        name: "Euler's Number e",
-        slug: "eulers-number",
-        image: eConstantImg,
+        name: "Spirograph",
+        slug: "spirograph",
+        image: goldenRatioConstantImg,
         description:
-          "The number e is the natural language of continuous growth and change. It appears in compound interest, decay, probability, and differential equations.",
+          "Spirographs turn rolling circles into intricate curves. A simple geometric motion creates looping patterns that reveal symmetry, rotation, and periodicity.",
       },
       {
-        name: "Bell curve",
-        slug: "bell-curve",
-        image: bellCurveImg,
+        name: "Sandpiles",
+        slug: "sandpiles",
+        image: mandelbrotImg,
         description:
-          "The bell curve models how values cluster around an average. It is the familiar shape of the normal distribution, one of statistics' central ideas.",
+          "Sandpile models show how simple local rules can produce large-scale patterns. Grains accumulate, topple, and reorganize into structures with surprising order.",
       },
       {
-        name: "Pi",
-        slug: "pi",
-        image: piConstantImg,
+        name: "Tiling",
+        slug: "tiling",
+        image: einsteinTilesImg,
         description:
-          "Pi is the constant ratio between a circle's circumference and its diameter. Its digits never end, yet it connects geometry, waves, probability, and physics.",
+          "Tiling covers a surface with shapes without gaps or overlaps. From repeating patterns to aperiodic designs, tilings reveal how geometry creates order across a plane.",
       },
     ],
   },
@@ -591,14 +591,14 @@ const collections = {
     items: [
       {
         book: true,
-        name: "The Number Devil",
-        image: numberDevilImg,
-        author: "Hans Magnus Enzensberger",
-        releaseDate: "May 1, 2000",
-        pages: "264 pages",
-        link: "https://www.amazon.com/dp/0805062998/",
+        name: "Surreal Numbers",
+        image: surrealNumbersImg,
+        author: "Donald E. Knuth",
+        releaseDate: "1974",
+        pages: "119 pages",
+        link: "https://www.amazon.com/Surreal-Numbers-Donald-Knuth/dp/0201038129",
         description:
-          "In twelve dreamlike encounters, a boy who dislikes math meets a Number Devil and discovers the playful power of primes, infinity, Fibonacci numbers, and patterns.",
+          "A mathematical novelette in dialogue form, introducing Conway's surreal numbers and the playful ideas behind a number system that includes infinite and infinitesimal values.",
       },
       {
         book: true,
@@ -646,14 +646,14 @@ const collections = {
       },
       {
         book: true,
-        name: "Big Fat Algebra 1 Workbook",
-        image: algebraWorkbookImg,
-        author: "Workman Publishing",
-        releaseDate: "June 20, 2023",
-        pages: "488 pages",
-        link: "https://www.amazon.com/dp/1523518391/",
+        name: "The Number Devil",
+        image: numberDevilImg,
+        author: "Hans Magnus Enzensberger",
+        releaseDate: "1997",
+        pages: "261 pages",
+        link: "https://www.amazon.com/dp/0805062998/",
         description:
-          "A practice-focused companion to Algebra 1 study, with hundreds of exercises, varied question types, worked solutions, and clear step-by-step explanations.",
+          "In twelve dreamlike encounters, a boy who dislikes math meets a Number Devil and discovers the playful power of primes, infinity, Fibonacci numbers, and patterns.",
       },
       {
         book: true,
@@ -857,6 +857,21 @@ function App() {
     return () => window.removeEventListener("hashchange", onHashChange);
   }, []);
 
+  useEffect(() => {
+    const onKeyDown = (event) => {
+      if (event.key !== "Escape") return;
+
+      if (currentPage.startsWith("concepts/")) {
+        window.location.hash = "concepts";
+      } else if (currentPage) {
+        window.location.hash = "";
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [currentPage]);
+
   const selectedPage =
     pages.find((page) => page.slug === currentPage.split("/")[0]) ?? pages[0];
   const conceptSlug = currentPage.startsWith("concepts/")
@@ -898,7 +913,12 @@ function App() {
             <p className="menu-kicker">Explore the collection</p>
             {pages.map((page) => (
               <a
-                className={selectedPage.slug === page.slug ? "active" : ""}
+                className={[
+                  selectedPage.slug === page.slug ? "active" : "",
+                  page.slug === "" ? "menu-parent" : "menu-child",
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
                 href={`#${page.slug}`}
                 key={page.slug || "home"}
               >
@@ -975,13 +995,13 @@ function App() {
 function HomePage() {
   return (
     <main className="home-page">
-      <section className="home-image">
-        <img src={dragonCurveImg} alt="Dragon curve" />
-        <img src={mandelbrotImg} alt="Mandelbrot set" />
-        <img src={einsteinTilesImg} alt="Einstein tiles" />
-      </section>
       <section className="home-heading">
         <h1>Top 10^2</h1>
+        <p className="page-intro">
+          A curated collection of mathematical ideas, people, media, books,
+          equations, and resources to help you explore the beauty of
+          mathematics.
+        </p>
       </section>
       <section className="home-index">
         <div className="index-grid">

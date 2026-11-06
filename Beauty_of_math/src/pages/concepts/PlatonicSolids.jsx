@@ -40,6 +40,23 @@ const SOLIDS = {
 };
 
 const SOLID_KEYS = Object.keys(SOLIDS);
+const CAMERA_DIRECTION = new THREE.Vector3(1, 0.8, 1).normalize();
+const DOWN = new THREE.Vector3(0, -1, 0);
+const WORLD_UP = new THREE.Vector3(0, 1, 0);
+
+function getFirstFaceNormal(geometry) {
+  const positions = geometry.attributes.position;
+  const index = geometry.index;
+  const getIndex = (vertexIndex) => (index ? index.getX(vertexIndex) : vertexIndex);
+  const first = new THREE.Vector3().fromBufferAttribute(positions, getIndex(0));
+  const second = new THREE.Vector3().fromBufferAttribute(positions, getIndex(1));
+  const third = new THREE.Vector3().fromBufferAttribute(positions, getIndex(2));
+
+  return new THREE.Vector3()
+    .subVectors(second, first)
+    .cross(new THREE.Vector3().subVectors(third, first))
+    .normalize();
+}
 
 export default function PlatonicSolids() {
   const mountRef = useRef(null);
@@ -55,11 +72,15 @@ export default function PlatonicSolids() {
   useEffect(() => {
     const mount = mountRef.current;
     if (!mount) return undefined;
-
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xf5fbfe);
     const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
-    camera.position.set(0, 0.2, 6.4);
+    const cameraTarget = new THREE.Vector3();
+    const orbit = {
+      theta: Math.atan2(CAMERA_DIRECTION.x, CAMERA_DIRECTION.z),
+      phi: Math.acos(CAMERA_DIRECTION.y),
+      distance: 6,
+    };
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -75,12 +96,22 @@ export default function PlatonicSolids() {
         flatShading: true,
       }),
     );
+    const faceDownRotation = new THREE.Quaternion().setFromUnitVectors(
+      getFirstFaceNormal(solid.geometry),
+      DOWN,
+    );
+    const isometricYaw = new THREE.Quaternion().setFromAxisAngle(
+      new THREE.Vector3(0, 1, 0),
+      Math.PI / 4,
+    );
+    solid.quaternion.copy(isometricYaw).multiply(faceDownRotation);
     scene.add(solid);
 
     const wireframe = new THREE.LineSegments(
       new THREE.EdgesGeometry(solid.geometry),
       new THREE.LineBasicMaterial({ color: 0x16344a, transparent: true, opacity: 0.35 }),
     );
+    wireframe.quaternion.copy(solid.quaternion);
     scene.add(wireframe);
 
     scene.add(new THREE.HemisphereLight(0xbad7ff, 0x131827, 2.1));
@@ -91,13 +122,35 @@ export default function PlatonicSolids() {
     rimLight.position.set(-3, -1, 3);
     scene.add(rimLight);
 
-    const pointer = { dragging: false, x: 0, y: 0 };
+    solid.geometry.computeBoundingSphere();
+    const fitCamera = () => {
+      const verticalFov = THREE.MathUtils.degToRad(camera.fov);
+      const horizontalFov =
+        2 * Math.atan(Math.tan(verticalFov / 2) * camera.aspect);
+      const fitFov = Math.min(verticalFov, horizontalFov);
+      const distance =
+        (solid.geometry.boundingSphere.radius * 1.35) / Math.tan(fitFov / 2);
+
+      orbit.distance = distance;
+      updateCamera();
+    };
+    const updateCamera = () => {
+      const sinPhi = Math.sin(orbit.phi);
+      camera.position.set(
+        orbit.distance * sinPhi * Math.sin(orbit.theta),
+        orbit.distance * Math.cos(orbit.phi),
+        orbit.distance * sinPhi * Math.cos(orbit.theta),
+      );
+      camera.lookAt(cameraTarget);
+    };
     const resize = () => {
       const { clientWidth, clientHeight } = mount;
       renderer.setSize(clientWidth, clientHeight, false);
       camera.aspect = clientWidth / clientHeight;
       camera.updateProjectionMatrix();
+      fitCamera();
     };
+    const pointer = { dragging: false, x: 0, y: 0 };
     const onPointerDown = (event) => {
       event.preventDefault();
       pointer.dragging = true;
@@ -107,9 +160,13 @@ export default function PlatonicSolids() {
     };
     const onPointerMove = (event) => {
       if (!pointer.dragging) return;
-      solid.rotation.y += (event.clientX - pointer.x) * 0.01;
-      solid.rotation.x += (event.clientY - pointer.y) * 0.01;
-      wireframe.rotation.copy(solid.rotation);
+      orbit.theta -= (event.clientX - pointer.x) * 0.01;
+      orbit.phi = THREE.MathUtils.clamp(
+        orbit.phi + (event.clientY - pointer.y) * 0.01,
+        0.2,
+        Math.PI - 0.2,
+      );
+      updateCamera();
       pointer.x = event.clientX;
       pointer.y = event.clientY;
     };
@@ -118,7 +175,12 @@ export default function PlatonicSolids() {
     };
     const onWheel = (event) => {
       event.preventDefault();
-      camera.position.z = THREE.MathUtils.clamp(camera.position.z + event.deltaY * 0.004, 3.6, 9);
+      orbit.distance = THREE.MathUtils.clamp(
+        orbit.distance * Math.exp(event.deltaY * 0.001),
+        2.4,
+        12,
+      );
+      updateCamera();
     };
 
     renderer.domElement.addEventListener("pointerdown", onPointerDown);
@@ -131,10 +193,11 @@ export default function PlatonicSolids() {
     resize();
 
     let frameId;
+    const spinRotation = new THREE.Quaternion().setFromAxisAngle(WORLD_UP, 0.006);
     const animate = () => {
       if (spinningRef.current && !pointer.dragging) {
-        solid.rotation.y += 0.006;
-        wireframe.rotation.copy(solid.rotation);
+        solid.quaternion.premultiply(spinRotation);
+        wireframe.quaternion.copy(solid.quaternion);
       }
       renderer.render(scene, camera);
       frameId = requestAnimationFrame(animate);
