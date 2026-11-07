@@ -6,6 +6,8 @@ import PlatonicSolids from "./PlatonicSolids";
 import ConicSections from "./ConicSections";
 import SunflowerSpiral from "./SunflowerSpiral";
 import SpirographExplorer from "./SpirographExplorer";
+import SandpileExplorer from "./SandpileExplorer";
+import TilingExplorer from "./TilingExplorer";
 
 const conceptArticles = {
   "mandelbrot-set": [
@@ -306,6 +308,8 @@ export default function ConceptPage({ item, onClose }) {
             {item.slug === "conic-sections" && <ConicSections />}
             {item.slug === "golden-ratio" && <SunflowerSpiral />}
             {item.slug === "spirograph" && <SpirographExplorer />}
+            {item.slug === "sandpiles" && <SandpileExplorer />}
+            {item.slug === "tiling" && <TilingExplorer />}
             {articleSections.map((section) => (
               <section key={section.title}>
                 <h2>{section.title}</h2>

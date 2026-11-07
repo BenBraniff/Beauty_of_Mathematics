@@ -311,6 +311,120 @@ main {
   margin-top: 4px;
 }
 
+.tiling-explorer {
+  container-type: inline-size;
+  display: grid;
+  gap: 24px;
+  grid-column: 1 / -1;
+  padding-top: 28px;
+}
+
+.tiling-heading {
+  align-items: end;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.tiling-heading h2 {
+  margin-top: 8px;
+}
+
+.tiling-kicker,
+.tiling-status,
+.tiling-stage-note,
+.tiling-controls label {
+  color: var(--gray);
+  font:
+    10px "Roboto Mono",
+    monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.tiling-status {
+  text-align: right;
+}
+
+.tiling-workspace {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) 210px;
+}
+
+.tiling-stage {
+  background: #f7efe3;
+  border: 1px solid #d8c6a5;
+  min-width: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.tiling-canvas {
+  display: block;
+  height: 410px;
+  width: 100%;
+}
+
+.tiling-stage-note {
+  bottom: 12px;
+  left: 18px;
+  letter-spacing: 0.04em;
+  position: absolute;
+  text-transform: none;
+}
+
+.tiling-controls {
+  align-content: start;
+  background: #fff9ed;
+  border: 1px solid #d8c6a5;
+  display: grid;
+  gap: 10px;
+  padding: 18px;
+}
+
+.tiling-controls select {
+  background: var(--white);
+  border: 1px solid var(--black);
+  border-radius: 0;
+  color: var(--black);
+  padding: 0.7rem 0.75rem;
+  width: 100%;
+  font:
+    10px "Roboto Mono",
+    monospace;
+  text-transform: uppercase;
+}
+
+.tiling-controls p {
+  color: #76583e;
+  font:
+    11px/1.5 "Roboto Mono",
+    monospace;
+  margin: 4px 0 0;
+}
+
+.tiling-facts {
+  border-top: 1px solid #d8c6a5;
+  margin-top: auto;
+  padding-top: 14px;
+}
+
+.tiling-facts span,
+.tiling-facts small {
+  color: #6b3e26;
+  display: block;
+  font:
+    11px "Roboto Mono",
+    monospace;
+}
+
+.tiling-facts small {
+  color: #76583e;
+  line-height: 1.5;
+  margin-top: 4px;
+}
+
 .conic-explorer {
   container-type: inline-size;
   margin: 0 0 3rem;
@@ -1497,6 +1611,161 @@ main {
   grid-column: 1 / -1;
   padding-top: 28px;
 }
+.sandpile-explorer {
+  display: grid;
+  gap: 24px;
+  grid-column: 1 / -1;
+  padding-top: 28px;
+}
+.sandpile-heading {
+  align-items: end;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.sandpile-heading h2 {
+  margin-top: 8px;
+}
+.sandpile-kicker,
+.sandpile-status,
+.sandpile-colors label span {
+  color: var(--gray);
+  font: 10px "Roboto Mono", monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.sandpile-workspace {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) 260px;
+}
+.sandpile-canvas-wrap {
+  align-items: center;
+  background: #f4eee4;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+  position: relative;
+}
+.sandpile-canvas {
+  aspect-ratio: 1;
+  cursor: crosshair;
+  display: block;
+  image-rendering: pixelated;
+  max-width: 100%;
+  width: min(100%, 680px);
+}
+.sandpile-canvas-note {
+  bottom: 12px;
+  color: #fff;
+  font: 10px "Roboto Mono", monospace;
+  left: 12px;
+  mix-blend-mode: difference;
+  position: absolute;
+  text-transform: uppercase;
+}
+.sandpile-controls {
+  align-content: start;
+  background: #fff9ed;
+  border: 1px solid #d8c6a5;
+  display: grid;
+  gap: 9px;
+  padding: 14px;
+}
+.sandpile-option-row {
+  align-items: end;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+.sandpile-field {
+  color: #6b3e26;
+  display: grid;
+  font: 10px "Roboto Mono", monospace;
+  gap: 6px;
+  text-transform: uppercase;
+}
+.sandpile-field input,
+.sandpile-field select {
+  background: #fff;
+  border: 1px solid #d8c6a5;
+  box-sizing: border-box;
+  color: var(--black);
+  font: 11px "Roboto Mono", monospace;
+  min-height: 32px;
+  padding: 7px;
+  width: 100%;
+}
+.sandpile-speed {
+  position: relative;
+}
+.sandpile-speed input[type="range"] {
+  accent-color: var(--black);
+  min-height: 0;
+  padding: 0;
+}
+.sandpile-speed output {
+  color: var(--gray);
+  font: 9px "Roboto Mono", monospace;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.sandpile-button,
+.sandpile-reset {
+  border: 0;
+  cursor: pointer;
+  font: 10px "Roboto Mono", monospace;
+  padding: 9px 8px;
+  text-transform: uppercase;
+}
+.sandpile-button {
+  background: var(--black);
+  color: var(--white);
+}
+.sandpile-button:hover {
+  background: var(--gray);
+}
+.sandpile-reset {
+  background: #e7dcc9;
+  color: var(--black);
+}
+.sandpile-colors {
+  border-top: 1px solid #d8c6a5;
+  display: grid;
+  gap: 8px;
+  padding-top: 10px;
+}
+.sandpile-colors h3 {
+  color: #6b3e26;
+  font: 14px "Roboto Mono", monospace;
+  margin: 0;
+}
+.sandpile-colors label {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+.sandpile-colors input {
+  border: 0;
+  height: 28px;
+  padding: 0;
+  width: 40px;
+}
+.sandpile-color-options {
+  display: grid;
+  gap: 6px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.sandpile-color-options label {
+  align-items: center;
+  flex-direction: column;
+  gap: 4px;
+}
+.sandpile-color-options label span {
+  font-size: 8px;
+  text-align: center;
+}
 .spirograph-heading {
   align-items: end;
   display: flex;
@@ -1519,7 +1788,7 @@ main {
 .spirograph-workspace {
   display: grid;
   gap: 24px;
-  grid-template-columns: minmax(0, 1fr) 280px;
+  grid-template-columns: minmax(0, 1fr) 340px;
 }
 .spirograph-canvas-wrap {
   align-items: center;
@@ -1559,6 +1828,20 @@ main {
     monospace;
   margin: 0 0 4px;
 }
+.spirograph-arm-fields {
+  display: grid;
+  gap: 5px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.spirograph-arm .spirograph-arm-fields label {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.03em;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .spirograph-arm input {
   background: #fffdf8;
   border: 1px solid #d8c6a5;
@@ -1568,7 +1851,7 @@ main {
     14px "Roboto Mono",
     monospace;
   font-size: 12px;
-  padding: 7px;
+  padding: 6px 4px;
 }
 .spirograph-add {
   border: 0;
@@ -1632,7 +1915,7 @@ main {
     monospace;
   gap: 2px 10px;
   grid-template-columns: 1fr;
-  max-height: 340px;
+  max-height: 170px;
   overflow-y: auto;
   padding-right: 3px;
 }
@@ -1654,6 +1937,17 @@ main {
 }
 .spirograph-animate-toggle {
   background: #6b3e26;
+  border: 0;
+  color: var(--white);
+  cursor: pointer;
+  font:
+    11px "Roboto Mono",
+    monospace;
+  padding: 11px 8px;
+  text-transform: uppercase;
+}
+.spirograph-reference-toggle {
+  background: #8b6f47;
   border: 0;
   color: var(--white);
   cursor: pointer;
@@ -1702,6 +1996,21 @@ main {
 .spirograph-presets button.active {
   background: #6b3e26;
   color: var(--white);
+}
+.spirograph-preset-select-label {
+  display: grid;
+  gap: 5px;
+}
+.spirograph-preset-select {
+  background: var(--white);
+  border: 1px solid #d8c6a5;
+  color: #6b3e26;
+  font:
+    10px "Roboto Mono",
+    monospace;
+  padding: 9px 6px;
+  text-transform: uppercase;
+  width: 100%;
 }
 .spirograph-actions {
   display: grid;
@@ -2166,6 +2475,27 @@ footer {
   .spirograph-workspace {
     display: block;
   }
+  .sandpile-workspace {
+    display: block;
+  }
+  .sandpile-controls {
+    margin-top: 16px;
+  }
+  .sandpile-option-row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .sandpile-option-row .sandpile-button,
+  .sandpile-option-row .sandpile-reset {
+    min-height: 32px;
+  }
+  .sandpile-color-options {
+    gap: 4px;
+  }
+  .sandpile-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 10px;
+  }
   .spirograph-controls {
     margin-top: 16px;
   }
@@ -2250,6 +2580,11 @@ footer {
     display: block;
   }
 
+  .tiling-heading,
+  .tiling-workspace {
+    display: block;
+  }
+
   .conic-heading,
   .conic-workspace {
     display: block;
@@ -2268,6 +2603,17 @@ footer {
   }
 
   .platonic-controls {
+    margin-top: 1rem;
+    padding: 18px;
+  }
+
+  .tiling-status {
+    display: block;
+    margin-top: 0.5rem;
+    text-align: left;
+  }
+
+  .tiling-controls {
     margin-top: 1rem;
     padding: 18px;
   }

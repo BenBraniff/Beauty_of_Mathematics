@@ -1,11 +1,23 @@
 import { useEffect, useRef, useState } from "react";
+import blueyImage from "../../assets/bluey.jpg";
+import blueyPointsCsv from "../../assets/bluey_points.csv?raw";
 
 const CANVAS_WIDTH = 900;
 const CANVAS_HEIGHT = 500;
 const TAU = Math.PI * 2;
+const SPEED_MIN = -5;
+const SPEED_MAX = 5;
+const SPEED_PRECISION = 100;
+const ANGLE_MIN = 0;
+const ANGLE_MAX = 360;
+const BLUEY_IMAGE_SIZE = { width: 850, height: 530 };
+const BLUEY_CONTOUR_CENTER = { x: 434.099, y: 281.761 };
+const BLUEY_CONTOUR_SCALE = 232.761;
+const BLUEY_REFERENCE = new Image();
+BLUEY_REFERENCE.src = blueyImage;
 const INITIAL_ARMS = [
-  { length: 50, speed: 1 },
-  { length: 100, speed: 2 },
+  { length: 70, speed: 1, angle: 0 },
+  { length: 45, speed: -4, angle: 0 },
 ];
 const PRESETS = [
   {
@@ -26,7 +38,7 @@ const PRESETS = [
     name: "Cardioid",
     arms: [
       { length: 50, speed: 1 },
-      { length: 50, speed: 2 },
+      { length: 25, speed: 2 },
     ],
   },
   {
@@ -36,34 +48,53 @@ const PRESETS = [
       { length: 25, speed: 3 },
     ],
   },
+  {
+    name: "Hypotrochoid",
+    arms: [
+      { length: 70, speed: 1 },
+      { length: 45, speed: -4 },
+    ],
+  },
+  {
+    name: "Epitrochoid",
+    arms: [
+      { length: 55, speed: 1 },
+      { length: 35, speed: 4 },
+    ],
+  },
+  {
+    name: "Rose",
+    arms: [
+      { length: 60, speed: 1 },
+      { length: 40, speed: -5 },
+    ],
+  },
+  {
+    name: "Starburst",
+    arms: [
+      { length: 80, speed: 2 },
+      { length: 20, speed: -5 },
+    ],
+  },
 ];
 
-function createCharacterHarmonograph() {
-  const outline = [
-    [-0.95, -0.72], [-1.12, -0.58], [-1.08, -0.35], [-1.02, -0.08],
-    [-1.04, 0.35], [-0.96, 0.88], [-0.72, 1.16], [-0.45, 0.94],
-    [-0.18, 1.24], [0.12, 1.05], [0.38, 0.82], [0.68, 0.66],
-    [0.94, 0.46], [1.12, 0.18], [0.98, 0.02], [0.76, -0.02],
-    [0.64, -0.23], [0.58, -0.48], [0.52, -0.74], [0.42, -0.98],
-    [0.22, -1.04], [0.08, -0.82], [-0.12, -0.83], [-0.25, -1.08],
-    [-0.48, -1.06], [-0.58, -0.82], [-0.72, -0.88],
-  ];
-  const sampleCount = 1024;
-  const boundary = Array.from({ length: sampleCount }, (_, index) => {
-    const position = (index / sampleCount) * outline.length;
-    const start = Math.floor(position) % outline.length;
-    const end = (start + 1) % outline.length;
-    const fraction = position - Math.floor(position);
-    return {
-      real: outline[start][0] + (outline[end][0] - outline[start][0]) * fraction,
-      imaginary: outline[start][1] + (outline[end][1] - outline[start][1]) * fraction,
-    };
-  });
-  return Array.from({ length: 75 }, (_, harmonic) => {
-    const frequency = harmonic - 37;
+function parsePointCsv(csv) {
+  return csv
+    .trim()
+    .split(/\r?\n/)
+    .slice(1)
+    .map((line) => line.split(",").map(Number))
+    .filter(([x, y]) => Number.isFinite(x) && Number.isFinite(y))
+    .map(([x, y]) => ({ real: x, imaginary: y }));
+}
+
+function createCharacterHarmonograph(points) {
+  const sampleCount = points.length;
+  return Array.from({ length: 100 }, (_, harmonic) => {
+    const frequency = harmonic - 50;
     let real = 0;
     let imaginary = 0;
-    boundary.forEach((point, index) => {
+    points.forEach((point, index) => {
       const angle = (TAU * frequency * index) / sampleCount;
       real += (point.real * Math.cos(angle) + point.imaginary * Math.sin(angle)) / sampleCount;
       imaginary += (point.imaginary * Math.cos(angle) - point.real * Math.sin(angle)) / sampleCount;
@@ -76,7 +107,7 @@ function createCharacterHarmonograph() {
   });
 }
 
-const CHARACTER_HARMONOGRAPH = createCharacterHarmonograph();
+const CHARACTER_HARMONOGRAPH = createCharacterHarmonograph(parsePointCsv(blueyPointsCsv));
 
 function getHypotrochoidStatus(arms) {
   if (arms.length !== 2) return "Custom arm system";
@@ -105,6 +136,7 @@ function drawSpirograph(canvas, arms, time) {
   const renderArms = arms.map((arm) => ({
     length: Number.isFinite(Number(arm.length)) ? Number(arm.length) : 50,
     speed: Number.isFinite(Number(arm.speed)) ? Number(arm.speed) : 1,
+    angle: Number.isFinite(Number(arm.angle)) ? Number(arm.angle) * Math.PI / 180 : 0,
   }));
 
   const width = canvas.clientWidth || CANVAS_WIDTH;
@@ -123,7 +155,7 @@ function drawSpirograph(canvas, arms, time) {
   const totalLength = Math.max(1, renderArms.reduce((sum, arm) => sum + arm.length, 0));
   const scale = Math.min((width - 48) / (totalLength * 2), (height - 48) / (totalLength * 2));
   const pointAt = (t) => renderArms.reduce((point, arm) => {
-    const angle = t * arm.speed;
+    const angle = t * arm.speed + arm.angle;
     return {
       x: point.x + arm.length * scale * Math.cos(angle),
       y: point.y - arm.length * scale * Math.sin(angle),
@@ -162,7 +194,7 @@ function drawSpirograph(canvas, arms, time) {
   const currentPoint = pointAt(time);
   let armStart = { x: centerX, y: centerY };
   renderArms.forEach((arm) => {
-    const angle = time * arm.speed;
+    const angle = time * arm.speed + arm.angle;
     const armEnd = {
       x: armStart.x + arm.length * scale * Math.cos(angle),
       y: armStart.y - arm.length * scale * Math.sin(angle),
@@ -181,7 +213,7 @@ function drawSpirograph(canvas, arms, time) {
   context.fill();
 }
 
-function drawCharacterHarmonograph(canvas, time) {
+function drawCharacterHarmonograph(canvas, time, showBlueyReference) {
   const context = canvas.getContext("2d");
   if (!context) return;
   const width = canvas.clientWidth || CANVAS_WIDTH;
@@ -197,7 +229,7 @@ function drawCharacterHarmonograph(canvas, time) {
 
   const centerX = width / 2;
   const centerY = height / 2;
-  const scale = Math.min((width - 72) / 2.7, (height - 72) / 2.45);
+  const scale = Math.min((width - 48) / 2.35, (height - 48) / 2.15);
   const pointAt = (t) => CHARACTER_HARMONOGRAPH.reduce((point, arm) => {
     const angle = arm.speed * t + arm.phase;
     return {
@@ -209,6 +241,18 @@ function drawCharacterHarmonograph(canvas, time) {
   context.clearRect(0, 0, width, height);
   context.fillStyle = "#f4eee4";
   context.fillRect(0, 0, width, height);
+  if (showBlueyReference && BLUEY_REFERENCE.complete) {
+    const imageScale = scale / BLUEY_CONTOUR_SCALE;
+    context.globalAlpha = 0.75;
+    context.drawImage(
+      BLUEY_REFERENCE,
+      centerX - BLUEY_CONTOUR_CENTER.x * imageScale,
+      centerY - BLUEY_CONTOUR_CENTER.y * imageScale,
+      BLUEY_IMAGE_SIZE.width * imageScale,
+      BLUEY_IMAGE_SIZE.height * imageScale,
+    );
+    context.globalAlpha = 1;
+  }
   context.strokeStyle = "#e0d4c2";
   context.lineWidth = 1;
   context.beginPath();
@@ -247,7 +291,7 @@ function drawCharacterHarmonograph(canvas, time) {
     context.moveTo(armStart.x, armStart.y);
     context.lineTo(armEnd.x, armEnd.y);
     context.strokeStyle = "rgba(213, 93, 62, 0.28)";
-    context.lineWidth = 1;
+    context.lineWidth = 4;
     context.stroke();
     armStart = armEnd;
   });
@@ -258,15 +302,32 @@ function drawCharacterHarmonograph(canvas, time) {
 }
 
 function createArm() {
-  return { length: 50, speed: 1 };
+  return { length: 50, speed: 1, angle: 0 };
 }
 
 function getArmValue(field, value, fallback) {
   const number = Number(value);
   if (!Number.isFinite(number)) return fallback;
   if (field === "length") return Math.min(100, Math.max(1, number));
-  if (field === "speed") return Math.min(10, Math.max(-10, number));
+  if (field === "speed") {
+    const bounded = Math.min(SPEED_MAX, Math.max(SPEED_MIN, number));
+    return Math.round(bounded * SPEED_PRECISION) / SPEED_PRECISION;
+  }
+  if (field === "angle") return Math.min(ANGLE_MAX, Math.max(ANGLE_MIN, number));
   return number;
+}
+
+function getAnimationDuration(arms, isCharacterMode) {
+  if (isCharacterMode) return TAU;
+  const totalLength = Math.max(
+    1,
+    arms.reduce((sum, arm) => {
+      const length = Number(arm.length);
+      return sum + (Number.isFinite(length) ? length : 50);
+    }, 0),
+  );
+  const turns = Math.min(24, Math.max(4, Math.ceil(totalLength / 8)));
+  return TAU * turns;
 }
 
 export default function SpirographExplorer() {
@@ -277,16 +338,26 @@ export default function SpirographExplorer() {
   const [time, setTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMandelbrotMode, setIsMandelbrotMode] = useState(false);
+  const [showBlueyReference, setShowBlueyReference] = useState(false);
+  const [, setBlueyImageReady] = useState(BLUEY_REFERENCE.complete);
+  const animationDuration = getAnimationDuration(arms, isMandelbrotMode);
+
+  useEffect(() => {
+    const markImageReady = () => setBlueyImageReady(true);
+    BLUEY_REFERENCE.addEventListener("load", markImageReady);
+    if (BLUEY_REFERENCE.complete) markImageReady();
+    return () => BLUEY_REFERENCE.removeEventListener("load", markImageReady);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return undefined;
     const frame = window.requestAnimationFrame(() => {
-      if (isMandelbrotMode) drawCharacterHarmonograph(canvas, time);
+      if (isMandelbrotMode) drawCharacterHarmonograph(canvas, time, showBlueyReference);
       else drawSpirograph(canvas, arms, time);
     });
     return () => window.cancelAnimationFrame(frame);
-  }, [arms, isMandelbrotMode, time]);
+  }, [arms, isMandelbrotMode, showBlueyReference, time]);
 
   useEffect(() => {
     if (!isPlaying) {
@@ -297,7 +368,14 @@ export default function SpirographExplorer() {
       if (lastFrameRef.current === null) lastFrameRef.current = timestamp;
       const elapsed = timestamp - lastFrameRef.current;
       lastFrameRef.current = timestamp;
-      setTime((current) => (current + elapsed * 0.001) % (TAU * 24));
+      setTime((current) => {
+        const nextTime = current + elapsed * 0.001;
+        if (nextTime >= animationDuration) {
+          setIsPlaying(false);
+          return animationDuration;
+        }
+        return nextTime;
+      });
       animationRef.current = window.requestAnimationFrame(animate);
     };
     animationRef.current = window.requestAnimationFrame(animate);
@@ -305,7 +383,7 @@ export default function SpirographExplorer() {
       if (animationRef.current) window.cancelAnimationFrame(animationRef.current);
       animationRef.current = null;
     };
-  }, [isPlaying]);
+  }, [animationDuration, isPlaying]);
 
   const updateArm = (index, field, value) => {
     setArms((current) => current.map((arm, armIndex) => (
@@ -316,7 +394,10 @@ export default function SpirographExplorer() {
   const normalizeArm = (index, field) => {
     setArms((current) => current.map((arm, armIndex) => (
       armIndex === index
-        ? { ...arm, [field]: getArmValue(field, arm[field], field === "length" ? 50 : 1) }
+        ? {
+          ...arm,
+          [field]: getArmValue(field, arm[field], field === "length" ? 50 : field === "angle" ? 0 : 1),
+        }
         : arm
     )));
   };
@@ -324,6 +405,12 @@ export default function SpirographExplorer() {
   const reset = () => {
     setIsPlaying(false);
     setArms(INITIAL_ARMS);
+    setTime(0);
+  };
+
+  const applyPreset = (preset) => {
+    setIsPlaying(false);
+    setArms(preset.arms);
     setTime(0);
   };
 
@@ -361,10 +448,27 @@ export default function SpirographExplorer() {
           <button
             type="button"
             className="spirograph-animate-toggle"
-            onClick={() => setIsPlaying((playing) => !playing)}
+            onClick={() => {
+              if (isPlaying) {
+                setIsPlaying(false);
+                return;
+              }
+              if (time >= animationDuration) setTime(0);
+              setIsPlaying(true);
+            }}
           >
             {isPlaying ? "Pause animation" : "Animate"}
           </button>
+          {isMandelbrotMode && (
+            <button
+              type="button"
+              className="spirograph-reference-toggle"
+              aria-pressed={showBlueyReference}
+              onClick={() => setShowBlueyReference((visible) => !visible)}
+            >
+              {showBlueyReference ? "Hide Bluey reference" : "Show Bluey reference"}
+            </button>
+          )}
           <div className="spirograph-readout">
             <span>Spirograph arms</span>
             <strong aria-live="polite">
@@ -383,7 +487,7 @@ export default function SpirographExplorer() {
               {CHARACTER_HARMONOGRAPH.map((arm, index) => (
                 <div className="spirograph-harmonograph-arm" key={`harmonograph-arm-${index + 1}`}>
                   <strong>{index + 1}</strong>
-                  <span>{arm.length.toFixed(3)}</span>
+                  <span>{arm.length.toFixed(4)}</span>
                   <span>{arm.speed}</span>
                   <span>{(arm.phase * 180 / Math.PI).toFixed(1)}°</span>
                 </div>
@@ -394,46 +498,47 @@ export default function SpirographExplorer() {
             {arms.map((arm, index) => (
               <div className="spirograph-arm" key={`arm-${index + 1}`}>
                 <h3>Arm #{index + 1}</h3>
-                <label htmlFor={`spirograph-length-${index}`}>Arm length</label>
-                <input
-                  id={`spirograph-length-${index}`}
-                  type="number"
-                  min="1"
-                  max="100"
-                  step="1"
-                  value={arm.length}
-                  onChange={(event) => updateArm(index, "length", event.target.value)}
-                  onBlur={() => normalizeArm(index, "length")}
-                />
-                <label htmlFor={`spirograph-speed-${index}`}>Rotation speed</label>
-                <input
-                  id={`spirograph-speed-${index}`}
-                  type="text"
-                  inputMode="decimal"
-                  value={arm.speed}
-                  onChange={(event) => updateArm(index, "speed", event.target.value)}
-                  onBlur={() => normalizeArm(index, "speed")}
-                />
+                <div className="spirograph-arm-fields">
+                  <label htmlFor={`spirograph-length-${index}`}>Length</label>
+                  <label htmlFor={`spirograph-speed-${index}`}>Speed</label>
+                  <label htmlFor={`spirograph-angle-${index}`}>Angle</label>
+                  <input
+                    id={`spirograph-length-${index}`}
+                    type="number"
+                    min="1"
+                    max="100"
+                    step="1"
+                    value={arm.length}
+                    onChange={(event) => updateArm(index, "length", event.target.value)}
+                    onBlur={() => normalizeArm(index, "length")}
+                  />
+                  <input
+                    id={`spirograph-speed-${index}`}
+                    type="number"
+                    min={SPEED_MIN}
+                    max={SPEED_MAX}
+                    step="0.01"
+                    inputMode="decimal"
+                    value={arm.speed}
+                    onChange={(event) => updateArm(index, "speed", event.target.value)}
+                    onBlur={() => normalizeArm(index, "speed")}
+                  />
+                  <input
+                    id={`spirograph-angle-${index}`}
+                    type="number"
+                    min={ANGLE_MIN}
+                    max={ANGLE_MAX}
+                    step="1"
+                    value={arm.angle ?? 0}
+                    onChange={(event) => updateArm(index, "angle", event.target.value)}
+                    onBlur={() => normalizeArm(index, "angle")}
+                  />
+                </div>
               </div>
             ))}
           </div>}
           {!isMandelbrotMode && (
             <>
-          <div className="spirograph-presets" aria-label="Spirograph presets">
-            {PRESETS.map((preset) => (
-              <button
-                type="button"
-                key={preset.name}
-                onClick={() => {
-                  setIsPlaying(false);
-                  setArms(preset.arms);
-                  setTime(0);
-                }}
-              >
-                {preset.name}
-              </button>
-            ))}
-          </div>
           <div className="spirograph-arm-actions">
             <button type="button" className="spirograph-add" onClick={() => setArms((current) => [...current, createArm()])}>
               + Add arm
@@ -448,12 +553,24 @@ export default function SpirographExplorer() {
               </button>
             )}
           </div>
+          <label className="spirograph-preset-select-label" htmlFor="spirograph-preset-select">
+            Choose preset
+            <select
+              id="spirograph-preset-select"
+              className="spirograph-preset-select"
+              defaultValue="Hypotrochoid"
+              onChange={(event) => {
+                const preset = PRESETS.find(({ name }) => name === event.target.value);
+                if (preset) applyPreset(preset);
+              }}
+            >
+              <option value="" disabled>Select a preset</option>
+              {PRESETS.map((preset) => <option key={preset.name} value={preset.name}>{preset.name}</option>)}
+            </select>
+          </label>
           <div className="spirograph-actions">
             <button type="button" onClick={reset}>Reset spirograph</button>
           </div>
-          <p>
-            Each arm rotates at its own signed speed. The endpoint of the final arm traces the curve.
-          </p>
             </>
           )}
         </aside>
