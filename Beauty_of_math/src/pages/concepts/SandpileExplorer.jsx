@@ -12,6 +12,7 @@ const COLOR_PRESETS = {
 };
 const IDENTITY_DATABASE = "beauty-of-math-sandpile";
 const IDENTITY_STORE = "identities";
+const BUNDLED_IDENTITY_URL = `${import.meta.env.BASE_URL}sandpile-identities-1-of-512.bin`;
 
 function openIdentityDatabase() {
   return new Promise((resolve, reject) => {
@@ -57,6 +58,70 @@ async function writeCachedIdentity(size, grid) {
   });
 }
 
+async function seedBundledIdentityCache() {
+  const response = await fetch(BUNDLED_IDENTITY_URL);
+  if (!response.ok) throw new Error(`Bundled identity cache request failed: ${response.status}`);
+  const data = new Uint8Array(await response.arrayBuffer());
+  if (data.length < 8 || new TextDecoder().decode(data.slice(0, 4)) !== "SPID") {
+    throw new Error("Bundled identity cache has an invalid header");
+  }
+  const recordCount = data[6] | (data[7] << 8);
+  let offset = 8;
+  const records = [];
+  for (let index = 0; index < recordCount; index += 1) {
+    if (offset + 6 > data.length) throw new Error("Bundled identity cache is truncated");
+    const size = data[offset] | (data[offset + 1] << 8);
+    const length = (
+      data[offset + 2]
+      | (data[offset + 3] << 8)
+      | (data[offset + 4] << 16)
+      | (data[offset + 5] << 24)
+    ) >>> 0;
+    offset += 6;
+    if (size < 1 || length !== size * size || offset + length > data.length) {
+      throw new Error("Bundled identity cache has an invalid record");
+    }
+    records.push({ size, grid: data.slice(offset, offset + length).buffer });
+    offset += length;
+  }
+  if (offset !== data.length) throw new Error("Bundled identity cache has trailing data");
+
+  const database = await openIdentityDatabase();
+  return new Promise((resolve, reject) => {
+    const transaction = database.transaction(IDENTITY_STORE, "readwrite");
+    const store = transaction.objectStore(IDENTITY_STORE);
+    const existing = new Set();
+    const keysRequest = store.getAllKeys();
+    keysRequest.onsuccess = () => {
+      keysRequest.result.forEach((size) => existing.add(size));
+      records.forEach((record) => {
+        if (!existing.has(record.size)) store.put(record);
+      });
+    };
+    keysRequest.onerror = () => transaction.abort();
+    transaction.oncomplete = () => {
+      database.close();
+      resolve(recordCount);
+    };
+    transaction.onerror = () => {
+      database.close();
+      reject(transaction.error);
+    };
+    transaction.onabort = () => {
+      database.close();
+      reject(transaction.error || new Error("Bundled identity cache import aborted"));
+    };
+  });
+}
+
+let bundledIdentityCachePromise;
+function ensureBundledIdentityCache() {
+  if (!bundledIdentityCachePromise) {
+    bundledIdentityCachePromise = seedBundledIdentityCache();
+  }
+  return bundledIdentityCachePromise;
+}
+
 function createToppleSimulation(nextGrid, size) {
   const grid = nextGrid.map((row) => row.slice());
   const queue = [];
@@ -100,9 +165,6 @@ export default function SandpileExplorer() {
   const animationRef = useRef(null);
   const simulationRef = useRef(null);
   const identityWorkerRef = useRef(null);
-  const cacheWorkerRef = useRef(null);
-  const cacheCancelledRef = useRef(false);
-  const cacheRejectRef = useRef(null);
   const generationTimerRef = useRef(null);
   const [gridSize, setGridSize] = useState(DEFAULT_SIZE);
   const [grid, setGrid] = useState(() => createEmptyGrid(DEFAULT_SIZE));
@@ -113,7 +175,6 @@ export default function SandpileExplorer() {
   const [animationSpeed, setAnimationSpeed] = useState(50);
   const [fps, setFps] = useState(0);
   const [generationStatus, setGenerationStatus] = useState("");
-  const [isCaching, setIsCaching] = useState(false);
   const generationStartedRef = useRef(0);
   const animationSpeedRef = useRef(50);
   const lastFrameTimeRef = useRef(0);
@@ -127,11 +188,15 @@ export default function SandpileExplorer() {
     animationSpeedRef.current = animationSpeed;
   }, [animationSpeed]);
 
+  useEffect(() => {
+    ensureBundledIdentityCache().catch(() => {
+      setGenerationStatus("Bundled identity cache unavailable; generating identities as needed");
+    });
+  }, []);
+
   useEffect(() => () => {
     if (animationRef.current) window.clearTimeout(animationRef.current);
     identityWorkerRef.current?.terminate();
-    cacheWorkerRef.current?.terminate();
-    cacheCancelledRef.current = true;
     if (generationTimerRef.current) window.clearInterval(generationTimerRef.current);
   }, []);
 
@@ -143,11 +208,6 @@ export default function SandpileExplorer() {
     simulationRef.current = null;
     identityWorkerRef.current?.terminate();
     identityWorkerRef.current = null;
-    cacheCancelledRef.current = true;
-    cacheRejectRef.current?.(new Error("Identity cache population cancelled"));
-    cacheRejectRef.current = null;
-    cacheWorkerRef.current?.terminate();
-    cacheWorkerRef.current = null;
     if (generationTimerRef.current) {
       window.clearInterval(generationTimerRef.current);
       generationTimerRef.current = null;
@@ -259,63 +319,13 @@ export default function SandpileExplorer() {
       };
       worker.postMessage({ type: "generate", size: gridSize });
     };
-    readCachedIdentity(gridSize).then((cachedGrid) => {
+    ensureBundledIdentityCache().catch(() => null).then(() => readCachedIdentity(gridSize)).then((cachedGrid) => {
       if (cachedGrid) finish(cachedGrid, 0);
       else generate();
     }).catch(() => {
       setGenerationStatus("Identity cache unavailable; generating JavaScript identity");
       generate();
     });
-  };
-
-  const populateIdentityCache = async () => {
-    if (isAnimating) return;
-    cancelAnimation();
-    cacheCancelledRef.current = false;
-    setIsCaching(true);
-    setIsAnimating(true);
-    try {
-      for (let size = 1; size <= MAX_SIZE; size += 1) {
-        if (cacheCancelledRef.current) break;
-        setGenerationStatus(`Caching identity ${size}/${MAX_SIZE}`);
-        let identity = await readCachedIdentity(size).catch(() => null);
-        if (!identity) {
-          identity = await new Promise((resolve, reject) => {
-            const worker = new IdentityWorker();
-            cacheWorkerRef.current = worker;
-            cacheRejectRef.current = reject;
-            worker.onmessage = (event) => {
-              cacheWorkerRef.current = null;
-              cacheRejectRef.current = null;
-              worker.terminate();
-              if (event.data.type === "complete") resolve(event.data.grid);
-              else reject(new Error("Identity worker failed"));
-            };
-            worker.onerror = () => {
-              cacheWorkerRef.current = null;
-              cacheRejectRef.current = null;
-              worker.terminate();
-              reject(new Error("Identity worker failed"));
-            };
-            worker.postMessage({ type: "generate", size });
-          });
-          await writeCachedIdentity(size, identity);
-        }
-      }
-      setGenerationStatus(
-        cacheCancelledRef.current ? "Identity cache population cancelled" : "Cached identities 1-512",
-      );
-    } catch (error) {
-      setGenerationStatus(error.message === "Identity cache population cancelled"
-        ? "Identity cache population cancelled"
-        : "Identity cache population failed");
-    } finally {
-      cacheWorkerRef.current?.terminate();
-      cacheWorkerRef.current = null;
-      cacheRejectRef.current = null;
-      setIsCaching(false);
-      setIsAnimating(false);
-    }
   };
 
   const addGrain = (event) => {
@@ -388,17 +398,6 @@ export default function SandpileExplorer() {
             generateIdentity();
           }}>
             Generate identity grid
-          </button>
-          <button
-            className="sandpile-button"
-            type="button"
-            onClick={() => {
-              if (isCaching) cancelAnimation();
-              else populateIdentityCache();
-            }}
-            disabled={isAnimating && !isCaching}
-          >
-            {isCaching ? "Cancel identity caching" : "Cache identities 1-512"}
           </button>
           <label className="sandpile-field sandpile-speed" htmlFor="sandpile-speed">
             Animation speed

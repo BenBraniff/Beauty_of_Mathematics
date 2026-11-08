@@ -41,6 +41,11 @@ body {
   text-decoration: none;
   text-transform: uppercase;
 }
+.brand-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+}
 .brand-name {
   display: flex;
   flex-direction: column;
@@ -394,6 +399,32 @@ main {
     10px "Roboto Mono",
     monospace;
   text-transform: uppercase;
+}
+
+.tiling-controls input[type="range"] {
+  accent-color: var(--black);
+  margin: 0 0 6px;
+  width: 100%;
+}
+
+.tiling-controls output {
+  color: var(--black);
+  float: right;
+}
+
+.tiling-toggle {
+  align-items: center;
+  color: var(--black) !important;
+  cursor: pointer;
+  display: flex;
+  gap: 8px;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+
+.tiling-toggle input {
+  accent-color: var(--black);
+  margin: 0;
 }
 
 .tiling-controls p {
@@ -2294,6 +2325,11 @@ footer {
   font-size: 20px;
   line-height: 1;
   text-decoration: none;
+}
+.social-icon {
+  display: block;
+  height: 20px;
+  width: 20px;
 }
 .social-links a:hover {
   color: var(--gray);

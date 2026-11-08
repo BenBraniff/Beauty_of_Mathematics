@@ -1,4 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import sandpileLogoAnimation from "./assets/sandpile-identity-cycle.gif";
+import sandpileLogo from "./assets/sandpile-420x420.png";
+import xTwitterIcon from "./assets/bxl-x-twitter.svg";
 import mandelbrotImg from "./assets/mandelbrot_high_resolution.png";
 import piConstantImg from "./assets/pi_constant_2.png";
 import platonicSolidsImg from "./assets/Platonic_Solids.png";
@@ -839,6 +842,25 @@ function getPage() {
 function App() {
   const [currentPage, setCurrentPage] = useState(getPage());
   const [menuOpen, setMenuOpen] = useState(false);
+  const [logoAnimationComplete, setLogoAnimationComplete] = useState(false);
+  const logoAnimationTimerRef = useRef(null);
+
+  useEffect(() => () => {
+    if (logoAnimationTimerRef.current) {
+      window.clearTimeout(logoAnimationTimerRef.current);
+    }
+  }, []);
+
+  const finishLogoAnimation = () => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setLogoAnimationComplete(true);
+      return;
+    }
+    logoAnimationTimerRef.current = window.setTimeout(
+      () => setLogoAnimationComplete(true),
+      5000,
+    );
+  };
 
   useEffect(() => {
     imageSources.forEach((source) => {
@@ -885,6 +907,12 @@ function App() {
     <div className="site-shell">
       <header className="site-header">
         <a className="brand" href="#" aria-label="Beauty of Mathematics home">
+          <img
+            className="brand-logo"
+            src={logoAnimationComplete ? sandpileLogo : sandpileLogoAnimation}
+            alt=""
+            onLoad={logoAnimationComplete ? undefined : finishLogoAnimation}
+          />
           <span className="brand-name">
             <span>
               Beauty of
@@ -969,7 +997,7 @@ function App() {
             target="_blank"
             rel="noreferrer"
           >
-            <i className="bx bxl-twitter" aria-hidden="true"></i>
+            <img className="social-icon" src={xTwitterIcon} alt="" aria-hidden="true" />
           </a>
           <a
             href="https://www.youtube.com/@Cowbob1"
