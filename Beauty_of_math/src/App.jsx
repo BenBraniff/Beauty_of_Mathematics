@@ -41,6 +41,10 @@ import organicChemistryTutorImg from "./assets/organic_chemist.jpg";
 import blackpenredpenImg from "./assets/blackpenredpen.jpg";
 import kuvinaImg from "./assets/ Kuvina Saydaki.jpg";
 import terenceTaoImg from "./assets/Terence Tao.jpg";
+import grantSandersonImg from "./assets/Grant_Sanderson.jpg";
+import moneyballImg from "./assets/Moneyball.webp";
+import thinkLikeMathGeniusImg from "./assets/Think_like_a_math_genius.avif";
+import profilePhotoImg from "./assets/profile_photo_square.png";
 import goodWillHuntingImg from "./assets/Good_Will_Hunting.webp";
 import hiddenFiguresImg from "./assets/Hidden Figures.webp";
 import standAndDeliverImg from "./assets/stand_and_deliver.webp";
@@ -55,9 +59,9 @@ import surrealNumbersImg from "./assets/surreal_numbers.jpg";
 import numberDevilImg from "./assets/the_number_devil.avif";
 import infinitePowersImg from "./assets/infinite_powers.avif";
 import joyOfXImg from "./assets/the_joy_of_x.avif";
-import thinkLikeMathGeniusImg from "./assets/Think_like_a_math_genius.avif";
+import sixMathEssentialsImg from "./assets/Six_Math_Essentials.jpg";
 import preAlgebraNotebookImg from "./assets/pre_algebra_albegra_everything_notebook.avif";
-import mindForNumbersImg from "./assets/a_mind_for_numbers.avif";
+import humblePiImg from "./assets/Humble_Pi.jpg";
 import manLovedNumbersImg from "./assets/The_Man_Who_Loved_Only_Numbers.avif";
 import fermatEnigmaImg from "./assets/Fermats_Enigma.avif";
 import codeBookImg from "./assets/the_code_book.avif";
@@ -94,33 +98,33 @@ const pages = [
     number: "04",
   },
   {
-    slug: "resources",
-    label: "Top 10 Math Resources",
-    shortLabel: "Resources",
-    number: "05",
-  },
-  {
     slug: "equations",
     label: "Top 10 Equations",
     shortLabel: "Equations",
-    number: "06",
+    number: "05",
   },
   {
     slug: "books",
     label: "Top 10 Math Books",
     shortLabel: "Books",
+    number: "06",
+  },
+  {
+    slug: "constants",
+    label: "Top 10 Constants",
+    shortLabel: "Constants",
     number: "07",
   },
   {
     slug: "problems",
-    label: "Top 10 Famous Unsolved Problems & Conjectures",
+    label: "Top 10 Problems & Conjectures",
     shortLabel: "Problems",
     number: "08",
   },
   {
-    slug: "constants",
-    label: "Top 10 Fundamental Mathematical Constants",
-    shortLabel: "Constants",
+    slug: "resources",
+    label: "Top 10 Math Resources",
+    shortLabel: "Resources",
     number: "09",
   },
   {
@@ -495,19 +499,71 @@ const collections = {
   },
   resources: {
     title: "Top 10 Math Resources",
+    resourceList: true,
+    textDetails: true,
     intro:
       "A hand-picked shelf of places to learn, practice, visualize, and go further.",
     items: [
-      "Khan Academy",
-      "MIT OpenCourseWare",
-      "Wolfram MathWorld",
-      "Brilliant",
-      "Desmos",
-      "GeoGebra",
-      "Project Euler",
-      "Art of Problem Solving",
-      "NRICH",
-      "Numberphile",
+      {
+        name: "Khan Academy",
+        link: "https://www.khanacademy.org/",
+        description:
+          "Free lessons and practice covering math from arithmetic through advanced topics.",
+      },
+      {
+        name: "Desmos",
+        link: "https://www.desmos.com/calculator",
+        description:
+          "An interactive graphing calculator for plotting functions and exploring equations.",
+      },
+      {
+        name: "GeoGebra",
+        link: "https://www.geogebra.org/calculator",
+        description:
+          "Interactive tools for exploring graphing, geometry, algebra, and 3D mathematics.",
+      },
+      {
+        name: "Excalidraw",
+        link: "https://excalidraw.com/",
+        description:
+          "A collaborative whiteboard for sketching diagrams and visualizing mathematical ideas.",
+      },
+      {
+        name: "Wolfram Alpha",
+        link: "https://www.wolframalpha.com/",
+        description:
+          "A computational knowledge engine for answering questions and solving mathematical problems.",
+      },
+      {
+        name: "OEIS",
+        link: "https://oeis.org/",
+        description:
+          "A searchable encyclopedia of integer sequences, with formulas, references, and related sequences.",
+      },
+      {
+        name: "Figma",
+        link: "https://www.figma.com/",
+        description:
+          "A collaborative design tool for creating diagrams and visuals to explain mathematical ideas.",
+      },
+      {
+        name: "NIST Digital Library of Mathematical Functions",
+        link: "https://dlmf.nist.gov/",
+        description:
+          "A detailed reference for mathematical functions, identities, formulas, and numerical methods.",
+      },
+      {
+        name: "MIT OpenCourseWare",
+        link: "https://ocw.mit.edu/",
+        description:
+          "Free access to MIT course materials, including lecture notes, problem sets, and math courses.",
+      },
+      {
+        name: "Cut the Knot",
+        link: "https://www.cut-the-knot.org/",
+        description:
+          "Interactive puzzles, proofs, and visual explanations that make mathematical ideas engaging.",
+      },
     ],
   },
   equations: {
@@ -627,14 +683,12 @@ const collections = {
       },
       {
         book: true,
-        name: "Think Like a Maths Genius",
-        image: thinkLikeMathGeniusImg,
-        author: "Arthur Benjamin and Michael Shermer",
-        releaseDate: "October 19, 2006",
-        pages: "304 pages",
-        link: "https://www.amazon.com/dp/0285637762/",
+        name: "Six Math Essentials",
+        image: sixMathEssentialsImg,
+        author: "Terence Tao",
+        link: "https://www.amazon.com/dp/0374621799/",
         description:
-          "A practical collection of mental calculation methods, memory techniques, and everyday number tricks designed to make arithmetic faster and more intuitive.",
+          "An accessible exploration of six essential mathematical ideas from mathematician Terence Tao.",
       },
       {
         book: true,
@@ -660,14 +714,12 @@ const collections = {
       },
       {
         book: true,
-        name: "A Mind for Numbers: How to Excel at Math and Science",
-        image: mindForNumbersImg,
-        author: "Barbara Oakley",
-        releaseDate: "July 31, 2014",
-        pages: "336 pages",
-        link: "https://www.amazon.com/dp/039916524X/",
+        name: "Humble Pi: When Math Goes Wrong in the Real World",
+        image: humblePiImg,
+        author: "Matt Parker",
+        link: "https://www.amazon.com/dp/0593084691/",
         description:
-          "A science-backed guide to learning difficult subjects, using focused and diffuse thinking, recall, chunking, and practical study habits to build confidence.",
+          "A witty look at real-world mathematical mistakes and the surprising consequences they can have.",
       },
       {
         book: true,
@@ -705,24 +757,81 @@ const collections = {
     ],
   },
   problems: {
-    title: "Top 10 Famous Unsolved Problems & Conjectures",
+    title: "Top 10 Problems & Conjectures",
     intro:
-      "The great unanswered questions that keep mathematicians searching for new ideas.",
+      "The great unanswered questions that keep mathematicians searching for new ideas. Several are Millennium Prize Problems; see the Clay Mathematics Institute's list.",
+    introLink: {
+      label: "Millennium Prize Problems",
+      url: "https://www.claymath.org/millennium-problems/",
+    },
+    problemList: true,
+    textDetails: true,
     items: [
-      "Riemann hypothesis",
-      "P versus NP",
-      "Birch and Swinnerton-Dyer conjecture",
-      "Hodge conjecture",
-      "Navier-Stokes existence and smoothness",
-      "Yang-Mills existence and mass gap",
-      "Goldbach's conjecture",
-      "Twin prime conjecture",
-      "Collatz conjecture",
-      "Legendre's conjecture",
+      {
+        name: "Riemann hypothesis",
+        description:
+          "A Millennium Prize Problem conjecturing that every nontrivial zero of the Riemann zeta function has real part 1/2. It is closely connected to the distribution of prime numbers.",
+        link: "https://en.wikipedia.org/wiki/Riemann_hypothesis",
+      },
+      {
+        name: "P versus NP",
+        description:
+          "A Millennium Prize Problem asking whether every problem whose solution can be checked efficiently can also be solved efficiently.",
+        link: "https://en.wikipedia.org/wiki/P_versus_NP_problem",
+      },
+      {
+        name: "Birch and Swinnerton-Dyer conjecture",
+        description:
+          "A Millennium Prize Problem connecting the number of rational points on an elliptic curve to the behavior of its L-function at 1.",
+        link: "https://en.wikipedia.org/wiki/Birch_and_Swinnerton-Dyer_conjecture",
+      },
+      {
+        name: "Hodge conjecture",
+        description:
+          "A Millennium Prize Problem asking whether certain cohomology classes on a nonsingular projective algebraic variety come from algebraic cycles.",
+        link: "https://en.wikipedia.org/wiki/Hodge_conjecture",
+      },
+      {
+        name: "Navier-Stokes existence and smoothness",
+        description:
+          "A Millennium Prize Problem about whether smooth solutions to the three-dimensional Navier-Stokes equations always remain smooth. OpenAI announced a proof in 2026; see its article for the claim and formalized proof.",
+        link: "https://en.wikipedia.org/wiki/Navier%E2%80%93Stokes_existence_and_smoothness",
+        openAiLink: "https://openai.com/index/navier-stokes-solution/",
+      },
+      {
+        name: "Yang-Mills existence and mass gap",
+        description:
+          "A Millennium Prize Problem asking for a rigorous mathematical foundation for quantum Yang-Mills theory and proof that it has a positive mass gap.",
+        link: "https://en.wikipedia.org/wiki/Yang%E2%80%93Mills_existence_and_mass_gap",
+      },
+      {
+        name: "Goldbach's conjecture",
+        description:
+          "The conjecture that every even integer greater than 2 can be written as the sum of two prime numbers.",
+        link: "https://en.wikipedia.org/wiki/Goldbach%27s_conjecture",
+      },
+      {
+        name: "Twin prime conjecture",
+        description:
+          "The conjecture that there are infinitely many pairs of primes that differ by 2, such as 11 and 13.",
+        link: "https://en.wikipedia.org/wiki/Twin_prime",
+      },
+      {
+        name: "Collatz conjecture",
+        description:
+          "Starting with any positive integer, repeatedly halve it if it is even or replace it with 3n + 1 if it is odd. The conjecture says this process always reaches 1.",
+        link: "https://en.wikipedia.org/wiki/Collatz_conjecture",
+      },
+      {
+        name: "Legendre's conjecture",
+        description:
+          "The conjecture that for every positive integer n, there is at least one prime between n squared and (n + 1) squared.",
+        link: "https://en.wikipedia.org/wiki/Legendre%27s_conjecture",
+      },
     ],
   },
   constants: {
-    title: "Top 10 Fundamental Mathematical Constants",
+    title: "Top 10 Constants",
     intro:
       "Special numbers that appear again and again across mathematics and the sciences.",
     items: [
@@ -809,18 +918,102 @@ const collections = {
   honorary: {
     title: "Top 10 Honorary Mentions",
     intro:
-      "More beautiful corners of mathematics that deserve a little extra attention.",
+      "A bonus pick from every part of this collection, from mathematical ideas to the person behind this site.",
+    noFallbackImages: true,
     items: [
-      "The four-color theorem",
-      "The Monty Hall problem",
-      "The birthday paradox",
-      "The Möbius strip",
-      "The Banach-Tarski paradox",
-      "The Königsberg bridges",
-      "The Seven Bridges of Königsberg",
-      "The barber paradox",
-      "The Koch snowflake",
-      "The Look-and-say sequence",
+      {
+        name: "Honorary Concept",
+        articleSlug: "monty-hall-problem",
+        detailsTitle: "The Monty Hall Problem",
+        articleDescription:
+          "A famous probability puzzle about three doors, a hidden prize, and whether switching your choice improves your odds.",
+      },
+      {
+        name: "Honorary Mathematician",
+        detailsTitle: "Terence Tao",
+        image: terenceTaoImg,
+        dates: "Born 1975",
+        knownFor: ["Number theory", "Analysis", "Combinatorics"],
+        description:
+          "A mathematician whose wide-ranging work and clear explanations have made him an inspiring figure across many areas of mathematics.",
+      },
+      {
+        name: "Honorary YouTuber",
+        detailsTitle: "Grant Sanderson",
+        image: grantSandersonImg,
+        link: "https://www.youtube.com/@GrantSanderson",
+        linkLabel: "Visit channel",
+        description:
+          "The creator of 3Blue1Brown, known for visual explanations that build intuition for beautiful and powerful mathematical ideas.",
+      },
+      {
+        name: "Honorary Math Movie",
+        detailsTitle: "Moneyball (2011)",
+        image: moneyballImg,
+        releaseDate: "2011",
+        duration: "2h 13m",
+        keyActors: [
+          "Brad Pitt",
+          "Jonah Hill",
+          "Philip Seymour Hoffman",
+          "Robin Wright",
+          "Chris Pratt",
+        ],
+        description:
+          "A data-driven baseball story about using statistical analysis to find value where conventional scouting sees little.",
+      },
+      {
+        name: "Honorary Math Resource",
+        detailsTitle: "Mathigon",
+        link: "https://mathigon.org/",
+        linkLabel: "Visit resource",
+        description:
+          "An interactive mathematics learning platform with visual lessons, explorations, and activities.",
+      },
+      {
+        name: "Honorary Equation",
+        detailsTitle: "Einstein's Mass–Energy Equivalence",
+        equation: String.raw`E = mc^2`,
+        description:
+          "This equation states that mass and energy are equivalent: an object's mass corresponds to an amount of energy equal to its mass multiplied by the speed of light squared.",
+      },
+      {
+        name: "Honorary Math Book",
+        detailsTitle: "Think Like a Maths Genius",
+        book: true,
+        image: thinkLikeMathGeniusImg,
+        author: "Arthur Benjamin and Michael Shermer",
+        releaseDate: "October 19, 2006",
+        pages: "304 pages",
+        link: "https://www.amazon.com/dp/0285637762/",
+        description:
+          "A practical collection of mental calculation methods, memory techniques, and everyday number tricks designed to make arithmetic faster and more intuitive.",
+      },
+      {
+        name: "Honorary Unsolved Problem & Conjecture",
+        detailsTitle: "Beal's Conjecture",
+        link: "https://en.wikipedia.org/wiki/Beal%27s_conjecture",
+        linkLabel: "Read on Wikipedia",
+        description:
+          "If A^x + B^y = C^z for positive integers A, B, C and exponents x, y, z greater than 2, then A, B, and C must share a common prime factor. The conjecture remains open.",
+      },
+      {
+        name: "Honorary Fundamental Mathematical Constant",
+        detailsTitle: "Catalan's Constant",
+        approximation: String.raw`G \approx 0.915965594`,
+        equation: String.raw`G = \sum_{n=0}^{\infty} \frac{(-1)^n}{(2n+1)^2}`,
+        description:
+          "The value of the Dirichlet beta function at 2, also given by this alternating sum of reciprocal odd squares. It appears in combinatorics, number theory, and mathematical analysis.",
+      },
+      {
+        name: "Honorary Honorary Mention: ME",
+        detailsTitle: "Benjamin Braniff",
+        image: profilePhotoImg,
+        link: "https://benbraniff.github.io/",
+        linkLabel: "Visit website",
+        description:
+          "The creator of Beauty of Mathematics. This spot is reserved for me.",
+      },
     ],
   },
 };
@@ -883,7 +1076,9 @@ function App() {
     const onKeyDown = (event) => {
       if (event.key !== "Escape") return;
 
-      if (currentPage.startsWith("concepts/")) {
+      if (currentPage.startsWith("honorary/")) {
+        window.location.hash = "honorary";
+      } else if (currentPage.startsWith("concepts/")) {
         window.location.hash = "concepts";
       } else if (currentPage) {
         window.location.hash = "";
@@ -896,12 +1091,30 @@ function App() {
 
   const selectedPage =
     pages.find((page) => page.slug === currentPage.split("/")[0]) ?? pages[0];
-  const conceptSlug = currentPage.startsWith("concepts/")
-    ? currentPage.slice("concepts/".length)
+  const conceptPageSlug = currentPage.split("/")[0];
+  const conceptSlug = ["concepts", "honorary"].includes(conceptPageSlug)
+    ? currentPage.slice(`${conceptPageSlug}/`.length)
     : null;
-  const conceptItem = collections.concepts.items.find(
+  const conceptItem =
+    collections.concepts.items.find(
     (item) => item.slug === conceptSlug,
-  );
+    ) ??
+    (conceptPageSlug === "honorary"
+      ? (() => {
+          const item = collections.honorary.items.find(
+            (honoraryItem) => honoraryItem.articleSlug === conceptSlug,
+          );
+          return item
+            ? {
+                name: item.detailsTitle,
+                slug: item.articleSlug,
+                description: item.articleDescription,
+                breadcrumbLabel: collections.honorary.title,
+                breadcrumbHref: "#honorary",
+              }
+            : null;
+        })()
+      : null);
 
   return (
     <div className="site-shell">
@@ -961,7 +1174,9 @@ function App() {
         <ConceptPage
           item={conceptItem}
           onClose={() => {
-            window.location.hash = "concepts";
+            window.location.hash = currentPage.startsWith("honorary/")
+              ? "honorary"
+              : "concepts";
           }}
         />
       ) : currentPage === "concepts" ? (
@@ -1057,7 +1272,22 @@ function RankingPage({ collection }) {
       </nav>
       <section className="page-heading">
         <h1>{collection.title}</h1>
-        <p className="page-intro">{collection.intro}</p>
+        <p className="page-intro">
+          {collection.intro}
+          {collection.introLink && (
+            <>
+              {" "}
+              <a
+                className="page-intro-link"
+                href={collection.introLink.url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {collection.introLink.label}
+              </a>
+            </>
+          )}
+        </p>
       </section>
       <ol className="ranking-list">
         {collection.items.map((item, index) => (
@@ -1065,7 +1295,20 @@ function RankingPage({ collection }) {
             className={item.description ? "has-details" : ""}
             key={item.name ?? item}
           >
-            {item.description ? (
+            {item.articleSlug ? (
+              <a
+                className="item-trigger"
+                href={`#honorary/${item.articleSlug}`}
+              >
+                <span className="rank">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className="item-name">{item.name}</span>
+                <span className="item-arrow" aria-hidden="true">
+                  <i className="bx bx-right-arrow-alt"></i>
+                </span>
+              </a>
+            ) : item.description ? (
               <button
                 className="item-trigger"
                 type="button"
@@ -1086,7 +1329,7 @@ function RankingPage({ collection }) {
                 <span className="rank">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <span className="item-name">{item}</span>
+                <span className="item-name">{item.name ?? item}</span>
                 <span className="item-arrow" aria-hidden="true">
                   <i className="bx bx-caret-right"></i>
                 </span>
@@ -1094,19 +1337,42 @@ function RankingPage({ collection }) {
             )}
             {item.description && openItem === index && (
               <div
-                className={`item-details ${item.approximation ? "constant-details" : item.equation ? "equation-details" : item.book ? "book-details" : item.releaseDate ? "movie-details" : item.image ? "person-details" : ""} ${item.equation?.length > 100 ? "long-equation" : ""}`}
+                className={`item-details ${
+                  collection.textDetails ||
+                  (collection.noFallbackImages && !item.image)
+                    ? "text-details"
+                    : item.approximation
+                      ? "constant-details"
+                      : item.equation
+                        ? "equation-details"
+                        : item.book
+                          ? "book-details"
+                          : item.releaseDate
+                            ? "movie-details"
+                            : item.image
+                              ? "person-details"
+                              : ""
+                } ${item.equation?.length > 100 ? "long-equation" : ""}`}
                 id={`item-detail-${index}`}
               >
-                <img
-                  className={
-                    item.image === mandelbrotImg || !item.image
-                      ? "mandelbrot-image"
-                      : ""
-                  }
-                  src={item.image ?? mandelbrotImg}
-                  alt={`${item.name} poster`}
-                />
+                {!collection.textDetails &&
+                  (item.image || !collection.noFallbackImages) && (
+                  <img
+                    className={
+                      item.image === mandelbrotImg || !item.image
+                        ? "mandelbrot-image"
+                        : ""
+                    }
+                    src={item.image ?? mandelbrotImg}
+                    alt={item.detailsTitle ?? item.name}
+                  />
+                )}
                 <div className="item-copy">
+                  {item.detailsTitle && (
+                    <h3 className="honorary-detail-title">
+                      {item.detailsTitle}
+                    </h3>
+                  )}
                   {item.approximation && (
                     <div
                       className="equation-display constant-approximation"
@@ -1143,9 +1409,9 @@ function RankingPage({ collection }) {
                   )}
                   {item.book && (
                     <div className="book-meta">
-                      <span>{item.author}</span>
-                      <span>{item.releaseDate}</span>
-                      <span>{item.pages}</span>
+                      {item.author && <span>{item.author}</span>}
+                      {item.releaseDate && <span>{item.releaseDate}</span>}
+                      {item.pages && <span>{item.pages}</span>}
                     </div>
                   )}
                   {item.keyActors && (
@@ -1182,8 +1448,26 @@ function RankingPage({ collection }) {
                       target="_blank"
                       rel="noreferrer"
                     >
-                      {item.book ? "View on Amazon" : "Visit channel"}{" "}
+                      {item.linkLabel
+                        ? item.linkLabel
+                        : item.book
+                        ? "View on Amazon"
+                        : collection.resourceList
+                          ? "Visit resource"
+                          : collection.problemList
+                            ? "Read on Wikipedia"
+                            : "Visit channel"}{" "}
                       <span aria-hidden="true">↗</span>
+                    </a>
+                  )}
+                  {item.openAiLink && (
+                    <a
+                      className="channel-link"
+                      href={item.openAiLink}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      OpenAI article and proof <span aria-hidden="true">↗</span>
                     </a>
                   )}
                 </div>

@@ -8,8 +8,25 @@ import SunflowerSpiral from "./SunflowerSpiral";
 import SpirographExplorer from "./SpirographExplorer";
 import SandpileExplorer from "./SandpileExplorer";
 import TilingExplorer from "./TilingExplorer";
+import MontyHallExplorer from "./MontyHallExplorer";
 
 const conceptArticles = {
+  "monty-hall-problem": [
+    {
+      title: "Three doors and a choice",
+      paragraphs: [
+        "A game show offers three closed doors. Behind one is a prize; behind the other two are goats. You choose a door, and the host, who knows what is behind each door, opens one of the other doors to reveal a goat.",
+        "The host then gives you a choice: keep your original door or switch to the other unopened door. The puzzle asks which choice gives you the better chance of winning.",
+      ],
+    },
+    {
+      title: "Why switching helps",
+      paragraphs: [
+        "Your first choice has a one-in-three chance of hiding the prize and a two-in-three chance of being wrong. When the host reveals a goat, switching wins whenever your first choice was wrong, so switching has a two-in-three chance of winning.",
+        "The host's informed choice is essential: they always reveal a goat and never reveal the prize. The explorer above lets you test the logic directly by choosing a door, seeing the host reveal a goat, and comparing the value of staying versus switching.",
+      ],
+    },
+  ],
   "mandelbrot-set": [
     {
       title: "A simple rule, a world of detail",
@@ -275,7 +292,9 @@ export default function ConceptPage({ item, onClose }) {
           <nav className="breadcrumb" aria-label="Breadcrumb">
             <a href="#">Homepage</a>
             <span aria-hidden="true">&gt;</span>
-            <a href="#concepts">Top 10 Math Concepts</a>
+            <a href={item.breadcrumbHref ?? "#concepts"}>
+              {item.breadcrumbLabel ?? "Top 10 Math Concepts"}
+            </a>
             <span aria-hidden="true">&gt;</span>
             <span aria-current="page">{item.name}</span>
           </nav>
@@ -310,6 +329,7 @@ export default function ConceptPage({ item, onClose }) {
             {item.slug === "spirograph" && <SpirographExplorer />}
             {item.slug === "sandpiles" && <SandpileExplorer />}
             {item.slug === "tiling" && <TilingExplorer />}
+            {item.slug === "monty-hall-problem" && <MontyHallExplorer />}
             {articleSections.map((section) => (
               <section key={section.title}>
                 <h2>{section.title}</h2>
@@ -355,6 +375,25 @@ export default function ConceptPage({ item, onClose }) {
                     allowFullScreen
                   ></iframe>
                 </div>
+              </section>
+            )}
+            {item.slug === "tiling" && (
+              <section className="concept-video-section">
+                <h2>Further viewing</h2>
+                {[
+                  "48sCx-wBs34",
+                  "wiWEP5Kf8sk",
+                  "QTrM-UVcgBY",
+                ].map((videoId, index) => (
+                  <div className="concept-video" key={videoId}>
+                    <iframe
+                      src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+                      title={`Tiling video ${index + 1}`}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                ))}
               </section>
             )}
           </div>
