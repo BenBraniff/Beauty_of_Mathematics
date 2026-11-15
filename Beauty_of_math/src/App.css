@@ -337,7 +337,6 @@ main {
 
 .tiling-kicker,
 .tiling-status,
-.tiling-stage-note,
 .tiling-controls label {
   color: var(--gray);
   font:
@@ -369,14 +368,6 @@ main {
   display: block;
   height: 410px;
   width: 100%;
-}
-
-.tiling-stage-note {
-  bottom: 12px;
-  left: 18px;
-  letter-spacing: 0.04em;
-  position: absolute;
-  text-transform: none;
 }
 
 .tiling-controls {
@@ -425,6 +416,24 @@ main {
 .tiling-toggle input {
   accent-color: var(--black);
   margin: 0;
+}
+
+.tiling-controls .tiling-color-control {
+  align-items: center;
+  color: var(--black);
+  display: flex;
+  justify-content: space-between;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.tiling-color-control input[type="color"] {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  height: 30px;
+  padding: 0;
+  width: 42px;
 }
 
 .tiling-controls p {
@@ -2604,11 +2613,12 @@ footer {
     margin-bottom: 6px;
   }
   footer {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 18px 15px;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
     min-height: 0;
     padding: 22px 0;
+    font-size: 9px;
   }
 
   .platonic-heading,
@@ -2683,15 +2693,20 @@ footer {
   }
 
   .social-links {
-    grid-column: 2;
-    grid-row: 1;
-    justify-self: end;
+    gap: 5px;
+    flex-shrink: 0;
+  }
+  .social-links a {
+    font-size: 16px;
+  }
+  .social-icon {
+    width: 16px;
+    height: 16px;
+  }
+  footer > span {
+    white-space: nowrap;
   }
   footer span:nth-child(2) {
     display: none;
-  }
-  footer span:last-child {
-    grid-column: 1 / -1;
-    grid-row: 2;
   }
 }

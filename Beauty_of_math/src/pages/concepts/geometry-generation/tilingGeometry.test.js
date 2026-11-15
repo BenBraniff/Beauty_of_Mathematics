@@ -148,21 +148,53 @@ test("the shared density setting produces finer geometry for every tiling", () =
         minY: Math.min(result.minY, point.y),
         maxY: Math.max(result.maxY, point.y),
       }), { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity });
+      const meanDiagonal = tiles.reduce((sum, { points }) => {
+        const xs = points.map(({ x }) => x);
+        const ys = points.map(({ y }) => y);
+        return sum + Math.hypot(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
+      }, 0) / tiles.length;
       return {
         meanEdge: lengths.reduce((sum, length) => sum + length, 0) / lengths.length,
+        meanDiagonal,
         bounds,
       };
     };
     const coarseMetrics = measurements(coarse);
     const fineMetrics = measurements(fine);
+    const coarseSize = type === "einstein" ? coarseMetrics.meanDiagonal : coarseMetrics.meanEdge;
+    const fineSize = type === "einstein" ? fineMetrics.meanDiagonal : fineMetrics.meanEdge;
+    const expectedSizeFactor = type === "einstein" ? Math.SQRT2 : 1;
 
     assert.ok(fine.length > coarse.length, `${type} should generate more tiles at higher density`);
-    assert.ok(fineMetrics.meanEdge < coarseMetrics.meanEdge, `${type} should have smaller tiles at higher density`);
-    assert.ok(Math.abs(coarseMetrics.meanEdge - 240) < 1, `${type} coarse tile sizes should be consistent`);
-    assert.ok(Math.abs(fineMetrics.meanEdge - 240 / 7) < 1, `${type} fine tile sizes should be consistent`);
+    assert.ok(fineSize < coarseSize, `${type} should have smaller tiles at higher density`);
+    const coarseTarget = 240 * expectedSizeFactor;
+    const fineTarget = 240 / 7 * expectedSizeFactor;
+    assert.ok(Math.abs(coarseSize - coarseTarget) < coarseTarget * 0.05, `${type} coarse tile sizes should be consistent`);
+    assert.ok(Math.abs(fineSize - fineTarget) < fineTarget * 0.05, `${type} fine tile sizes should be consistent`);
     [coarseMetrics, fineMetrics].forEach(({ bounds }) => {
       assert.ok(bounds.minX <= 0 && bounds.maxX >= 800, `${type} patch should cover viewport width`);
       assert.ok(bounds.minY <= 0 && bounds.maxY >= 420, `${type} patch should cover viewport height`);
     });
   });
+});
+
+test("Einstein geometry supports density 10 with a consistent visual footprint", () => {
+  const tiles = generateTilingGeometry("einstein", 800, 420, { density: 10 });
+  const meanDiagonal = tiles.reduce((sum, { points }) => {
+    const xs = points.map(({ x }) => x);
+    const ys = points.map(({ y }) => y);
+    return sum + Math.hypot(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
+  }, 0) / tiles.length;
+
+  assert.ok(tiles.length > 0);
+  assert.ok(tiles.length < 2000, "only viewport tiles should be returned");
+  assert.ok(Math.abs(meanDiagonal - 24 * Math.SQRT2) < 24 * Math.SQRT2 * 0.05);
+  assert.ok(tiles.every(({ points }) => {
+    const xs = points.map(({ x }) => x);
+    const ys = points.map(({ y }) => y);
+    return Math.max(...xs) >= 0
+      && Math.min(...xs) <= 800
+      && Math.max(...ys) >= 0
+      && Math.min(...ys) <= 420;
+  }), "returned tiles should intersect the viewport");
 });

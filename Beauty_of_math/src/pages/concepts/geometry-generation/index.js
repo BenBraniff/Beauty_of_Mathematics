@@ -4,7 +4,7 @@ import { generatePenroseP2 } from "./penroseP2.js";
 import { generatePenroseP3 } from "./penroseP3.js";
 import { generatePentagonalGeometry, generateRegularGeometry } from "./regular.js";
 
-function normalizeTileSizeAndCenter(tiles, targetSize, width, height) {
+function normalizeTileSizeAndCenter(tiles, targetSize, width, height, matchSquareFootprint = false) {
   const points = tiles.flatMap((tile) => tile.points);
   if (points.length === 0) return tiles;
   const edgeLengths = tiles.flatMap((tile) => tile.points.map((point, index) => {
@@ -12,7 +12,14 @@ function normalizeTileSizeAndCenter(tiles, targetSize, width, height) {
     return Math.hypot(next.x - point.x, next.y - point.y);
   }));
   const meanEdgeLength = edgeLengths.reduce((sum, length) => sum + length, 0) / edgeLengths.length;
-  const scale = targetSize / meanEdgeLength;
+  const meanTileDiagonal = matchSquareFootprint
+    ? tiles.reduce((sum, tile) => {
+      const xs = tile.points.map(({ x }) => x);
+      const ys = tile.points.map(({ y }) => y);
+      return sum + Math.hypot(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
+    }, 0) / tiles.length
+    : meanEdgeLength;
+  const scale = (matchSquareFootprint ? targetSize * Math.SQRT2 : targetSize) / meanTileDiagonal;
   const bounds = points.reduce((result, point) => ({
     minX: Math.min(result.minX, point.x),
     maxX: Math.max(result.maxX, point.x),
@@ -35,7 +42,7 @@ export function generateTilingGeometry(type, width, height, options = {}) {
   const targetTileSize = 240 / density;
   let tiles;
   if (type === "einstein") {
-    tiles = generateEinsteinGeometry(density);
+    return generateEinsteinGeometry(density, { width, height, targetTileSize });
   } else if (type === "penroseP1") {
     const radius = Math.max(width, height) * 1.4 / targetTileSize;
     tiles = generatePenroseP1(radius, density);
@@ -52,5 +59,5 @@ export function generateTilingGeometry(type, width, height, options = {}) {
   } else {
     throw new Error(`No geometry generator registered for tiling: ${type}`);
   }
-  return normalizeTileSizeAndCenter(tiles, targetTileSize, width, height);
+  return normalizeTileSizeAndCenter(tiles, targetTileSize, width, height, type === "einstein");
 }

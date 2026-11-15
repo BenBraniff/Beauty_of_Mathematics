@@ -202,13 +202,64 @@ function constructMetatiles(patch) {
   return [newH, newT, newP, newF];
 }
 
-function flattenMetaTile(tile, matrix, level, result) {
+function boundsForPoints(points) {
+  return points.reduce((bounds, point) => ({
+    minX: Math.min(bounds.minX, point.x),
+    maxX: Math.max(bounds.maxX, point.x),
+    minY: Math.min(bounds.minY, point.y),
+    maxY: Math.max(bounds.maxY, point.y),
+  }), { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity });
+}
+
+function intersects(first, second) {
+  return first.minX <= second.maxX
+    && first.maxX >= second.minX
+    && first.minY <= second.maxY
+    && first.maxY >= second.minY;
+}
+
+function transformBounds(bounds, matrix) {
+  return boundsForPoints([
+    vector(bounds.minX, bounds.minY),
+    vector(bounds.minX, bounds.maxY),
+    vector(bounds.maxX, bounds.minY),
+    vector(bounds.maxX, bounds.maxY),
+  ].map((point) => transform(matrix, point)));
+}
+
+function boundsForSubtree(tile, cache) {
+  const cached = cache.get(tile);
+  if (cached) return cached;
+  if (!tile.children || tile.children.length === 0) {
+    const bounds = boundsForPoints(tile.shape);
+    cache.set(tile, bounds);
+    return bounds;
+  }
+  const bounds = tile.children.reduce((result, child) => {
+    const childBounds = transformBounds(boundsForSubtree(child.geometry, cache), child.matrix);
+    return {
+      minX: Math.min(result.minX, childBounds.minX),
+      maxX: Math.max(result.maxX, childBounds.maxX),
+      minY: Math.min(result.minY, childBounds.minY),
+      maxY: Math.max(result.maxY, childBounds.maxY),
+    };
+  }, { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity });
+  cache.set(tile, bounds);
+  return bounds;
+}
+
+function flattenMetaTile(tile, matrix, level, result, bounds = null, subtreeBoundsCache = new WeakMap()) {
+  if (bounds && !intersects(transformBounds(boundsForSubtree(tile, subtreeBoundsCache), matrix), bounds)) {
+    return;
+  }
   if (level > 0) {
     tile.children.forEach((child) => flattenMetaTile(
       child.geometry,
       multiply(matrix, child.matrix),
       level - 1,
       result,
+      bounds,
+      subtreeBoundsCache,
     ));
     return;
   }
@@ -218,13 +269,52 @@ function flattenMetaTile(tile, matrix, level, result) {
   });
 }
 
-export function generateEinsteinGeometry(density = 5) {
+function firstLeafDiagonal(tile, matrix, level) {
+  if (level === 0) {
+    const points = tile.shape.map((point) => transform(matrix, point));
+    const bounds = boundsForPoints(points);
+    return Math.hypot(bounds.maxX - bounds.minX, bounds.maxY - bounds.minY);
+  }
+  const child = tile.children[0];
+  return firstLeafDiagonal(child.geometry, multiply(matrix, child.matrix), level - 1);
+}
+
+export function generateEinsteinGeometry(density = 5, viewport) {
   let tiles = [initializeH(), initializeT(), initializeP(), initializeF()];
   let level = 1;
   const generations = Math.ceil(density * 4 / 7);
   for (let generation = 0; generation < generations; generation += 1) {
     tiles = constructMetatiles(constructPatch(...tiles));
     level += 1;
+  }
+  if (viewport) {
+    const root = tiles[0];
+    const rootBounds = boundsForPoints(root.shape);
+    const tileDiagonal = firstLeafDiagonal(root, IDENTITY, level);
+    const scale = viewport.targetTileSize * Math.SQRT2 / tileDiagonal;
+    const offsetX = viewport.width / 2 - ((rootBounds.minX + rootBounds.maxX) * scale) / 2;
+    const offsetY = viewport.height / 2 - ((rootBounds.minY + rootBounds.maxY) * scale) / 2;
+    const padding = 2 / scale;
+    const visibleBounds = {
+      minX: -offsetX / scale - padding,
+      maxX: (viewport.width - offsetX) / scale + padding,
+      minY: -offsetY / scale - padding,
+      maxY: (viewport.height - offsetY) / scale + padding,
+    };
+    const result = [];
+    flattenMetaTile(root, IDENTITY, level, result, visibleBounds, new WeakMap());
+    return result.map((tile) => ({
+      ...tile,
+      points: tile.points.map(({ x, y }) => ({
+        x: x * scale + offsetX,
+        y: y * scale + offsetY,
+      })),
+    })).filter(({ points }) => intersects(boundsForPoints(points), {
+      minX: 0,
+      maxX: viewport.width,
+      minY: 0,
+      maxY: viewport.height,
+    }));
   }
   const result = [];
   flattenMetaTile(tiles[0], IDENTITY, level, result);
