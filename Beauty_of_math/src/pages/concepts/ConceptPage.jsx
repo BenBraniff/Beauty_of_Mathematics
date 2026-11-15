@@ -9,6 +9,7 @@ import SpirographExplorer from "./SpirographExplorer";
 import SandpileExplorer from "./SandpileExplorer";
 import TilingExplorer from "./TilingExplorer";
 import MontyHallExplorer from "./MontyHallExplorer";
+import catenaryCurveImage from "../../assets/Catenary_Curve.webp";
 
 const conceptArticles = {
   "monty-hall-problem": [
@@ -39,6 +40,7 @@ const conceptArticles = {
       title: "Why the boundary is so strange",
       paragraphs: [
         "The beauty of the Mandelbrot set is not in the filled-in region alone but in the edge where order and chaos meet. That frontier is a fractal: the same motifs recur at different scales, even when the image looks impossibly intricate.",
+        "The explorer has practical limits: its pixels, numerical precision, and iteration budget cannot keep up forever. At extreme zoom, it may show a deceptively clean boundary or other rendering artifacts. That apparent edge is a limit of the simulation, not the set itself—the mathematical boundary has detail at every scale, so there is no final zoom level.",
         "This means small changes in the input can produce dramatic differences in outcome. The set is a visual summary of how a simple rule can generate an entire landscape of unpredictability.",
       ],
     },
@@ -276,8 +278,87 @@ const defaultConceptArticle = [
   },
 ];
 
+const conceptResources = {
+  "mandelbrot-set": {
+    videos: [
+      {
+        id: "FFftmWSzgmk",
+        title: "Mandelbrot set video",
+      },
+      {
+        id: "b005iHf8Z3g",
+        title: "Mandelbrot set infinite zoom video",
+      },
+    ],
+  },
+  "golden-ratio": {
+    videos: [
+      {
+        id: "sj8Sg8qnjOg",
+        title: "Golden ratio video",
+      },
+    ],
+  },
+  "pascals-triangle": {
+    videos: [
+      {
+        id: "0iMtlus-afo",
+        title: "Pascal's triangle video",
+      },
+    ],
+  },
+  curves: {
+    image: {
+      src: catenaryCurveImage,
+      alt: "A catenary curve formed by a hanging chain",
+      caption: "Catenary curve",
+    },
+    videos: [
+      {
+        id: "Cld0p3a43fU",
+        title: "Cycloid video",
+      },
+    ],
+    links: [
+      {
+        label: "Catenary (Wikipedia)",
+        href: "https://en.wikipedia.org/wiki/Catenary",
+      },
+    ],
+  },
+  "conic-sections": {
+    videos: [
+      {
+        id: "pQa_tWZmlGs",
+        title: "Conic sections video",
+      },
+    ],
+  },
+  sandpiles: {
+    videos: [
+      {
+        id: "1MtEUErz7Gg",
+        title: "Sandpile video",
+      },
+    ],
+  },
+  fractals: {
+    videos: [
+      {
+        id: "wCyC-K_PnRY",
+        title: "Dragon curve video 1",
+      },
+      {
+        id: "UBuPWdSbyf8",
+        title: "Dragon curve video 2",
+      },
+    ],
+  },
+};
+
 export default function ConceptPage({ item, onClose }) {
   const articleSections = conceptArticles[item.slug] ?? defaultConceptArticle;
+  const resources = conceptResources[item.slug];
 
   return (
     <div
@@ -394,6 +475,41 @@ export default function ConceptPage({ item, onClose }) {
                     ></iframe>
                   </div>
                 ))}
+              </section>
+            )}
+            {resources && (
+              <section className="concept-resource-section">
+                <h2>Explore further</h2>
+                {resources.videos?.map((video) => (
+                  <div className="concept-video" key={video.id}>
+                    <iframe
+                      src={`https://www.youtube-nocookie.com/embed/${video.id}`}
+                      title={video.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                ))}
+                {resources.image && (
+                  <figure className="concept-resource-figure">
+                    <img
+                      src={resources.image.src}
+                      alt={resources.image.alt}
+                    />
+                    <figcaption>{resources.image.caption}</figcaption>
+                  </figure>
+                )}
+                {resources.links && (
+                  <ul className="concept-resource-list">
+                    {resources.links.map((link) => (
+                      <li key={link.href}>
+                        <a href={link.href} target="_blank" rel="noreferrer">
+                          {link.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </section>
             )}
           </div>

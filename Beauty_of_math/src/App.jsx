@@ -8,8 +8,11 @@ import platonicSolidsImg from "./assets/Platonic_Solids.png";
 import archimedeanSolidsImg from "./assets/ARCHIMEDEAN_SOLIDS.jpg";
 import eConstantImg from "./assets/e_constant.png";
 import goldenRatioConstantImg from "./assets/golden_ratio_constant.png";
+import feigenbaumConstantImg from "./assets/Feigenbaums_constant.webp";
 import imaginaryUnitConstantImg from "./assets/i_constant.png";
+import plasticNumberImg from "./assets/plastic_number.webp";
 import squareRootTwoConstantImg from "./assets/square_root_2_constant.png";
+import universalParabolicConstantImg from "./assets/universal_parabolic_constant.webp";
 import dragonCurveImg from "./assets/dragon_curve_12.png";
 import einsteinTilesImg from "./assets/einstein_tiles_3.png";
 import eulersIdentityImg from "./assets/eulers_Identity.png";
@@ -41,6 +44,7 @@ import organicChemistryTutorImg from "./assets/organic_chemist.jpg";
 import blackpenredpenImg from "./assets/blackpenredpen.jpg";
 import kuvinaImg from "./assets/ Kuvina Saydaki.jpg";
 import terenceTaoImg from "./assets/Terence Tao.jpg";
+import theGrayCuberImg from "./assets/TheGrayCuber.jpg";
 import grantSandersonImg from "./assets/Grant_Sanderson.jpg";
 import moneyballImg from "./assets/Moneyball.webp";
 import thinkLikeMathGeniusImg from "./assets/Think_like_a_math_genius.avif";
@@ -388,11 +392,11 @@ const collections = {
           "A channel sharing accessible mathematical ideas, visual explanations, and thoughtful explorations of problem solving.",
       },
       {
-        name: "Terence Tao",
-        image: terenceTaoImg,
-        link: "https://www.youtube.com/@TerenceTao27",
+        name: "TheGrayCuber",
+        image: theGrayCuberImg,
+        link: "https://www.youtube.com/@TheGrayCuber",
         description:
-          "Lectures and mathematical perspectives from Terence Tao, spanning research ideas, problem solving, and mathematical practice.",
+          "A math-focused creator sharing engaging explorations of mathematical ideas, patterns, and puzzles.",
       },
     ],
   },
@@ -876,7 +880,7 @@ const collections = {
       },
       {
         name: "Apéry's constant (ζ(3))",
-        image: einsteinTilesImg,
+        noImage: true,
         approximation: String.raw`\zeta(3) \approx 1.20205690`,
         equation: String.raw`\boldsymbol{\zeta(3) = \sum_{n=1}^{\infty} \frac{1}{n^3}}`,
         description:
@@ -884,7 +888,7 @@ const collections = {
       },
       {
         name: "The Euler-Mascheroni constant (γ)",
-        image: einsteinTilesImg,
+        noImage: true,
         approximation: String.raw`\gamma \approx 0.57721566`,
         equation: String.raw`\boldsymbol{\gamma = \lim_{n \to \infty} \left(\sum_{k=1}^{n} \frac{1}{k} - \ln n\right)}`,
         description:
@@ -892,7 +896,7 @@ const collections = {
       },
       {
         name: "The Feigenbaum constant (δ)",
-        image: einsteinTilesImg,
+        image: feigenbaumConstantImg,
         approximation: String.raw`\delta \approx 4.66920160`,
         equation: String.raw`\boldsymbol{\delta = \lim_{n \to \infty} \frac{r_{n-1} - r_{n-2}}{r_n - r_{n-1}}}`,
         description:
@@ -900,7 +904,7 @@ const collections = {
       },
       {
         name: "The plastic number (ρ)",
-        image: einsteinTilesImg,
+        image: plasticNumberImg,
         approximation: String.raw`\rho \approx 1.32471795`,
         equation: String.raw`\boldsymbol{\rho^3 = \rho + 1}`,
         description:
@@ -908,7 +912,7 @@ const collections = {
       },
       {
         name: "The universal parabolic constant (P)",
-        image: einsteinTilesImg,
+        image: universalParabolicConstantImg,
         approximation: String.raw`P \approx 2.29558714`,
         description:
           "A constant defined by the arc length of a particular parabola. It provides a bridge between the geometry of curves and the constants of classical analysis.",
@@ -1339,6 +1343,7 @@ function RankingPage({ collection }) {
               <div
                 className={`item-details ${
                   collection.textDetails ||
+                  item.noImage ||
                   (collection.noFallbackImages && !item.image)
                     ? "text-details"
                     : item.approximation
@@ -1356,6 +1361,7 @@ function RankingPage({ collection }) {
                 id={`item-detail-${index}`}
               >
                 {!collection.textDetails &&
+                  !item.noImage &&
                   (item.image || !collection.noFallbackImages) && (
                   <img
                     className={

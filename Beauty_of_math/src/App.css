@@ -1088,6 +1088,40 @@ main {
     monospace;
   margin: 0;
 }
+.concept-resource-figure {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  max-width: 550px;
+}
+.concept-resource-figure img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+.concept-resource-figure figcaption {
+  color: var(--gray);
+  font:
+    12px/1.5 "Roboto Mono",
+    monospace;
+}
+.concept-resource-list {
+  display: grid;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.concept-resource-list a {
+  color: var(--black);
+  font:
+    14px/1.6 "Roboto Mono",
+    monospace;
+  text-underline-offset: 3px;
+}
+.concept-resource-list a:hover {
+  color: var(--gray);
+}
 .monty-hall-explorer {
   display: grid;
   gap: 20px;
